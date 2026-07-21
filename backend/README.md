@@ -1,140 +1,139 @@
-# NavAssist Backend Service
+<p align="center">
+  <img src="../docs/assets/logo.svg" alt="NavAssist Logo" width="100">
+</p>
 
-High-performance, scalable, real-time FastAPI backend powering the NavAssist Guest and Assistant ecosystem. This service handles authentication, match-making, real-time geolocation tracking via Redis-backed WebSockets, KYC verification, safety shares, and payment processing.
+<h1 align="center">NavAssist Backend</h1>
 
----
-
-## 🛠️ Architecture & Technology Stack
-
-* **API Core:** FastAPI (Python 3.13, asynchronous ASGI framework)
-* **Real-time Engine:** WebSockets integrated with Redis Pub/Sub for sub-100ms GPS telemetry broadcasting
-* **Primary Database:** MySQL 8.0 with `SPATIAL` spatial data extensions for geolocation indexing
-* **Cache & Key-Value Store:** Redis 7 (stores active assistant locations, WebSocket session states, and rate limits)
-* **Task Queue:** Celery 5.6 for asynchronous background jobs (OTPs, notifications, payment lifecycle actions)
-* **ORM & Migrations:** SQLAlchemy 2.0 (Async Engine) + Alembic
-* **Security:** JWT Authentication tokens with direct `bcrypt` hashing configurations
+<p align="center">
+  FastAPI Engine & Business Services Pipeline
+</p>
 
 ---
 
-## 🌟 Key Features
+## 🛠️ Overview
 
-1. **Open-Source Mapping & Spatial Routing:**
-   * **Route calculations & ETA matrix:** Handled via OSRM (Open Source Routing Machine) API.
-   * **Geocoding & Address Resolution:** Handled via OpenStreetMap Nominatim and Photon APIs.
-   * *Zero third-party API keys required out of the box.*
-2. **Real-time Live Location Tracking:**
-   * WebSockets endpoint `/ws/tracking/{booking_id}` facilitates live GPS updates.
-   * Real-time heading, speed, milestone tracking, and dynamic ETA updates.
-3. **KYC Verification & Local Storage:**
-   * Purely local document storage in the [backend/uploads/](file:///e:/NavAssist/backend/uploads) directory.
-   * No AWS S3 dependencies required.
-4. **Third-Party Integrations:**
-   * **SMS Verification:** Real OTP dispatches powered by Twilio.
-   * **Payments:** In-app booking payment lifecycle powered by Razorpay checkout and webhooks.
+The NavAssist backend is a high-performance Python application built on top of **FastAPI**. It handles REST API request-response pipelines, real-time WebSockets, secure authentication, and spatial calculations.
+
+### Tech Stack:
+- **Core Framework**: FastAPI (Asynchronous)
+- **Database ORM**: SQLAlchemy (with AsyncIO support)
+- **Data Validation**: Pydantic V2
+- **Database Migrations**: Alembic
+- **Task Workers**: Python background threads and async loops
+- **Cache & Telemetry**: Redis cache (optional/dev configurations)
 
 ---
 
-## 🚀 Live Demo Cockpit Simulator
+## 🏗️ Architecture Layering
 
-The application mounts a premium, interactive simulation cockpit served at `/web` to let you test real-time tracking, SOS panics, and booking state transitions instantly:
+The codebase enforces strict separation of concerns using clean architecture patterns:
 
-* **FastAPI Swagger Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
-* **Diagnostics Health Check:** [http://localhost:8000/health](http://localhost:8000/health)
-
----
-
-## 💻 Running Locally
-
-### Option A: Running with Docker (Recommended)
-
-To run the entire service stack (FastAPI, MySQL, Redis, Celery Worker) inside containers:
-
-```bash
-# Start all services collectively
-docker-compose up --build
 ```
-
-*Note: The standalone [Dockerfile](file:///e:/NavAssist/backend/Dockerfile) is configured to run `python start.py` by default, launching both FastAPI and the Celery background worker inside the same container environment when deployed standalone.*
-
----
-
-### Option B: Bare-Metal Setup (Local Development)
-
-#### 1. Setup Environment
-Copy the example environment file and fill in your variables (such as Twilio and Razorpay credentials):
-```bash
-cp .env.example .env
-```
-
-#### 2. Initialize Virtual Environment & Install Dependencies
-```bash
-# Create the virtual environment
-python -m venv .venv
-
-# Activate the virtual environment
-# On Windows:
-.venv\Scripts\activate
-# On macOS/Linux:
-source .venv/bin/activate
-
-# Install requirements
-pip install -r requirements.txt
-```
-
-#### 3. Setup Database & Run Migrations
-Ensure you have MySQL running locally and database `navassist` created, then run:
-```bash
-# Run migrations using Alembic
-alembic upgrade head
-```
-
-#### 4. Run Both FastAPI Server & Celery Worker
-Instead of starting them manually in separate windows, use the professional `start.py` script which handles orchestration, OS-specific Celery options (e.g. Windows solo pools), and graceful Ctrl+C process shutdown:
-```bash
-# Run both FastAPI and Celery worker concurrently
-python start.py --reload
-```
-
-*Note: You can configure the host and port via CLI flags (e.g., `python start.py --host 0.0.0.0 --port 8000`). Run `python start.py --help` to view all option flags.*
-
-#### 5. Running Manually (Alternative)
-If you prefer to run services in separate terminal windows:
-* **FastAPI Server:**
-  ```bash
-  uvicorn app.main:app --reload
-  ```
-* **Celery Worker:**
-  ```bash
-  celery -A app.core.celery_app worker --loglevel=info
-  ```
-
----
-
-## 🧪 Testing
-
-The backend includes a comprehensive, asynchronous test suite verifying auth, payments, KYC verification, and tracking workflows.
-
-```bash
-# Run the test suite under the virtual environment
-.venv\Scripts\python -m pytest
+    ┌───────────────────────────┐
+    │       FastAPI Router      │  <-- Routing & Schemas Verification
+    └─────────────┬─────────────┘
+                  │
+    ┌─────────────▼─────────────┐
+    │      Service Modules      │  <-- Business Logic & Integrations
+    └─────────────┬─────────────┘
+                  │
+    ┌─────────────▼─────────────┐
+    │     Repository Pattern    │  <-- Raw Database Queries & Mutations
+    └─────────────┬─────────────┘
+                  │
+    ┌─────────────▼─────────────┐
+    │      MySQL Database       │  <-- Spatial (GIS) Storage & Triggers
+    └───────────────────────────┘
 ```
 
 ---
 
-## 📁 Repository Layout
+## 📁 Codebase Layout
 
 ```
 backend/
 ├── app/
-│   ├── api/             # Versioned REST endpoints & WebSocket routers
-│   ├── core/            # Configuration loaders, security, database & celery clients
-│   ├── models/          # SQLAlchemy SQL models
-│   ├── repositories/    # Database transaction repositories (CRUD)
-│   ├── schemas/         # Pydantic schemas (request/response models)
-│   ├── services/        # Business logic layers (Auth, KYC, Booking, Geo)
-│   └── integrations/    # Third-party wraps (Twilio, Razorpay, OSM, Local Storage)
-├── database/            # Alembic migration configurations & SQL files
-├── tests/               # Pytest suite
-├── uploads/             # Local KYC document uploads folder
-└── .venv/               # Virtual environment folder
+│   ├── api/             # API routes & endpoint definitions (v1)
+│   ├── core/            # JWT config, database connection, and security
+│   ├── models/          # SQLAlchemy Database ORM tables
+│   ├── schemas/         # Pydantic validation schemas
+│   ├── repositories/    # Database query wrappers
+│   ├── services/        # Business logic controllers
+│   ├── middlewares/     # Logging and request correlation tracking
+│   └── templates/       # HTML components for email & invoice generation
+├── database/            # Alembic config and schema files
+└── tests/               # Pytest integration tests
 ```
+
+---
+
+## 🔑 Authentication & Session Flow
+
+```
+   ┌───────────┐      ┌───────────┐      ┌───────────┐      ┌───────────┐
+   │ User Logs │ ---> │    OTP    │ ---> │  Access   │ ---> │  Refresh  │
+   │ In Phone  │      │ Generated │      │ JWT (1hr) │      │ Token(7d) │
+   └───────────┘      └───────────┘      └───────────┘      └───────────┘
+```
+
+---
+
+## 📊 Database Relationships & Domains
+
+The database schema is divided into distinct operational boundaries:
+- **Identity (Domain A)**: `users`, `device_tokens`, `refresh_tokens`, `otp_verifications`.
+- **Assistant & KYC (Domain B)**: `assistant_profiles`, `assistant_documents`, `payout_accounts`.
+- **Booking Core (Domain D)**: `bookings`, `booking_status_history`, `booking_messages`.
+- **Payments & Wallets (Domain E)**: `payments`, `wallets`, `wallet_transactions`, `invoices`.
+- **Audit & Tickets (Domain H)**: `support_tickets`, `support_ticket_messages`, `audit_logs`.
+
+---
+
+## 🚀 Running the API Locally
+
+### 1. Setup Virtual Environment
+```bash
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# Linux/macOS:
+source .venv/bin/activate
+```
+
+### 2. Install Packages
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Setup database migrations and run
+```bash
+python migrate_db.py
+python start.py
+```
+
+---
+
+## 📋 API Documentation
+
+FastAPI automatically generates interactive Swagger and ReDoc documentation:
+- **Swagger UI**: `http://localhost:8000/docs`
+- **ReDoc UI**: `http://localhost:8000/redoc`
+
+---
+
+## ⚙️ Environment Variables
+
+| Variable | Description |
+| :--- | :--- |
+| `DATABASE_URL` | MySQL Connection String |
+| `SECRET_KEY` | JWT Signatures Token Key |
+| `REDIS_HOST` | Redis Server Host |
+| `RAZORPAY_KEY_ID` | Razorpay Key ID |
+| `RAZORPAY_KEY_SECRET` | Razorpay Secret |
+
+---
+
+## 💻 Logging & Monitoring
+The application utilizes structured JSON logs containing:
+- **Correlation ID**: Tracks request pathways across routers and middleware.
+- **Process Timer**: Measures exact response generation speeds.

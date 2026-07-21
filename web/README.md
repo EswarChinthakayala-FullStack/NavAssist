@@ -1,61 +1,87 @@
-# NavAssist Frontend Client - React + TypeScript + Vite
+<p align="center">
+  <img src="../docs/assets/logo.svg" alt="NavAssist Logo" width="100">
+</p>
 
-This is the front-end client interface for the **NavAssist** platform, built as a modern, high-performance single page application (SPA).
+<h1 align="center">NavAssist Frontend</h1>
 
----
-
-## 🛠️ Technology Stack & Styling
-
-- **Build Tool**: Vite (with SWC for lightning-fast compilation)
-- **Language**: TypeScript
-- **Styling System**: Tailwind CSS (supporting responsive design and smooth Dark/Light mode theme switching)
-- **UI Components**: shadcn/ui primitives, Phosphor Icons
-- **Animation System**: Framer Motion
-- **State Management**: React Context, Zustand state managers
+<p align="center">
+  React Client Application
+</p>
 
 ---
 
-## 📂 Core Folder Architecture
+## 🛠️ Overview
 
-All source code is located in the `src/` directory:
+This is the front-end application client for the NavAssist platform, designed as a fast, responsive Single Page Application (SPA). It uses modern React practices and dark-first monochrome visual design parameters.
+
+### Tech Stack:
+- **Core Library**: React (v19)
+- **Programming Language**: TypeScript
+- **Bundler**: Vite
+- **Styling**: Tailwind CSS
+- **Design Tokens**: shadcn/ui primitives
+- **Animations**: Framer Motion
+- **State Management**: Zustand, React Context
+- **API Client**: Axios
+
+---
+
+## 📁 Project Structure
 
 ```
-src/
-├── app/          # Global application config and router layout definitions
-├── components/   # Modular UI primitives and support feature components
-│   ├── booking/  # OTP, ride summary, and timeline widgets
-│   ├── support/  # ChatGPT-style chat elements (MessageGroup, ChatMessage, etc.)
-│   └── ui/       # Standard shadcn/ui atomic elements
-├── hooks/        # Custom state handles (Auth, Geolocation, Socket tracking)
-├── pages/        # Main route views (Support detail, settings, trip en-route)
-├── services/     # Axios client configuration and backend service endpoints
-├── store/        # Zustand state engines for bookings and themes
-└── styles/       # Tailwind directive files
+web/
+├── src/
+│   ├── app/           # App root initialization, styles, and routing patterns
+│   ├── components/    # Atomic UI widgets and support controls
+│   │   ├── booking/   # Booking detail cards and OTP verifiers
+│   │   ├── support/   # ChatGPT style conversation modules
+│   │   └── ui/        # Primitives (dialogs, buttons, sheets)
+│   ├── hooks/         # Custom React hooks (auth context, geolocation tracker)
+│   ├── pages/         # High-level router pages (support thread, dashboard)
+│   ├── services/      # Backend API connectors (Axios interceptors)
+│   └── store/         # Zustand store objects (trips, layouts)
 ```
 
 ---
 
-## 🚀 Setup & Launch
-
-1. Install Node.js dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the hot-reloading development server:
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:5173` in your browser.
-3. Build for production compilation:
-   ```bash
-   npm run build
-   ```
-   The compiled static files will be exported to the `dist/` directory.
+## 🎨 UI Features & Design System
+- **Adaptable Colors**: Standard Tailwind variables adapt to light or dark modes automatically.
+- **ChatGPT Thread Experience**: Shrinks bubbles to fit text size (`w-fit`), hides background boxes for single images, and groups messages by same sender within 5-minute intervals.
+- **Mobile Sheet Sidebars**: Desktop grids slide out as side drawers on mobile screens using Sheet dialog components.
+- **Micro-Animations**: Framer Motion provides transitions for status changes and messages list additions.
 
 ---
 
-## 🎨 Design Systems & Conventions
+## 🚀 Running Frontend Locally
 
-- **Responsive Viewport Layouts**: Uses mobile-first layouts with smooth breakpoints for standard phones, tablets, and 3-column desktop layouts.
-- **Theme Variables**: Utilizes Tailwind semantic tokens (`bg-card`, `bg-background`, `border-border`, `text-foreground`) supporting both Light and Dark themes dynamically.
-- **Support Chat Flow**: Groups contiguous sender messages within a 5-minute window and utilizes standalone video-aspect preview cards for images to eliminate UI clutter.
+### 1. Install dependencies
+```bash
+npm install
+```
+
+### 2. Start dev server
+```bash
+npm run dev
+```
+Open `http://localhost:5173` in your browser.
+
+### 3. Production build
+```bash
+npm run build
+```
+
+---
+
+## ⚙️ Environment Variables
+
+| Variable | Description |
+| :--- | :--- |
+| `VITE_API_URL` | Live backend API address |
+| `VITE_RAZORPAY_KEY` | Razorpay Client Public Key |
+| `VITE_GOOGLE_MAPS_KEY` | Google Maps SDK API Key |
+
+---
+
+## 🚀 Production Optimizations
+- **Dynamic Chunk Splitting**: Splitting packages so pages load assets dynamically on route change.
+- **Axios 1.x Upload Handler**: Correctly clears `Content-Type` headers via `.delete()` to let browsers append boundaries on `FormData` uploads.

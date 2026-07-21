@@ -1,36 +1,106 @@
-# NavAssist - Full-Stack Ride Assistance Platform
+<p align="center">
+  <img src="docs/assets/logo.svg" alt="NavAssist Logo" width="120">
+</p>
 
-NavAssist is an executive-level, full-stack customer support and ride assistance management platform. It features an automated KYC onboarding portal, a real-time ride and assistant booking dashboard, and an enterprise-grade customer support thread system.
+<h1 align="center">NavAssist</h1>
 
----
+<p align="center">
+  <strong>AI-Powered Smart Escort & Travel Assistance Platform</strong>
+</p>
 
-## 🚀 Key Features
-
-### 1. Enterprise Support Conversation UI
-- **ChatGPT-Style Chat Stream**: Features message grouping that compiles consecutive replies sent by the same user within 5-minute windows under a single header line.
-- **Shrink-Wrap Messages**: Chat bubbles fit their content width cleanly with zero wasted horizontal or vertical white space.
-- **Stand-alone Image Cards**: Attachment messages containing only image files render as clean, borderless standalone cards with a smooth lightbox zoom/pan viewer.
-- **Responsive 3-Column Layout**:
-  - **Main Thread**: Timeline with date separators ("Today", "Yesterday") and auto-scrolling container.
-  - **Sticky Audit Sidebar**: Live segmented ticket status pills, customer profiles, and a GitHub-style vertical audit trail.
-  - **Mobile sheet drawer** for ticket attributes.
-
-### 2. KYC Verification & Ride Booking Portal
-- **Verification Flow**: Secure identity validation, document uploads (KYC front/back), and state validation on user profile statuses.
-- **Booking Engine**: Live route calculations, price estimation models, assistant matching, and Razorpay client integrations.
-
-### 3. Production-Ready API & Upload Pipeline
-- **Zero-Latency Attachment Preview**: The frontend renders local blob URLs instantly before the server upload completes to ensure smooth visual transitions.
-- **Multi-Part Upload Header Interceptor**: Fixes Axios 1.x Header removal behaviors to correctly inject boundary limits on file streams.
-- **Strict Byte-Signature Verification**: Prevents invalid HTML and corrupted script payloads from being uploaded to the backend uploads library.
+<p align="center">
+  <img src="https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi" alt="FastAPI Badge">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react" alt="React Badge">
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript" alt="TypeScript Badge">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind Badge">
+  <img src="https://img.shields.io/badge/MySQL-00758F?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL Badge">
+  <img src="https://img.shields.io/badge/Razorpay-02042B?style=for-the-badge" alt="Razorpay Badge">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker" alt="Docker Badge">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License Badge">
+</p>
 
 ---
 
-## 🛠️ Technology Stack
+## 📖 About NavAssist
 
-- **Backend Architecture**: FastAPI, SQLAlchemy (Async), Alembic, Pydantic V2, pytest.
-- **Frontend Architecture**: React, TypeScript, Vite, Tailwind CSS, shadcn/ui, HugeIcons, Framer Motion.
-- **Storage Layer**: SQLite database engine, local filesystem uploads.
+NavAssist is an enterprise-grade, full-stack customer support and ride assistance management platform. It matches travelers with verified local assistance escorts to help them navigate complex local transit hubs (like railway stations, airports, and bus terminals).
+
+### Core Capabilities:
+- **AI-Powered Travel Escort Matching**: Instantly routes and pairs travelers with optimal, nearby support assistants.
+- **Live Assistant Geo-Tracking**: Uses real-time geographic telemetry to display en-route paths and live navigation.
+- **Strict KYC Onboarding**: Multi-stage documents vetting verification workflow for support desk operators.
+- **SOS Emergency Infrastructure**: Fast trigger actions linked directly to safety alerts and shared tracking channels.
+- **Integrated Payments & Wallets**: Powered by Razorpay and virtual internal ledger balance transaction histories.
+- **Enterprise Help Desk**: High-performance ChatGPT/Intercom style support tickets conversation interface with 5-minute message grouping intervals.
+
+---
+
+## 📸 Screenshots
+
+To explore the interface layouts, check our `/docs/screenshots/` directory:
+- **Landing Page**: [`/docs/screenshots/landing.png`](docs/screenshots/landing.png)
+- **Booking Flow**: [`/docs/screenshots/booking.png`](docs/screenshots/booking.png)
+- **Dashboard**: [`/docs/screenshots/dashboard.png`](docs/screenshots/dashboard.png)
+- **Assistant KYC Onboarding**: [`/docs/screenshots/assistant_kyc.png`](docs/screenshots/assistant_kyc.png)
+- **Support Inbox**: [`/docs/screenshots/support_inbox.png`](docs/screenshots/support_inbox.png)
+
+---
+
+## 🌟 Features
+
+### 👤 Passenger Features
+- **Secure OTP Login**: Zero-password secure authentication.
+- **Ride Booking**: On-demand and scheduled ride reservations.
+- **Live Tracking**: Real-time geolocation updates.
+- **Internal Wallet**: In-app ledger balance deposits and transactions.
+- **SOS Panic Mechanism**: Immediate safety trigger with shared trip links.
+
+### 💼 Assistant Features
+- **Multi-Document KYC Submission**: Aadhaar and police verification uploads.
+- **Availability Toggle**: Real-time online/offline control.
+- **Live Navigation Dashboard**: Map instructions from pickup to destination.
+- **OTP Start Ride**: Secure handshakes preventing incorrect passenger pickups.
+
+### 🔑 Admin Features
+- **User & Assistant Management**: Block, suspend, or update verification statuses.
+- **Operational Audits**: Complete audit trails tracking administrator actions.
+- **Support Ticketing Center**: Active support ticket desk with messaging threads.
+
+---
+
+## 🏗️ System Architecture
+
+```
+         ┌────────────────────────┐
+         │     React Frontend     │
+         └───────────┬────────────┘
+                     │ REST APIs & WebSockets
+         ┌───────────▼────────────┐
+         │    FastAPI Backend     │
+         └───────────┬────────────┘
+                     │ Business Services & Helpers
+         ┌───────────▼────────────┐
+         │   Repository Layer     │
+         └───────────┬────────────┘
+                     │ SQLAlchemy Async ORM
+         ┌───────────▼────────────┐
+         │     MySQL Database     │
+         └────────────────────────┘
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Domain | Technologies |
+| :--- | :--- |
+| **Frontend** | React, TypeScript, Vite, Tailwind CSS, shadcn/ui, Framer Motion |
+| **Backend** | Python, FastAPI, SQLAlchemy, Pydantic V2, Alembic |
+| **Database** | MySQL (8.0), Spatial Indexes (GIS), SQLite (Development) |
+| **Payments** | Razorpay SDK, virtual wallet ledgers |
+| **Routing & Maps** | OpenRouteService API, Google Maps SDK, Leaflet |
+| **Authentication** | JWT, Refresh Tokens, bcrypt, OTP hashes |
+| **Deployment** | Docker, Docker Compose, Nginx, Gunicorn |
 
 ---
 
@@ -38,91 +108,67 @@ NavAssist is an executive-level, full-stack customer support and ride assistance
 
 ```
 NavAssist/
-├── backend/               # FastAPI python backend application
-│   ├── app/               # Application source code
-│   │   ├── api/           # API routes & schemas
-│   │   ├── models/        # SQLAlchemy ORM models
-│   │   ├── services/      # Business logic controllers
-│   │   └── uploads/       # Directory for user-uploaded documents (gitignored)
-│   ├── database/          # Local database files & Alembic configuration
-│   ├── tests/             # Pytest automated test suites
-│   └── requirements.txt   # Python package dependencies
-├── web/                   # Vite + React + TypeScript frontend
-│   ├── src/
-│   │   ├── components/    # Reusable shadcn/ui and custom components
-│   │   ├── pages/         # Page layout modules (support, booking, trip)
-│   │   ├── services/      # API communication clients (Axios)
-│   │   └── store/         # Zustand and context state managers
-│   └── package.json       # Node package dependencies
-├── database/              # Global schema specifications
-└── .gitignore             # Project-wide ignore rules
+├── backend/               # FastAPI application codebase
+├── web/                   # Vite + React + TypeScript frontend codebase
+├── database/              # Global schema files & migration versions
+├── docs/                  # Assets, screenshots, and visual documentation
+└── README.md              # Root entry landing page
 ```
 
 ---
 
-## ⚙️ Setup and Installation
+## ⚙️ Installation & Setup
 
-### Prerequisites
-- Python 3.10+
-- Node.js 18+
+### 1. Clone the repository
+```bash
+git clone https://github.com/EswarChinthakayala-FullStack/NavAssist.git
+cd NavAssist
+```
 
-### 1. Backend Setup
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-2. Create and activate a Python virtual environment:
-   ```bash
-   python -m venv .venv
-   # Windows:
-   .venv\Scripts\activate
-   # Linux/macOS:
-   source .venv/bin/activate
-   ```
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Configure environment variables (create a `.env` file):
-   ```bash
-   cp .env.example .env
-   ```
-5. Apply database migrations:
-   ```bash
-   python migrate_db.py
-   ```
-6. Run the backend server:
-   ```bash
-   python start.py
-   ```
-   The API will be available at `http://127.0.0.1:8000`.
+### 2. Configure Environment Variables
+Create a `.env` file in the `backend/` and `web/` directories with your credentials:
+```ini
+DATABASE_URL=mysql+aiomysql://root:password@localhost:3306/navassist
+JWT_SECRET=your_jwt_secret_token_here
+RAZORPAY_KEY_ID=your_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+OPENROUTESERVICE_API_KEY=your_openrouteservice_api_key
+```
 
-### 2. Frontend Setup
-1. Navigate to the frontend directory:
-   ```bash
-   cd web
-   ```
-2. Install npm packages:
-   ```bash
-   npm install
-   ```
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:5173` in your browser.
+### 3. Backend Setup
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python migrate_db.py
+python start.py
+```
+
+### 4. Frontend Setup
+```bash
+cd ../web
+npm install
+npm run dev
+```
 
 ---
 
-## 🧪 Testing and Verification
+## 🔒 Security Architecture
+- **JWT Session Verification**: Secure verification using short-lived tokens and cryptographic sign-offs.
+- **Bcrypt Password Cryptography**: Secure hashing protecting passenger credentials.
+- **SQL Injection Safeguards**: SQLAlchemy prepared statements and ORM abstractions prevent SQL injection attacks.
+- **Upload Byte-Signature Check**: Upload pipelines audit and reject illegal MIME headers and scripts.
 
-- **Backend tests**:
-  ```bash
-  cd backend
-  python -m pytest
-  ```
-- **Frontend build compilation**:
-  ```bash
-  cd web
-  npm run build
-  ```
+---
+
+## 🚀 Performance Optimizations
+- **Spatial Indexing**: GIS indices speed up radial proximity queries on assistant locations.
+- **Lazy Loading**: Code split routes compile chunks only when accessed.
+- **Database Index Optimization**: Relational databases carry targeted index keys on indexes like `booking_code`.
+
+---
+
+## 📄 License
+This project is licensed under the MIT License - see the `LICENSE` file for details.
