@@ -30,14 +30,7 @@ NavAssist is backed by a structured relational database layout containing **29 t
 | **Domain H (Support)** | Operator helpdesk ticketing and action logs | `support_tickets`, `support_ticket_messages`, `audit_logs` |
 | **Domain I (Pricing)** | Base fares, per-km rates, and surge metrics | `fare_rules` |
 
----
 
-## 📊 Entity Relationship Diagram
-
-Refer to the `/docs/database-er.png` image for the visual database ER Diagram model:
-- **ER Diagram**: [`/docs/database-er.png`](../docs/database-er.png)
-
----
 
 ## ⚡ Database Features
 
