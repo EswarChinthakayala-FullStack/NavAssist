@@ -1,75 +1,61 @@
-# React + TypeScript + Vite
+# NavAssist Frontend Client - React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the front-end client interface for the **NavAssist** platform, built as a modern, high-performance single page application (SPA).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Technology Stack & Styling
 
-## React Compiler
+- **Build Tool**: Vite (with SWC for lightning-fast compilation)
+- **Language**: TypeScript
+- **Styling System**: Tailwind CSS (supporting responsive design and smooth Dark/Light mode theme switching)
+- **UI Components**: shadcn/ui primitives, Phosphor Icons
+- **Animation System**: Framer Motion
+- **State Management**: React Context, Zustand state managers
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📂 Core Folder Architecture
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+All source code is located in the `src/` directory:
 
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+src/
+├── app/          # Global application config and router layout definitions
+├── components/   # Modular UI primitives and support feature components
+│   ├── booking/  # OTP, ride summary, and timeline widgets
+│   ├── support/  # ChatGPT-style chat elements (MessageGroup, ChatMessage, etc.)
+│   └── ui/       # Standard shadcn/ui atomic elements
+├── hooks/        # Custom state handles (Auth, Geolocation, Socket tracking)
+├── pages/        # Main route views (Support detail, settings, trip en-route)
+├── services/     # Axios client configuration and backend service endpoints
+├── store/        # Zustand state engines for bookings and themes
+└── styles/       # Tailwind directive files
 ```
+
+---
+
+## 🚀 Setup & Launch
+
+1. Install Node.js dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the hot-reloading development server:
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:5173` in your browser.
+3. Build for production compilation:
+   ```bash
+   npm run build
+   ```
+   The compiled static files will be exported to the `dist/` directory.
+
+---
+
+## 🎨 Design Systems & Conventions
+
+- **Responsive Viewport Layouts**: Uses mobile-first layouts with smooth breakpoints for standard phones, tablets, and 3-column desktop layouts.
+- **Theme Variables**: Utilizes Tailwind semantic tokens (`bg-card`, `bg-background`, `border-border`, `text-foreground`) supporting both Light and Dark themes dynamically.
+- **Support Chat Flow**: Groups contiguous sender messages within a 5-minute window and utilizes standalone video-aspect preview cards for images to eliminate UI clutter.
