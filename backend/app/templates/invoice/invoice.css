@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@page {
+    size: A4 portrait;
+    margin: 15mm 15mm 20mm 15mm;
+    @bottom-right {
+        content: "Page " counter(page) " of " counter(pages);
+        font-family: 'Inter', sans-serif;
+        font-size: 8pt;
+        color: #71717a;
+    }
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #09090b;
+    margin: 0;
+    padding: 0;
+    font-size: 9.5pt;
+    line-height: 1.4;
+    background-color: #ffffff;
+}
+
+/* Watermark */
+.watermark-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 85pt;
+    font-weight: 900;
+    color: rgba(249, 115, 22, 0.04); /* very light theme orange */
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: -1000;
+    text-transform: uppercase;
+}
+
+.page-break {
+    page-break-before: always;
+}
+
+/* Grid-like Card Containers */
+.card-grid {
+    display: table;
+    width: 100%;
+    margin-bottom: 12pt;
+    table-layout: fixed;
+    border-spacing: 10pt 0;
+}
+
+.card-grid-row {
+    display: table-row;
+}
+
+.card {
+    display: table-cell;
+    background: #ffffff;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    padding: 14pt;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.card-full {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    padding: 14pt;
+    margin-bottom: 12pt;
+    box-sizing: border-box;
+}
+
+.card-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #09090b;
+    margin-top: 0;
+    margin-bottom: 8pt;
+    border-bottom: 1px solid #f4f4f5;
+    padding-bottom: 4pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Header & Metadata */
+.header-table {
+    width: 100%;
+    margin-bottom: 15pt;
+    border-collapse: collapse;
+}
+
+.header-logo {
+    font-size: 24pt;
+    font-weight: 900;
+    color: #f97316; /* Theme Orange */
+    letter-spacing: -1px;
+}
+
+.header-logo span {
+    color: #09090b;
+}
+
+.header-metadata {
+    text-align: right;
+    font-size: 9pt;
+    color: #52525b;
+}
+
+.invoice-number-badge {
+    background-color: #f4f4f5;
+    color: #09090b;
+    font-weight: 700;
+    padding: 3pt 6pt;
+    border-radius: 4px;
+    display: inline-block;
+    font-family: monospace;
+    font-size: 10pt;
+    margin-bottom: 4pt;
+}
+
+/* Info Lists */
+.info-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.info-item {
+    margin-bottom: 5pt;
+    font-size: 9.5pt;
+}
+
+.info-label {
+    color: #71717a;
+    font-weight: 500;
+    display: inline-block;
+    width: 90pt;
+}
+
+.info-value {
+    color: #09090b;
+    font-weight: 600;
+}
+
+/* Table Style for Fare Breakdown */
+.table-container {
+    margin-top: 10pt;
+    margin-bottom: 10pt;
+    page-break-inside: avoid;
+}
+
+.fare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10pt;
+}
+
+.fare-table th {
+    background-color: #09090b;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 8.5pt;
+    letter-spacing: 0.5px;
+    padding: 8pt 10pt;
+    text-align: left;
+    border: none;
+}
+
+.fare-table td {
+    padding: 9pt 10pt;
+    border-bottom: 1px solid #e4e4e7;
+    font-size: 9.5pt;
+}
+
+.fare-table tr:nth-child(even) td {
+    background-color: #fcfcfd;
+}
+
+.fare-table .text-right {
+    text-align: right;
+}
+
+.fare-table .total-row td {
+    border-top: 2px solid #09090b;
+    border-bottom: 2px solid #09090b;
+    font-weight: 800;
+    font-size: 11pt;
+    background-color: #fafafa;
+}
+
+/* Verified Stamp */
+.verified-stamp {
+    border: 3px double #10b981; /* Emerald/Green accent */
+    color: #10b981;
+    background-color: rgba(16, 185, 129, 0.03);
+    border-radius: 8px;
+    padding: 6pt 10pt;
+    display: inline-block;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    transform: rotate(-3deg);
+    margin-top: 10pt;
+    page-break-inside: avoid;
+}
+
+.verified-stamp .stamp-title {
+    font-size: 13pt;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 2pt;
+}
+
+.verified-stamp .stamp-text {
+    font-size: 7.5pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #059669;
+}
+
+/* Legal / Terms Section */
+.legal-container {
+    font-size: 8pt;
+    color: #52525b;
+    line-height: 1.5;
+}
+
+.legal-section {
+    margin-bottom: 10pt;
+    page-break-inside: avoid;
+}
+
+.legal-title {
+    font-weight: 700;
+    color: #09090b;
+    text-transform: uppercase;
+    font-size: 8.5pt;
+    margin-bottom: 3pt;
+}
+
+/* Timeline Components */
+.timeline {
+    width: 100%;
+    margin-top: 10pt;
+    border-collapse: collapse;
+}
+
+.timeline td {
+    padding: 6pt 8pt;
+    font-size: 9pt;
+}
+
+.timeline-dot {
+    width: 10pt;
+    text-align: center;
+    color: #f97316;
+    font-weight: bold;
+}
+
+/* Footer note */
+.footer-note {
+    text-align: center;
+    font-size: 8pt;
+    color: #71717a;
+    margin-top: 15pt;
+    border-top: 1px dashed #e4e4e7;
+    padding-top: 8pt;
+    page-break-inside: avoid;
+}

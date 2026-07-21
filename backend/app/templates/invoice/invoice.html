@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice {{ invoice.invoice_number }}</title>
+    <link rel="stylesheet" href="invoice.css">
+</head>
+<body>
+
+    <!-- Watermark on all pages -->
+    <div class="watermark-container">NAVASSIST</div>
+
+    <!-- PAGE 1: Invoice Header and Fare Breakdown -->
+    <div class="invoice-page">
+        
+        <!-- Header component -->
+        {% include 'invoice/components/header.html' %}
+
+        <!-- Passenger and Assistant Information Grid -->
+        <div class="card-grid">
+            <div class="card-grid-row">
+                <!-- Passenger Card -->
+                {% include 'invoice/components/passenger.html' %}
+                
+                <!-- Assistant Card -->
+                {% include 'invoice/components/assistant.html' %}
+            </div>
+        </div>
+
+        <!-- Journey Summary -->
+        {% include 'invoice/components/ride_summary.html' %}
+
+        <!-- Fare Table Breakdown -->
+        {% include 'invoice/components/payment_summary.html' %}
+
+        <!-- Stamp and QR Code side-by-side -->
+        <table style="width: 100%; border-collapse: collapse; margin-top: 15pt; page-break-inside: avoid;">
+            <tr>
+                <td style="width: 50%; vertical-align: middle;">
+                    <div class="verified-stamp">
+                        <div class="stamp-title">✓ VERIFIED</div>
+                        <div class="stamp-text">Digitally Generated</div>
+                        <div class="stamp-text">Secure Invoice</div>
+                        <div class="stamp-text" style="font-family: monospace; font-size: 6.5pt; margin-top: 3pt; color: #047857;">
+                            Hash: {{ invoice.invoice_hash[:16] if invoice.invoice_hash else "PENDING_HASH" }}
+                        </div>
+                    </div>
+                </td>
+                <td style="width: 50%; text-align: right; vertical-align: middle;">
+                    {% if qr_code_base64 %}
+                    <div style="display: inline-block; text-align: center;">
+                        <img src="{{ qr_code_base64 }}" style="width: 75pt; height: 75pt; display: block; margin-left: auto;" alt="Verification QR" />
+                        <span style="font-size: 6.5pt; color: #71717a; display: block; margin-top: 2pt; text-align: right;">Scan to Verify Invoice Integrity</span>
+                    </div>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!-- Page Break to Page 2 -->
+    <div class="page-break"></div>
+
+    <!-- PAGE 2: Timelines, Terms, Conditions, and Footer -->
+    <div class="invoice-page">
+        
+        <div class="card-full" style="page-break-inside: avoid;">
+            <h3 class="card-title">Ride Tracking Timeline</h3>
+            <table class="timeline">
+                {% for step in timeline_steps %}
+                <tr>
+                    <td class="timeline-dot">•</td>
+                    <td style="font-weight: 700; width: 120pt; text-transform: uppercase; font-size: 8.5pt;">{{ step.label }}</td>
+                    <td style="color: #71717a; font-family: monospace; font-size: 8.5pt;">
+                        {{ step.time.strftime('%d-%b-%Y %I:%M:%S %p') if step.time else "N/A" }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <!-- Terms & Conditions Component -->
+        {% include 'invoice/components/terms.html' %}
+
+        <!-- Corporate Address and System Verification Footer -->
+        {% include 'invoice/components/footer.html' %}
+
+    </div>
+
+</body>
+</html>

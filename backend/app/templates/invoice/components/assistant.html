@@ -1,0 +1,29 @@
+<div class="card">
+    <h3 class="card-title">Assigned Assistant</h3>
+    <ul class="info-list">
+        {% if assistant %}
+        <li class="info-item">
+            <span class="info-label">Assistant ID</span>
+            <span class="info-value">#{{ assistant.id }}</span>
+        </li>
+        <li class="info-item">
+            <span class="info-label">Name</span>
+            <span class="info-value">{{ assistant.full_name }}</span>
+        </li>
+        <li class="info-item">
+            <span class="info-label">Phone Number</span>
+            <span class="info-value">{{ assistant_phone_masked }}</span>
+        </li>
+        {% if assistant.assistant_profile %}
+        <li class="info-item">
+            <span class="info-label">Avg Rating</span>
+            <span class="info-value">{{ assistant.assistant_profile.avg_rating }} ★</span>
+        </li>
+        {% endif %}
+        {% else %}
+        <li class="info-item" style="color: #71717a; font-style: italic;">
+            No assistant was assigned to this journey.
+        </li>
+        {% endif %}
+    </ul>
+</div>

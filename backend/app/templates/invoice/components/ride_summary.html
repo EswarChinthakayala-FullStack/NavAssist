@@ -1,0 +1,45 @@
+<div class="card-full">
+    <h3 class="card-title">Journey Details</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="width: 65%; vertical-align: top; padding-right: 15pt;">
+                <ul class="info-list">
+                    <li class="info-item">
+                        <span class="info-label" style="width: 60pt;">From</span>
+                        <span class="info-value" style="font-weight: 500;">{{ booking.pickup_address }}</span>
+                    </li>
+                    <li class="info-item" style="margin-top: 8pt;">
+                        <span class="info-label" style="width: 60pt;">To</span>
+                        <span class="info-value" style="font-weight: 500;">{{ booking.destination_address }}</span>
+                    </li>
+                </ul>
+            </td>
+            <td style="width: 35%; vertical-align: top; border-left: 1px solid #e4e4e7; padding-left: 15pt;">
+                <ul class="info-list">
+                    <li class="info-item">
+                        <span class="info-label" style="width: 80pt;">Distance</span>
+                        <span class="info-value">{{ distance }} km</span>
+                    </li>
+                    <li class="info-item">
+                        <span class="info-label" style="width: 80pt;">Duration</span>
+                        <span class="info-value">{{ duration }} mins</span>
+                    </li>
+                    <li class="info-item">
+                        <span class="info-label" style="width: 80pt;">Service Type</span>
+                        <span class="info-value" style="text-transform: capitalize;">Escort Journey</span>
+                    </li>
+                    <li class="info-item">
+                        <span class="info-label" style="width: 80pt;">Scheduled At</span>
+                        <span class="info-value">
+                            {% if booking_scheduled_at %}
+                            {{ booking_scheduled_at.strftime('%d-%b-%Y %I:%M %p') }}
+                            {% else %}
+                            {{ booking_created_at.strftime('%d-%b-%Y %I:%M %p') }}
+                            {% endif %}
+                        </span>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>

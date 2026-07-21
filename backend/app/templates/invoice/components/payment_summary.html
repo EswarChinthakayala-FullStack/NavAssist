@@ -1,0 +1,77 @@
+<div class="table-container">
+    <h3 class="card-title">Fare & Payment Breakdown</h3>
+    <table class="fare-table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th class="text-right" style="width: 100pt;">Amount (INR)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <strong>Base Journey Fare</strong><br/>
+                    <span style="font-size: 8pt; color: #71717a;">Charge for escort assistance distance and duration</span>
+                </td>
+                <td class="text-right">₹{{ "%.2f"|format(fare_breakdown.base_fare) }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Platform Convenience Fee</strong><br/>
+                    <span style="font-size: 8pt; color: #71717a;">Secured booking dispatch fee</span>
+                </td>
+                <td class="text-right">₹{{ "%.2f"|format(fare_breakdown.platform_fee) }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Central GST (CGST @ 9%)</strong><br/>
+                    <span style="font-size: 8pt; color: #71717a;">Central Goods and Services Tax</span>
+                </td>
+                <td class="text-right">₹{{ "%.2f"|format(fare_breakdown.cgst) }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>State GST (SGST @ 9%)</strong><br/>
+                    <span style="font-size: 8pt; color: #71717a;">State Goods and Services Tax</span>
+                </td>
+                <td class="text-right">₹{{ "%.2f"|format(fare_breakdown.sgst) }}</td>
+            </tr>
+            {% if fare_breakdown.discount > 0 %}
+            <tr style="color: #10b981;">
+                <td>
+                    <strong>Coupon Discount Applied</strong><br/>
+                    <span style="font-size: 8pt; color: #10b981;">Code: {{ booking.redemption.coupon.code if (booking.redemption and booking.redemption.coupon) else "DISCOUNT" }}</span>
+                </td>
+                <td class="text-right">-₹{{ "%.2f"|format(fare_breakdown.discount) }}</td>
+            </tr>
+            {% endif %}
+            <tr class="total-row">
+                <td>TOTAL CHARGED (Tax Inclusive)</td>
+                <td class="text-right">₹{{ "%.2f"|format(fare_breakdown.total) }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 5pt;">
+        <tr>
+            <td style="vertical-align: top;">
+                <div style="font-size: 9pt; color: #52525b; line-height: 1.5;">
+                    <strong>Payment Method:</strong> 
+                    <span style="text-transform: uppercase; font-weight: 700; color: #09090b;">
+                        {{ booking.payment_method }}
+                    </span>
+                    <br/>
+                    <strong>Payment Status:</strong> 
+                    <span style="text-transform: uppercase; font-weight: 700; color: #10b981;">
+                        {{ booking.payment_status }}
+                    </span>
+                </div>
+            </td>
+            <td style="text-align: right; vertical-align: top;">
+                <div style="font-size: 8.5pt; color: #71717a;">
+                    All prices are in Indian Rupees (INR).
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

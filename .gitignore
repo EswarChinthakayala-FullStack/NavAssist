@@ -1,0 +1,94 @@
+# NavAssist Project Gitignore
+
+# Dependencies
+node_modules/
+.pnpm-store/
+jspm_packages/
+web/node_modules/
+web/dist/
+web/build/
+web/.svelte-kit/
+web/.next/
+web/out/
+
+# Python virtual envs and packages
+.venv/
+venv/
+ENV/
+env/
+pyvenv.cfg
+.Python
+include/
+bin/
+lib/
+share/
+pip-selfcheck.json
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Cache and testing artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nodemoncache
+
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
+backend/database/app.db
+database/app.db
+
+# Backend uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
+!backend/uploads/invoices/
+backend/uploads/invoices/*
+!backend/uploads/invoices/.gitkeep
+
+# Local environment configuration
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+web/.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs & Editor Configs
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.agents/
+.gemini/
+antigravity-ide/
+
+# Root markdown documentation to skip
+design.md
+landing.md
