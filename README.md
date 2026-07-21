@@ -5,7 +5,7 @@
 <h1 align="center">NavAssist</h1>
 
 <p align="center">
-  <strong>AI-Powered Smart Escort & Travel Assistance Platform</strong>
+  <strong>Smart Escort & Travel Assistance Platform</strong>
 </p>
 
 <p align="center">
@@ -26,7 +26,7 @@
 NavAssist is an enterprise-grade, full-stack customer support and ride assistance management platform. It matches travelers with verified local assistance escorts to help them navigate complex local transit hubs (like railway stations, airports, and bus terminals).
 
 ### Core Capabilities:
-- **AI-Powered Travel Escort Matching**: Instantly routes and pairs travelers with optimal, nearby support assistants.
+- **Smart Travel Escort Matching**: Instantly routes and pairs travelers with optimal, nearby support assistants.
 - **Live Assistant Geo-Tracking**: Uses real-time geographic telemetry to display en-route paths and live navigation.
 - **Strict KYC Onboarding**: Multi-stage documents vetting verification workflow for support desk operators.
 - **SOS Emergency Infrastructure**: Fast trigger actions linked directly to safety alerts and shared tracking channels.
