@@ -35,16 +35,6 @@ NavAssist is an enterprise-grade, full-stack customer support and ride assistanc
 
 ---
 
-## 📸 Screenshots
-
-To explore the interface layouts, check our `/docs/screenshots/` directory:
-- **Landing Page**: [`/docs/screenshots/landing.png`](docs/screenshots/landing.png)
-- **Booking Flow**: [`/docs/screenshots/booking.png`](docs/screenshots/booking.png)
-- **Dashboard**: [`/docs/screenshots/dashboard.png`](docs/screenshots/dashboard.png)
-- **Assistant KYC Onboarding**: [`/docs/screenshots/assistant_kyc.png`](docs/screenshots/assistant_kyc.png)
-- **Support Inbox**: [`/docs/screenshots/support_inbox.png`](docs/screenshots/support_inbox.png)
-
----
 
 ## 🌟 Features
 
