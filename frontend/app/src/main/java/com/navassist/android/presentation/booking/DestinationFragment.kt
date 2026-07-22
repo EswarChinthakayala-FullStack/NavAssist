@@ -230,6 +230,30 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
                     }
                 }
 
+                // Collect OSRM Distance updates (arrives after route API completes)
+                launch {
+                    destinationViewModel.calculatedDistance.collect { dist ->
+                        val pickup = bookingViewModel.pickupLocation.value
+                        val dest = destinationViewModel.selectedDestination.value
+                        val pickupAddress = pickup?.address ?: "Talluru Bus Stand, Talluru, Prakasam"
+                        val destAddress = dest?.address ?: "Darsi Center, Darsi, Prakasam"
+                        val eta = destinationViewModel.calculatedEtaMins.value
+                        binding.cardJourneyPreview.setJourney(pickupAddress, destAddress, dist, eta)
+                    }
+                }
+
+                // Collect OSRM ETA updates (arrives after route API completes)
+                launch {
+                    destinationViewModel.calculatedEtaMins.collect { eta ->
+                        val pickup = bookingViewModel.pickupLocation.value
+                        val dest = destinationViewModel.selectedDestination.value
+                        val pickupAddress = pickup?.address ?: "Talluru Bus Stand, Talluru, Prakasam"
+                        val destAddress = dest?.address ?: "Darsi Center, Darsi, Prakasam"
+                        val dist = destinationViewModel.calculatedDistance.value
+                        binding.cardJourneyPreview.setJourney(pickupAddress, destAddress, dist, eta)
+                    }
+                }
+
                 // Collect OSRM Route Polylines
                 launch {
                     destinationViewModel.primaryRoutePoints.collect { primaryPoints ->
