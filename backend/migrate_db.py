@@ -29,6 +29,11 @@ async def run_migrations():
         "ALTER TABLE payments ADD COLUMN receipt_number VARCHAR(100) NULL",
         "ALTER TABLE payments ADD COLUMN invoice_number VARCHAR(100) NULL",
         "ALTER TABLE payments ADD COLUMN idempotency_key VARCHAR(100) NULL",
+        "UPDATE users SET created_at = NOW() WHERE created_at IS NULL OR CAST(created_at AS CHAR) LIKE '0000-00-00%'",
+        "UPDATE users SET updated_at = NOW() WHERE updated_at IS NULL OR CAST(updated_at AS CHAR) LIKE '0000-00-00%'",
+        "UPDATE guest_profiles SET created_at = NOW() WHERE created_at IS NULL OR CAST(created_at AS CHAR) LIKE '0000-00-00%'",
+        "UPDATE assistant_profiles SET created_at = NOW() WHERE created_at IS NULL OR CAST(created_at AS CHAR) LIKE '0000-00-00%'",
+        "UPDATE assistant_profiles SET updated_at = NOW() WHERE updated_at IS NULL OR CAST(updated_at AS CHAR) LIKE '0000-00-00%'",
     ]
     async with engine.begin() as conn:
         for q in alter_queries:

@@ -1,8 +1,18 @@
-from datetime import datetime
-from typing import Optional, List
-from pydantic import BaseModel, Field, EmailStr, ConfigDict
+from datetime import datetime, timezone
+from typing import Optional, List, Any
+from pydantic import BaseModel, Field, EmailStr, ConfigDict, field_validator
 
 from app.models import UserRole, KycStatus, OnlineStatus, UserStatus
+
+
+def _sanitize_datetime(v: Any) -> Any:
+    if v is None:
+        return None
+    if isinstance(v, str):
+        v_str = v.strip()
+        if v_str.startswith("0000-00-00") or not v_str or v_str.lower() == "null":
+            return datetime.now(timezone.utc)
+    return v
 
 
 class EmergencyContactBase(BaseModel):
@@ -26,6 +36,11 @@ class EmergencyContactOut(EmergencyContactBase):
     id: int
     user_id: int
     created_at: datetime
+
+    @field_validator('created_at', mode='before', check_fields=False)
+    @classmethod
+    def validate_created_at(cls, v: Any) -> Any:
+        return _sanitize_datetime(v)
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -56,6 +71,11 @@ class SavedLocationOut(BaseModel):
     place_id: Optional[str]
     created_at: datetime
 
+    @field_validator('created_at', mode='before', check_fields=False)
+    @classmethod
+    def validate_created_at(cls, v: Any) -> Any:
+        return _sanitize_datetime(v)
+
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -64,6 +84,11 @@ class GuestProfileResponse(BaseModel):
     name: str
     profile_picture_url: Optional[str] = None
     created_at: datetime
+
+    @field_validator('created_at', mode='before', check_fields=False)
+    @classmethod
+    def validate_created_at(cls, v: Any) -> Any:
+        return _sanitize_datetime(v)
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -78,6 +103,11 @@ class AssistantProfileResponse(BaseModel):
     current_longitude: Optional[float] = None
     created_at: datetime
     updated_at: datetime
+
+    @field_validator('created_at', 'updated_at', mode='before', check_fields=False)
+    @classmethod
+    def validate_datetimes(cls, v: Any) -> Any:
+        return _sanitize_datetime(v)
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -95,6 +125,11 @@ class UserSimpleOut(BaseModel):
     is_email_verified: bool
     created_at: datetime
     updated_at: datetime
+
+    @field_validator('created_at', 'updated_at', mode='before', check_fields=False)
+    @classmethod
+    def validate_datetimes(cls, v: Any) -> Any:
+        return _sanitize_datetime(v)
 
     model_config = ConfigDict(from_attributes=True)
 
