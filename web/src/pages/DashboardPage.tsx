@@ -124,6 +124,9 @@ export function DashboardPage() {
           const kycRes = await api.get("/kyc/status")
           const rawStatus = (kycRes.data.verification_status || kycRes.data.status || "DRAFT").toUpperCase()
           setKycBadgeStatus(rawStatus === "NOT_SUBMITTED" ? "DRAFT" : rawStatus)
+          if (kycRes.data.current_latitude && kycRes.data.current_longitude) {
+            setCurrentCoords({ lat: kycRes.data.current_latitude, lng: kycRes.data.current_longitude })
+          }
         } else {
           setKycBadgeStatus(user ? "Aadhaar Verified" : "Active Profile")
         }

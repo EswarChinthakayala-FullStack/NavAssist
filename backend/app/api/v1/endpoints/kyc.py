@@ -66,6 +66,8 @@ async def get_kyc_status(
         "verification_status": assistant.verification_status,
         "status": assistant.verification_status,
         "aadhaar_number": assistant.aadhaar_masked,
+        "current_latitude": assistant.current_latitude,
+        "current_longitude": assistant.current_longitude,
         "message": f"KYC status is {assistant.verification_status.value}"
     }
 

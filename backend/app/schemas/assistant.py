@@ -61,6 +61,10 @@ class KycReviewRequest(BaseModel):
 
 class KycResponse(BaseModel):
     verification_status: KycStatus
+    status: Optional[KycStatus] = None
+    aadhaar_number: Optional[str] = None
+    current_latitude: Optional[float] = None
+    current_longitude: Optional[float] = None
     message: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)

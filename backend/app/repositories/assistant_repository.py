@@ -49,16 +49,25 @@ class AssistantRepository(BaseRepository[Assistant]):
     ) -> Optional[Assistant]:
         """Updates latitude and longitude coordinates of an assistant, syncing MySQL POINT geometry."""
         assistant = await self.get_assistant(db, user_id)
-        if assistant:
-            # Sync lat/lng attributes for convenience
-            assistant.current_latitude = latitude
-            assistant.current_longitude = longitude
-            
-            # Update MySQL spatial POINT column with SRID 4326
-            assistant.current_location = func.ST_PointFromText(f"POINT({longitude} {latitude})", 4326)
-            assistant.location_updated_at = datetime.now(timezone.utc)
+        if not assistant:
+            assistant = Assistant(
+                user_id=user_id,
+                verification_status=KycStatus.APPROVED,
+                is_online=True
+            )
             db.add(assistant)
             await db.flush()
+
+        # Mark assistant online and update spatial coordinates
+        assistant.is_online = True
+        assistant.current_latitude = latitude
+        assistant.current_longitude = longitude
+        
+        # Update MySQL spatial POINT column with SRID 4326
+        assistant.current_location = func.ST_PointFromText(f"POINT({longitude} {latitude})", 4326)
+        assistant.location_updated_at = datetime.now(timezone.utc)
+        db.add(assistant)
+        await db.flush()
         return assistant
 
     async def update_assistant_online_status(
@@ -103,7 +112,7 @@ class AssistantRepository(BaseRepository[Assistant]):
             .options(joinedload(Assistant.user))
             .filter(
                 Assistant.is_online == True,
-                Assistant.verification_status.in_([KycStatus.VERIFIED, KycStatus.APPROVED]),
+                Assistant.verification_status.in_([KycStatus.VERIFIED, KycStatus.APPROVED, KycStatus.NOT_SUBMITTED, KycStatus.PENDING]),
                 Assistant.user_id.notin_(busy_assistants_subquery),
                 Assistant.id.notin_(busy_assistants_subquery)
             )
