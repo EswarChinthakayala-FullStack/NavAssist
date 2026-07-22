@@ -159,7 +159,25 @@ class JourneyPreviewCard @JvmOverloads constructor(
     fun setJourney(pickupAddress: String, destinationAddress: String, distanceKm: Double, etaMins: Int) {
         pickupView.text = pickupAddress
         destinationView.text = destinationAddress
-        distanceView.text = "Distance: ${String.format("%.1f", distanceKm)} km"
-        etaView.text = "Est. Duration: $etaMins mins"
+
+        // Professional distance formatting
+        val distText = when {
+            distanceKm <= 0.0 -> "Calculating..."
+            distanceKm < 1.0 -> "${(distanceKm * 1000).toInt()} m"
+            else -> String.format("%.1f km", distanceKm)
+        }
+        distanceView.text = distText
+
+        // Professional ETA formatting
+        val etaText = when {
+            etaMins <= 0 -> "Calculating..."
+            etaMins < 60 -> "$etaMins min"
+            else -> {
+                val hours = etaMins / 60
+                val mins = etaMins % 60
+                if (mins == 0) "${hours}h" else "${hours}h ${mins}m"
+            }
+        }
+        etaView.text = etaText
     }
 }

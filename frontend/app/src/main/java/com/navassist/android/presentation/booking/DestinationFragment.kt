@@ -28,8 +28,6 @@ import com.navassist.android.presentation.customviews.Step
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.maplibre.android.MapLibre
-import org.maplibre.android.annotations.MarkerOptions
-import org.maplibre.android.annotations.PolylineOptions
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLng
@@ -37,6 +35,14 @@ import org.maplibre.android.geometry.LatLngBounds
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
+import org.maplibre.android.style.layers.LineLayer
+import org.maplibre.android.style.layers.PropertyFactory
+import org.maplibre.android.style.layers.SymbolLayer
+import org.maplibre.android.style.sources.GeoJsonSource
+import org.maplibre.geojson.Feature
+import org.maplibre.geojson.FeatureCollection
+import org.maplibre.geojson.LineString
+import org.maplibre.geojson.Point
 
 @AndroidEntryPoint
 class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDestinationBinding::inflate), OnMapReadyCallback {
@@ -335,45 +341,107 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
         altPoints: List<LatLng>
     ) {
         mapLibreMap?.let { map ->
-            map.clear()
+            val style = map.style ?: return@let
 
-            // 1. Add Pickup Marker (Green)
-            if (pickup != null) {
-                map.addMarker(
-                    MarkerOptions()
-                        .position(LatLng(pickup.latitude, pickup.longitude))
-                        .title("Pickup Point")
-                        .snippet(pickup.address)
-                )
-            }
+            // Remove previous route layers and sources
+            removeRouteLayersAndSources(style)
 
-            // 2. Add Destination Marker (Red)
-            if (dest != null) {
-                map.addMarker(
-                    MarkerOptions()
-                        .position(LatLng(dest.latitude, dest.longitude))
-                        .title("Destination Point")
-                        .snippet(dest.address)
-                )
-            }
-
-            // 3. Draw Alternative Route Polyline (Translucent Dark Gray)
+            // 1. Draw Alternative Route (if present)
             if (altPoints.isNotEmpty()) {
-                val altPolyline = PolylineOptions()
-                    .addAll(altPoints)
-                    .color(Color.parseColor("#71717A"))
-                    .width(7f)
-                map.addPolyline(altPolyline)
+                val altLinePoints = altPoints.map { Point.fromLngLat(it.longitude, it.latitude) }
+                val altLineString = LineString.fromLngLats(altLinePoints)
+                val altFeature = Feature.fromGeometry(altLineString)
+                val altSource = GeoJsonSource("alt-route-source", FeatureCollection.fromFeature(altFeature))
+                style.addSource(altSource)
+
+                val altLayer = LineLayer("alt-route-layer", "alt-route-source").withProperties(
+                    PropertyFactory.lineColor(Color.parseColor("#52525B")),
+                    PropertyFactory.lineWidth(6f),
+                    PropertyFactory.lineCap(org.maplibre.android.style.layers.Property.LINE_CAP_ROUND),
+                    PropertyFactory.lineJoin(org.maplibre.android.style.layers.Property.LINE_JOIN_ROUND),
+                    PropertyFactory.lineOpacity(0.6f)
+                )
+                style.addLayer(altLayer)
             }
 
-            // 4. Draw Primary Route Polyline (12dp width Navigation Blue)
+            // 2. Draw Primary Route Shadow/Border (wider, darker, behind main line)
             if (primaryPoints.isNotEmpty()) {
-                val primaryPolyline = PolylineOptions()
-                    .addAll(primaryPoints)
-                    .color(Color.parseColor("#3B82F6"))
-                    .width(12f)
-                map.addPolyline(primaryPolyline)
+                val linePoints = primaryPoints.map { Point.fromLngLat(it.longitude, it.latitude) }
+                val lineString = LineString.fromLngLats(linePoints)
+                val routeFeature = Feature.fromGeometry(lineString)
+
+                val borderSource = GeoJsonSource("route-border-source", FeatureCollection.fromFeature(routeFeature))
+                style.addSource(borderSource)
+
+                val borderLayer = LineLayer("route-border-layer", "route-border-source").withProperties(
+                    PropertyFactory.lineColor(Color.parseColor("#1E3A5F")),
+                    PropertyFactory.lineWidth(14f),
+                    PropertyFactory.lineCap(org.maplibre.android.style.layers.Property.LINE_CAP_ROUND),
+                    PropertyFactory.lineJoin(org.maplibre.android.style.layers.Property.LINE_JOIN_ROUND),
+                    PropertyFactory.lineOpacity(0.7f)
+                )
+                style.addLayer(borderLayer)
+
+                // 3. Draw Primary Route (vibrant blue, round caps)
+                val mainSource = GeoJsonSource("route-main-source", FeatureCollection.fromFeature(routeFeature))
+                style.addSource(mainSource)
+
+                val mainLayer = LineLayer("route-main-layer", "route-main-source").withProperties(
+                    PropertyFactory.lineColor(Color.parseColor("#3B82F6")),
+                    PropertyFactory.lineWidth(10f),
+                    PropertyFactory.lineCap(org.maplibre.android.style.layers.Property.LINE_CAP_ROUND),
+                    PropertyFactory.lineJoin(org.maplibre.android.style.layers.Property.LINE_JOIN_ROUND),
+                    PropertyFactory.lineOpacity(1.0f)
+                )
+                style.addLayer(mainLayer)
             }
+
+            // 4. Draw Pickup and Destination circle markers via GeoJSON
+            addEndpointMarkers(style, pickup, dest)
+        }
+    }
+
+    private fun addEndpointMarkers(style: Style, pickup: LocationPoint?, dest: LocationPoint?) {
+        val features = mutableListOf<Feature>()
+
+        if (pickup != null) {
+            val pickupFeature = Feature.fromGeometry(Point.fromLngLat(pickup.longitude, pickup.latitude))
+            pickupFeature.addStringProperty("marker-color", "#22C55E")
+            pickupFeature.addStringProperty("title", "Pickup")
+            features.add(pickupFeature)
+        }
+
+        if (dest != null) {
+            val destFeature = Feature.fromGeometry(Point.fromLngLat(dest.longitude, dest.latitude))
+            destFeature.addStringProperty("marker-color", "#EF4444")
+            destFeature.addStringProperty("title", "Destination")
+            features.add(destFeature)
+        }
+
+        if (features.isNotEmpty()) {
+            val markerSource = GeoJsonSource("endpoint-markers-source", FeatureCollection.fromFeatures(features))
+            style.addSource(markerSource)
+
+            val circleLayer = org.maplibre.android.style.layers.CircleLayer("endpoint-markers-layer", "endpoint-markers-source")
+                .withProperties(
+                    PropertyFactory.circleRadius(8f),
+                    PropertyFactory.circleColor(org.maplibre.android.style.expressions.Expression.get("marker-color")),
+                    PropertyFactory.circleStrokeWidth(3f),
+                    PropertyFactory.circleStrokeColor(Color.WHITE)
+                )
+            style.addLayer(circleLayer)
+        }
+    }
+
+    private fun removeRouteLayersAndSources(style: Style) {
+        val layerIds = listOf("endpoint-markers-layer", "route-main-layer", "route-border-layer", "alt-route-layer")
+        val sourceIds = listOf("endpoint-markers-source", "route-main-source", "route-border-source", "alt-route-source")
+
+        layerIds.forEach { id ->
+            try { style.removeLayer(id) } catch (_: Exception) {}
+        }
+        sourceIds.forEach { id ->
+            try { style.removeSource(id) } catch (_: Exception) {}
         }
     }
 
