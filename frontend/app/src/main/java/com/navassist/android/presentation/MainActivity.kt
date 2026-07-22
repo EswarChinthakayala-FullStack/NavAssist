@@ -96,6 +96,14 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
 
+                // Trip Detail -> Custom Header inside layout
+                R.id.tripDetailFragment -> {
+                    binding.bottomNavigation.visibility = View.GONE
+                    ToolbarConfiguration(
+                        mode = ToolbarMode.HIDDEN
+                    )
+                }
+
                 // Top-Level Hubs -> Collapsing Large Title Mode
                 R.id.bookingsFragment -> {
                     binding.bottomNavigation.visibility = View.VISIBLE

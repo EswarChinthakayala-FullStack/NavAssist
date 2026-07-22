@@ -70,7 +70,14 @@ class LiveTrackingFragment : BaseFragment<FragmentLiveTrackingBinding>(FragmentL
 
     override fun onMapReady(map: MapLibreMap) {
         mapLibreMap = map
-        map.setStyle(Style.Builder().fromUri("https://demotiles.maplibre.org/style.json")) {
+        val nightModeFlags = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        val isDark = nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        val styleUrl = if (isDark) {
+            "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+        } else {
+            "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+        }
+        map.setStyle(Style.Builder().fromUri(styleUrl)) {
             recenterMapBounds()
         }
     }

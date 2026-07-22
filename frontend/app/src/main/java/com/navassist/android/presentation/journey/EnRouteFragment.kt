@@ -56,7 +56,14 @@ class EnRouteFragment : BaseFragment<FragmentEnRouteBinding>(FragmentEnRouteBind
 
     override fun onMapReady(map: MapLibreMap) {
         mapLibreMap = map
-        map.setStyle(Style.Builder().fromUri("https://demotiles.maplibre.org/style.json")) { style ->
+        val nightModeFlags = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        val isDark = nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        val styleUrl = if (isDark) {
+            "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+        } else {
+            "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+        }
+        map.setStyle(Style.Builder().fromUri(styleUrl)) { style ->
             val sfLocation = LatLng(37.7749, -122.4194)
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(sfLocation, 14.5), 1000)
         }

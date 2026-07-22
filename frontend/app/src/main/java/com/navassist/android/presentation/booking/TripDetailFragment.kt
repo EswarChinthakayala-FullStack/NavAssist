@@ -70,6 +70,36 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
             shareTripDetails()
         }
 
+        // Prevent parent NestedScrollView from intercepting touch gestures inside MapView
+        @android.annotation.SuppressLint("ClickableViewAccessibility")
+        binding.mapView.setOnTouchListener { view, event ->
+            when (event.action) {
+                android.view.MotionEvent.ACTION_DOWN, android.view.MotionEvent.ACTION_MOVE -> {
+                    view.parent?.requestDisallowInterceptTouchEvent(true)
+                }
+                android.view.MotionEvent.ACTION_UP, android.view.MotionEvent.ACTION_CANCEL -> {
+                    view.parent?.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+            false
+        }
+
+        // Map Control Buttons
+        binding.btnZoomIn.setOnClickListener {
+            mapLibreMap?.animateCamera(CameraUpdateFactory.zoomIn())
+        }
+
+        binding.btnZoomOut.setOnClickListener {
+            mapLibreMap?.animateCamera(CameraUpdateFactory.zoomOut())
+        }
+
+        binding.btnToggleMapStyle.setOnClickListener {
+            isDarkThemeMap = !isDarkThemeMap
+            applyMapStyle(isDarkThemeMap)
+            val styleName = if (isDarkThemeMap) "Dark Matter" else "Positron Light"
+            showToast("Switched to $styleName map")
+        }
+
         // Recenter Map
         binding.btnRecenterMap.setOnClickListener {
             currentBooking?.let { booking ->
@@ -220,9 +250,24 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
         }
     }
 
+    private var isDarkThemeMap = true
+
     override fun onMapReady(map: MapLibreMap) {
         mapLibreMap = map
-        map.setStyle(Style.Builder().fromUri("https://demotiles.maplibre.org/style.json")) { style ->
+
+        val nightModeFlags = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        isDarkThemeMap = nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES
+        applyMapStyle(isDarkThemeMap)
+    }
+
+    private fun applyMapStyle(dark: Boolean) {
+        val styleUrl = if (dark) {
+            "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+        } else {
+            "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+        }
+
+        mapLibreMap?.setStyle(Style.Builder().fromUri(styleUrl)) { _ ->
             currentBooking?.let { booking ->
                 val points = viewModel.routePoints.value
                 drawRoutePolylines(booking.pickupLocation, booking.destinationLocation, points)
