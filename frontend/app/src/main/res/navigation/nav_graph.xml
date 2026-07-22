@@ -1156,25 +1156,4 @@
         android:label="Apply Coupon"
         tools:layout="@layout/fragment_apply_coupon" />
 
-    <!-- Core App Tabs -->
-    <fragment
-        android:id="@+id/bookingsFragment"
-        android:name="com.navassist.android.presentation.booking.BookingsFragment"
-        android:label="Bookings"
-        tools:layout="@layout/fragment_bookings" />
-
-
-
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.navassist.android.presentation.profile.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
-
-    <fragment
-        android:id="@+id/sosFragment"
-        android:name="com.navassist.android.presentation.sos.SosFragment"
-        android:label="Emergency SOS"
-        tools:layout="@layout/fragment_sos" />
-
 </navigation>
