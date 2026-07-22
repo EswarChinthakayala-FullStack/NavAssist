@@ -158,6 +158,40 @@ async def toggle_online_status(
     return res
 
 
+@router.patch("/me/location")
+@router.post("/me/location")
+async def update_assistant_location(
+    request: LocationPushRequest,
+    current_user: User = Depends(deps.get_current_assistant),
+    db: AsyncSession = Depends(deps.get_db)
+):
+    """Updates live GPS latitude and longitude location coordinates of the assistant."""
+    profile = await crud_assistant.update_assistant_location(
+        db,
+        user_id=current_user.id,
+        latitude=request.latitude,
+        longitude=request.longitude
+    )
+    await db.commit()
+    
+    # Store live location in Redis cache for real-time tracking (5 minutes TTL)
+    try:
+        await redis_client.redis_client.set(
+            f"assistant:location:{current_user.id}",
+            f"{request.latitude},{request.longitude}",
+            ex=300
+        )
+    except Exception:
+        pass
+        
+    return {
+        "success": True,
+        "message": "Assistant location updated successfully",
+        "latitude": request.latitude,
+        "longitude": request.longitude
+    }
+
+
 @router.get("/me/incoming-bookings")
 async def get_incoming_bookings(
     current_user: User = Depends(deps.get_current_assistant),

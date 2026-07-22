@@ -140,8 +140,9 @@ class DestinationViewModel @Inject constructor(
 
                 val connection = (URL(osrmUrl).openConnection() as HttpURLConnection).apply {
                     requestMethod = "GET"
-                    connectTimeout = 5000
-                    readTimeout = 5000
+                    setRequestProperty("User-Agent", "NavAssistAndroid/1.0 (Mobile; Android)")
+                    connectTimeout = 8000
+                    readTimeout = 8000
                 }
 
                 if (connection.responseCode == 200) {

@@ -25,6 +25,11 @@ export const assistantsService = {
   async toggleOnlineStatus(isOnline: boolean) {
     const res = await api.patch("/assistants/online-status", { is_online: isOnline })
     return res.data
+  },
+
+  async updateLocation(latitude: number, longitude: number) {
+    const res = await api.patch("/assistants/me/location", { latitude, longitude })
+    return res.data
   }
 }
 export default assistantsService

@@ -16,6 +16,12 @@ class AssistantApplyRequest(BaseModel):
     doc_back_url: str = Field(..., description="Presigned upload URL for Aadhaar back")
 
 
+class LocationPushRequest(BaseModel):
+    """Payload for assistant to push current GPS location coordinates."""
+    latitude: float = Field(..., ge=-90.0, le=90.0, description="Current latitude coordinate")
+    longitude: float = Field(..., ge=-180.0, le=180.0, description="Current longitude coordinate")
+
+
 class AssistantProfileOut(BaseModel):
     """Response schema mapping assistant profile details."""
     id: int

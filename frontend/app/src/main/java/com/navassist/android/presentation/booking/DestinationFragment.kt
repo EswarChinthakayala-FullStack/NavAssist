@@ -10,6 +10,7 @@ import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -321,6 +322,9 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
     }
 
     private fun updateMapMarkers(pickup: LocationPoint?, dest: LocationPoint) {
+        // Hide floating center pin once a destination is selected and plotted
+        binding.layoutCenterPin.isVisible = false
+
         mapLibreMap?.let { map ->
             val primaryPoints = destinationViewModel.primaryRoutePoints.value
             val altPoints = destinationViewModel.altRoutePoints.value
@@ -356,7 +360,7 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
 
                 val altLayer = LineLayer("alt-route-layer", "alt-route-source").withProperties(
                     PropertyFactory.lineColor(Color.parseColor("#52525B")),
-                    PropertyFactory.lineWidth(6f),
+                    PropertyFactory.lineWidth(4f),
                     PropertyFactory.lineCap(org.maplibre.android.style.layers.Property.LINE_CAP_ROUND),
                     PropertyFactory.lineJoin(org.maplibre.android.style.layers.Property.LINE_JOIN_ROUND),
                     PropertyFactory.lineOpacity(0.6f)
@@ -364,7 +368,7 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
                 style.addLayer(altLayer)
             }
 
-            // 2. Draw Primary Route Shadow/Border (wider, darker, behind main line)
+            // 2. Draw Primary Route Shadow/Border (8dp dark navy)
             if (primaryPoints.isNotEmpty()) {
                 val linePoints = primaryPoints.map { Point.fromLngLat(it.longitude, it.latitude) }
                 val lineString = LineString.fromLngLats(linePoints)
@@ -375,20 +379,20 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
 
                 val borderLayer = LineLayer("route-border-layer", "route-border-source").withProperties(
                     PropertyFactory.lineColor(Color.parseColor("#1E3A5F")),
-                    PropertyFactory.lineWidth(14f),
+                    PropertyFactory.lineWidth(8f),
                     PropertyFactory.lineCap(org.maplibre.android.style.layers.Property.LINE_CAP_ROUND),
                     PropertyFactory.lineJoin(org.maplibre.android.style.layers.Property.LINE_JOIN_ROUND),
                     PropertyFactory.lineOpacity(0.7f)
                 )
                 style.addLayer(borderLayer)
 
-                // 3. Draw Primary Route (vibrant blue, round caps)
+                // 3. Draw Primary Route (5dp vibrant navigation blue, round caps)
                 val mainSource = GeoJsonSource("route-main-source", FeatureCollection.fromFeature(routeFeature))
                 style.addSource(mainSource)
 
                 val mainLayer = LineLayer("route-main-layer", "route-main-source").withProperties(
                     PropertyFactory.lineColor(Color.parseColor("#3B82F6")),
-                    PropertyFactory.lineWidth(10f),
+                    PropertyFactory.lineWidth(5f),
                     PropertyFactory.lineCap(org.maplibre.android.style.layers.Property.LINE_CAP_ROUND),
                     PropertyFactory.lineJoin(org.maplibre.android.style.layers.Property.LINE_JOIN_ROUND),
                     PropertyFactory.lineOpacity(1.0f)

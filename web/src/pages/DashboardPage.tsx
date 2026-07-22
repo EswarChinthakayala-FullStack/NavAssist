@@ -15,7 +15,9 @@ import {
   MapTrifoldIcon,
   ClockIcon,
   CheckCircleIcon,
-  MagnifyingGlassIcon
+  MagnifyingGlassIcon,
+  CompassIcon,
+  NavigationArrowIcon
 } from "@phosphor-icons/react"
 
 interface AutocompleteItem {
@@ -52,6 +54,60 @@ export function DashboardPage() {
   const [contactsCount, setContactsCount] = useState(0)
   const [tripsCount, setTripsCount] = useState(0)
   const [kycBadgeStatus, setKycBadgeStatus] = useState("Unverified")
+
+  // Assistant Location Telemetry State
+  const [locLoading, setLocLoading] = useState(false)
+  const [currentCoords, setCurrentCoords] = useState<{ lat: number; lng: number } | null>(null)
+  const [manualLandmark, setManualLandmark] = useState("")
+
+  const handleUseCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      toast.error("Browser geolocation is not supported by your browser.")
+      return
+    }
+    setLocLoading(true)
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords
+        try {
+          await api.patch("/assistants/me/location", { latitude, longitude })
+          setCurrentCoords({ lat: latitude, lng: longitude })
+          toast.success(`Live GPS location updated: ${latitude.toFixed(4)}°, ${longitude.toFixed(4)}°`)
+        } catch (err) {
+          toast.error("Failed to sync location to backend server.")
+        } finally {
+          setLocLoading(false)
+        }
+      },
+      (err) => {
+        toast.error(`Geolocation error: ${err.message}`)
+        setLocLoading(false)
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    )
+  }
+
+  const handleManualLocationSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!manualLandmark.trim()) {
+      toast.error("Please enter a valid landmark or city address.")
+      return
+    }
+    setLocLoading(true)
+    try {
+      const gRes = await api.get(`/locations/geocode?address=${encodeURIComponent(manualLandmark)}`)
+      const lat = gRes.data.latitude
+      const lng = gRes.data.longitude
+      await api.patch("/assistants/me/location", { latitude: lat, longitude: lng })
+      setCurrentCoords({ lat, lng })
+      toast.success(`Duty location updated to ${gRes.data.address_name || manualLandmark}!`)
+      setManualLandmark("")
+    } catch (err) {
+      toast.error("Failed to geocode or update landmark location.")
+    } finally {
+      setLocLoading(false)
+    }
+  }
 
   useEffect(() => {
     // Fetch user stats
@@ -281,6 +337,65 @@ export function DashboardPage() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Assistant Live Duty Location Card */}
+        {user?.role === "assistant" && (
+          <Card className="shadow-md border border-primary/30 bg-card rounded-2xl overflow-hidden text-left">
+            <CardHeader className="p-6">
+              <div className="flex items-center justify-between">
+                <Badge className="bg-primary/20 text-primary border-0 font-bold px-3 py-1 rounded-full text-[10px] uppercase tracking-wider">
+                  Assistant Duty Telemetry
+                </Badge>
+                {currentCoords && (
+                  <span className="text-xs font-mono text-success font-bold flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-success animate-ping inline-block" />
+                    GPS: {currentCoords.lat.toFixed(4)}°, {currentCoords.lng.toFixed(4)}°
+                  </span>
+                )}
+              </div>
+              <CardTitle className="text-xl font-extrabold mt-3 flex items-center gap-2">
+                <CompassIcon size={24} className="text-primary" />
+                Update Live Duty Location
+              </CardTitle>
+              <CardDescription className="text-xs text-muted-foreground mt-1">
+                Keep your real-time GPS location updated so nearby travelers can discover and dispatch bookings to you.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="px-6 pb-6 pt-0 space-y-4">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  onClick={handleUseCurrentLocation}
+                  disabled={locLoading}
+                  className="h-11 px-5 rounded-xl font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 flex items-center justify-center gap-2 shadow-sm shrink-0 cursor-pointer"
+                >
+                  {locLoading ? (
+                    <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <NavigationArrowIcon size={18} weight="fill" />
+                  )}
+                  Use Current Location
+                </Button>
+
+                <form onSubmit={handleManualLocationSubmit} className="flex-1 flex gap-2">
+                  <Input
+                    value={manualLandmark}
+                    onChange={(e) => setManualLandmark(e.target.value)}
+                    placeholder="Or enter landmark (e.g. Ongole Railway Station)"
+                    className="rounded-xl h-11 text-xs font-medium"
+                  />
+                  <Button
+                    type="submit"
+                    disabled={locLoading}
+                    variant="outline"
+                    className="h-11 px-4 rounded-xl font-bold text-xs shrink-0 cursor-pointer"
+                  >
+                    Update
+                  </Button>
+                </form>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Free OSRM Routing Tool Card */}
         <Card className="shadow-md border border-border/80 rounded-2xl overflow-visible">
