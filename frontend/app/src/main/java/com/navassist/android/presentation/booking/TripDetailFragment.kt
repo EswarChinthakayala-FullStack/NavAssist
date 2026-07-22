@@ -122,6 +122,12 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
                 else -> {}
             }
         }
+
+        collectLifecycleFlow(viewModel.routePoints) { points ->
+            currentBooking?.let { booking ->
+                drawRoutePolylines(booking.pickupLocation, booking.destinationLocation, points)
+            }
+        }
     }
 
     private fun bindBookingDetails(booking: Booking) {
@@ -183,7 +189,8 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
 
         // Draw Map Route if map is ready
         mapLibreMap?.let {
-            drawRoutePolylines(booking.pickupLocation, booking.destinationLocation)
+            val points = viewModel.routePoints.value
+            drawRoutePolylines(booking.pickupLocation, booking.destinationLocation, points)
         }
     }
 
@@ -217,20 +224,20 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
         mapLibreMap = map
         map.setStyle(Style.Builder().fromUri("https://demotiles.maplibre.org/style.json")) { style ->
             currentBooking?.let { booking ->
-                drawRoutePolylines(booking.pickupLocation, booking.destinationLocation)
+                val points = viewModel.routePoints.value
+                drawRoutePolylines(booking.pickupLocation, booking.destinationLocation, points)
             }
         }
     }
 
-    private fun drawRoutePolylines(pickup: LocationPoint, dest: LocationPoint) {
+    private fun drawRoutePolylines(pickup: LocationPoint, dest: LocationPoint, points: List<LatLng> = emptyList()) {
         val map = mapLibreMap ?: return
         val style = map.style ?: return
 
         // Clear previous layers/sources
         removeRouteLayersAndSources(style)
 
-        // Interpolate road points for smooth route line
-        val routePoints = generateRoadPoints(pickup, dest)
+        val routePoints = if (points.isNotEmpty()) points else generateRoadPoints(pickup, dest)
         val linePoints = routePoints.map { Point.fromLngLat(it.longitude, it.latitude) }
         val lineString = LineString.fromLngLats(linePoints)
         val feature = Feature.fromGeometry(lineString)
