@@ -784,6 +784,50 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <!-- Bookings Destination -->
+    <fragment
+        android:id="@+id/bookingsFragment"
+        android:name="com.navassist.android.presentation.booking.BookingsFragment"
+        android:label="Bookings"
+        tools:layout="@layout/fragment_bookings">
+        <action
+            android:id="@+id/action_bookings_to_bookAssistant"
+            app:destination="@id/bookAssistantFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_bookings_to_tripDetail"
+            app:destination="@id/tripDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Trip Detail Destination -->
+    <fragment
+        android:id="@+id/tripDetailFragment"
+        android:name="com.navassist.android.presentation.booking.TripDetailFragment"
+        android:label="Trip Detail"
+        tools:layout="@layout/fragment_trip_detail">
+        <action
+            android:id="@+id/action_tripDetail_to_receipt"
+            app:destination="@id/receiptFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Tax Receipt Destination -->
+    <fragment
+        android:id="@+id/receiptFragment"
+        android:name="com.navassist.android.presentation.booking.ReceiptFragment"
+        android:label="Tax Receipt"
+        tools:layout="@layout/fragment_receipt" />
+
     <!-- Booking Entry Point Destination -->
     <fragment
         android:id="@+id/bookAssistantFragment"

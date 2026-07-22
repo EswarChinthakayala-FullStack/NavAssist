@@ -33,7 +33,7 @@ class JourneyCompletedViewModel @Inject constructor() : ViewModel() {
                 pickupAddress = "Central Station, Main Entrance",
                 destinationAddress = "International Airport, Terminal 2",
                 assistantName = "Vikram Sharma",
-                fareTotal = "$48.50"
+                fareTotal = "₹48.50"
             )
             _tripState.value = UiState.Success(mockTrip)
         }

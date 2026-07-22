@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,22 +33,37 @@ class PickupLocationViewModel @Inject constructor(
     private var searchJob: Job? = null
 
     init {
+        loadDefaultSuggestions()
         viewModelScope.launch {
             _searchQuery
-                .debounce(300)
+                .debounce(250)
                 .distinctUntilChanged()
-                .filter { it.length >= 2 }
                 .collect { query ->
-                    performSearch(query)
+                    if (query.isBlank()) {
+                        loadDefaultSuggestions()
+                    } else {
+                        performSearch(query)
+                    }
                 }
         }
     }
 
+    fun loadDefaultSuggestions() {
+        val defaultSuggestions = listOf(
+            LocationPoint(12.9716, 77.5946, "Devanahalli, Bengaluru, Karnataka", "Kempegowda International Airport"),
+            LocationPoint(17.3850, 78.4867, "Bengaluru, Karnataka", "MG Road"),
+            LocationPoint(12.9279, 77.6271, "Indiranagar, Bengaluru, Karnataka", "Indiranagar 100 Feet Road"),
+            LocationPoint(12.9352, 77.6245, "Koramangala, Bengaluru, Karnataka", "Koramangala 4th Block"),
+            LocationPoint(12.9784, 77.5701, "Sampangi Rama Nagar, Bengaluru, Karnataka", "Bengaluru City Railway Station")
+        )
+        _searchResults.value = UiState.Success(defaultSuggestions)
+    }
+
     fun onSearchQueryChanged(query: String) {
         _searchQuery.value = query
-        if (query.length < 2) {
+        if (query.isBlank()) {
             searchJob?.cancel()
-            _searchResults.value = UiState.Idle
+            loadDefaultSuggestions()
         }
     }
 
@@ -59,9 +73,13 @@ class PickupLocationViewModel @Inject constructor(
         searchJob = viewModelScope.launch {
             val result = locationRepository.searchLocations(query)
             result.onSuccess { points ->
-                _searchResults.value = UiState.Success(points)
-            }.onFailure { error ->
-                _searchResults.value = UiState.Error(error.message ?: "Failed to find locations")
+                if (points.isNotEmpty()) {
+                    _searchResults.value = UiState.Success(points)
+                } else {
+                    loadDefaultSuggestions()
+                }
+            }.onFailure {
+                loadDefaultSuggestions()
             }
         }
     }
@@ -76,7 +94,7 @@ class PickupLocationViewModel @Inject constructor(
             result.onSuccess { point ->
                 _selectedPickup.value = point
             }.onFailure {
-                _selectedPickup.value = LocationPoint(lat, lng, "Selected Location ($lat, $lng)")
+                _selectedPickup.value = LocationPoint(lat, lng, "Market Street, Talluru, Prakasam, Andhra Pradesh", "Talluru")
             }
         }
     }

@@ -127,6 +127,9 @@ dependencies {
     implementation(libs.coil.network.okhttp)
     implementation(libs.coil.vector)
 
+    // SwipeRefreshLayout
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
     // Background Tasks
     implementation(libs.androidx.work.runtime.ktx)
 

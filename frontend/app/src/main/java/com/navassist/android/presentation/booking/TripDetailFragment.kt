@@ -1,6 +1,5 @@
 package com.navassist.android.presentation.booking
 
-import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.navassist.android.R
 import com.navassist.android.databinding.FragmentTripDetailBinding
@@ -11,12 +10,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripDetailBinding::inflate) {
 
     override fun setupViews() {
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-
         binding.btnViewReceipt.setOnClickListener {
-            findNavController().navigate(R.id.receiptFragment)
+            findNavController().navigate(R.id.action_tripDetail_to_receipt)
         }
     }
 

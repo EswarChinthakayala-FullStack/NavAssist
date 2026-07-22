@@ -11,23 +11,6 @@
         android:background="@drawable/bg_ambient_glow"
         android:alpha="0.4" />
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:elevation="0dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="Digital Receipt"
-            app:titleTextColor="#FAFAFA"
-            app:navigationIcon="@drawable/ic_arrow_left"
-            app:navigationIconTint="#FAFAFA" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

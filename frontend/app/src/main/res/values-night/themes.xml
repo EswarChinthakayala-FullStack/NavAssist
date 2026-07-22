@@ -8,9 +8,9 @@
         <item name="colorOnSecondary">@color/color_foreground</item>
 
         <!-- Status bar and Navigation bar -->
-        <item name="android:statusBarColor">@color/color_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:navigationBarColor">@color/color_surface</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightNavigationBar">false</item>
 
         <!-- Surface and Window Backgrounds -->

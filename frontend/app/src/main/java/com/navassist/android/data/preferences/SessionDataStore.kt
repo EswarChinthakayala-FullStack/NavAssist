@@ -32,6 +32,12 @@ class SessionDataStore @Inject constructor(
 
     suspend fun getAccessToken(): String? = accessToken.first()
 
+    val refreshToken: Flow<String?> = context.dataStore.data.map { prefs ->
+        prefs[KEY_REFRESH_TOKEN]
+    }
+
+    suspend fun getRefreshToken(): String? = refreshToken.first()
+
     val userId: Flow<String?> = context.dataStore.data.map { prefs ->
         prefs[KEY_USER_ID]
     }

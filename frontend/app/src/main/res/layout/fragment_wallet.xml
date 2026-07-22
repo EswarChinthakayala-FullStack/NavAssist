@@ -15,32 +15,13 @@
         android:background="@drawable/bg_ambient_glow"
         android:alpha="0.4" />
 
-    <!-- App Bar Toolbar -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:elevation="0dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="My Wallet"
-            app:titleTextColor="#FAFAFA"
-            app:navigationIcon="@drawable/ic_arrow_left"
-            app:navigationIconTint="#FAFAFA" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <!-- Scrollable Wallet Content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="88dp"
+        android:paddingBottom="24dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout

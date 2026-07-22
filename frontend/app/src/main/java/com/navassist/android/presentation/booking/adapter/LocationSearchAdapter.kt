@@ -3,6 +3,7 @@ package com.navassist.android.presentation.booking.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -26,10 +27,25 @@ class LocationSearchAdapter(
     class LocationSearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvTitle: TextView = itemView.findViewById(R.id.tvLocationTitle)
         private val tvSubtitle: TextView = itemView.findViewById(R.id.tvLocationSubtitle)
+        private val ivIcon: ImageView = itemView.findViewById(R.id.ivLocationTypeIcon)
 
         fun bind(item: LocationPoint, onLocationClick: (LocationPoint) -> Unit) {
-            tvTitle.text = item.name ?: item.address
+            val titleText = item.name ?: item.address
+            tvTitle.text = titleText
             tvSubtitle.text = item.address
+
+            // Smart icon selector based on keywords
+            val lower = titleText.lowercase()
+            val iconRes = when {
+                lower.contains("airport") || lower.contains("terminal") || lower.contains("flight") -> R.drawable.ic_ms_search
+                lower.contains("station") || lower.contains("railway") || lower.contains("metro") -> R.drawable.ic_ms_near_me
+                lower.contains("hospital") || lower.contains("clinic") || lower.contains("medical") -> R.drawable.ic_ms_warning
+                lower.contains("home") -> R.drawable.ic_ms_home
+                lower.contains("office") || lower.contains("work") -> R.drawable.ic_ms_layers
+                else -> R.drawable.ic_ms_location_on
+            }
+            ivIcon.setImageResource(iconRes)
+
             itemView.setOnClickListener {
                 onLocationClick(item)
             }

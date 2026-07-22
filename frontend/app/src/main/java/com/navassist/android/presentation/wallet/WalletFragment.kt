@@ -30,15 +30,8 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
     private lateinit var transactionAdapter: WalletTransactionAdapter
 
     override fun setupViews() {
-        setupToolbar()
         setupAdapter()
         setupListeners()
-    }
-
-    private fun setupToolbar() {
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
     }
 
     private fun setupAdapter() {

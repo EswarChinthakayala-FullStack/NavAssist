@@ -2,161 +2,478 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#09090B">
+    android:background="#0A0A0A">
 
-    <!-- Layer 1: Fullscreen MapLibre GL Map -->
+    <!-- Layer 1: Fullscreen MapLibre GL Vector Map -->
     <org.maplibre.android.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Layer 2: Top Gradient & Ambient Lighting Overlay -->
+    <!-- Top Ambient Glow Backdrop -->
     <View
+        android:id="@+id/vAmbientGlow"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@drawable/bg_ambient_glow"
-        android:alpha="0.2" />
+        android:alpha="0.25"
+        android:background="@drawable/bg_ambient_glow" />
 
-    <!-- Top Bar: Greeting Header + Emergency SOS FAB -->
+    <!-- Main Content Container for Floating UI Overlays -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topBarHeader"
+        android:id="@+id/overlayContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingTop="36dp"
-        android:paddingEnd="20dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/layoutGreeting"
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 2: Top Profile Card (92dp)                           -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHeader"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/fabSos"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tvGreetingName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:letterSpacing="-0.01"
-                android:text="Good Morning 👋"
-                android:textColor="#FAFAFA"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvGreetingSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Ready for your next journey?"
-                android:textColor="#A1A1AA"
-                android:textSize="13sp" />
-
-        </LinearLayout>
-
-        <!-- Emergency SOS FAB -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabSos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/emergency_sos"
-            app:backgroundTint="#EF4444"
-            app:fabSize="mini"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="92dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="#E6111113"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="14dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_sos"
-            app:tint="#FFFFFF" />
+            app:strokeColor="#27272A"
+            app:strokeWidth="1dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="18dp"
+                android:paddingEnd="16dp">
 
-    <!-- Floating Glass Search Bar & Saved Places Container -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="90dp"
-        android:orientation="vertical"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp">
+                <!-- Profile Avatar Container (48dp circular) -->
+                <FrameLayout
+                    android:id="@+id/layoutAvatar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Custom Floating Search Bar Widget -->
-        <com.navassist.android.presentation.widgets.search.SearchBarView
-            android:id="@+id/searchBarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="12dp" />
+                    <ImageView
+                        android:id="@+id/ivProfileAvatar"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:contentDescription="User Profile"
+                        android:src="@drawable/ic_ms_person"
+                        android:background="@drawable/bg_glass_circle"
+                        android:padding="10dp"
+                        app:tint="#FAFAFA" />
 
-        <!-- Saved Locations Title & Horizontal RecyclerView -->
-        <TextView
-            android:id="@+id/tvSavedLocationsTitle"
+                    <TextView
+                        android:id="@+id/tvInitials"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_glass_circle"
+                        android:gravity="center"
+                        android:textColor="#FAFAFA"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <!-- Online Green Status Indicator Dot -->
+                    <View
+                        android:id="@+id/vOnlineIndicator"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_gravity="bottom|end"
+                        android:background="@drawable/bg_online_indicator" />
+                </FrameLayout>
+
+                <!-- Greeting & Location Text -->
+                <LinearLayout
+                    android:id="@+id/layoutGreetingText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/layoutHeaderActions"
+                    app:layout_constraintStart_toEndOf="@id/layoutAvatar"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tvGreetingName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="-0.02"
+                        android:text="Good Evening, Traveler 👋"
+                        android:textColor="#FAFAFA"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
+
+                    <TextView
+                        android:id="@+id/tvGreetingSub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Detecting location…"
+                        android:textColor="#A1A1AA"
+                        android:textSize="13sp"
+                        android:fontFamily="sans-serif" />
+
+                    <!-- Hidden role badge - kept for ViewModel binding -->
+                    <TextView
+                        android:id="@+id/tvUserRole"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Verified Guest"
+                        android:textColor="#71717A"
+                        android:textSize="11sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <!-- Header Action Buttons (Equal 48dp Circular Buttons) -->
+                <LinearLayout
+                    android:id="@+id/layoutHeaderActions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- Notification Bell Button (48dp) -->
+                    <FrameLayout
+                        android:id="@+id/btnNotifications"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Notifications">
+
+                        <ImageView
+                            android:id="@+id/ivNotificationIcon"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/bg_glass_circle"
+                            android:padding="12dp"
+                            android:src="@drawable/ic_ms_notifications"
+                            app:tint="#FAFAFA" />
+
+                        <!-- Red Notification Dot -->
+                        <View
+                            android:id="@+id/vNotificationBadge"
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_notification_badge"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                    <!-- Emergency SOS Button (48dp) -->
+                    <FrameLayout
+                        android:id="@+id/fabSos"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_sos_circle_premium"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Emergency SOS">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="Emergency SOS"
+                            android:src="@drawable/ic_ms_warning"
+                            app:tint="#EF4444" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 3: Floating Search Bar Card (60dp)                  -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchCard"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="#F21A1A1E"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardHeader"
+            app:strokeColor="#2A2A2E"
+            app:strokeWidth="1dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:paddingEnd="14dp">
+
+                <ImageView
+                    android:id="@+id/ivSearchLens"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="Search"
+                    android:src="@drawable/ic_ms_search"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#A1A1AA" />
+
+                <TextView
+                    android:id="@+id/tvSearchHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Where would you like to go?"
+                    android:textColor="#A1A1AA"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ivTargetGps"
+                    app:layout_constraintStart_toEndOf="@id/ivSearchLens"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivTargetGps"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:clickable="true"
+                    android:contentDescription="Current Location"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:background="@drawable/bg_glass_circle"
+                    android:src="@drawable/ic_ms_my_location"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FAFAFA" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 4: Right-side Label-Free Floating Map Control Stack -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/panelMapControls"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="Saved Places"
-            android:textColor="#A1A1AA"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:layout_marginEnd="16dp"
+            android:elevation="14dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchCard">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSavedLocations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_saved_location" />
-
-    </LinearLayout>
-
-    <!-- Flagship Extended FAB: Book Assistant -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardBookAssistant"
-        android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:contentDescription="Book Assistant"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="10dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
-
+            <!-- Control 1: My Location (48dp circle) -->
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="Book Assistant"
-                android:src="@drawable/ic_benefit_pickup"
-                app:tint="#09090B" />
+                android:id="@+id/btnMyLocation"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_map_control_button"
+                android:clickable="true"
+                android:contentDescription="Center Location"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_ms_my_location"
+                app:tint="#FAFAFA" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:letterSpacing="0.01"
-                android:text="Book Assistant"
-                android:textColor="#09090B"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+            <!-- Control 2: Compass (48dp circle) -->
+            <ImageView
+                android:id="@+id/btnCompass"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_map_control_button"
+                android:clickable="true"
+                android:contentDescription="Compass"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_ms_explore"
+                app:tint="#FAFAFA" />
+
+            <!-- Control 3: Map Layers (48dp circle) -->
+            <ImageView
+                android:id="@+id/btnMapStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_map_control_button"
+                android:clickable="true"
+                android:contentDescription="Map Style"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_ms_layers"
+                app:tint="#FAFAFA" />
+
+            <!-- Control 4: Safety Shield (48dp circle) -->
+            <ImageView
+                android:id="@+id/btnTraffic"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_map_control_button"
+                android:clickable="true"
+                android:contentDescription="Safety Layers"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_ms_shield"
+                app:tint="#A1A1AA" />
 
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 5: Horizontal Saved Locations Quick Action Chips     -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSavedLocations"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="88dp"
+            android:clipToPadding="false"
+            android:elevation="14dp"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cardBookAssistant"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/item_saved_location" />
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 6: Compact Floating Current Location Status Pill (44dp) -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/pillCurrentLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="140dp"
+            android:background="@drawable/bg_location_card"
+            android:elevation="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <!-- Live Green Pulse Dot -->
+            <View
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_pulse_dot" />
+
+            <TextView
+                android:id="@+id/tvCurrentLocationArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Detecting location…"
+                android:textColor="#FAFAFA"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <!-- Hidden accuracy label for code binding compatibility -->
+            <TextView
+                android:id="@+id/tvLocationAccuracy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <!-- Chevron Right -->
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="6dp"
+                android:contentDescription="Location Details"
+                android:src="@drawable/ic_ms_chevron_right"
+                app:tint="#71717A" />
+
+        </LinearLayout>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 7: Primary CTA — Book Assistant (220dp x 64dp Pill)  -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBookAssistant"
+            android:layout_width="220dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="88dp"
+            android:clickable="true"
+            android:contentDescription="Book Assistant"
+            android:focusable="true"
+            app:cardBackgroundColor="#FAFAFA"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="Book Assistant"
+                    android:src="@drawable/ic_ms_near_me"
+                    app:tint="#09090B" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.01"
+                    android:text="Book Assistant"
+                    android:textColor="#09090B"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

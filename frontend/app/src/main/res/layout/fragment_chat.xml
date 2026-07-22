@@ -5,23 +5,6 @@
     android:layout_height="match_parent"
     android:background="#09090B">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#18181B"
-        app:elevation="4dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="Assistant Chat"
-            app:titleTextColor="#FAFAFA"
-            app:navigationIcon="@drawable/ic_arrow_left"
-            app:navigationIconTint="#FAFAFA" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

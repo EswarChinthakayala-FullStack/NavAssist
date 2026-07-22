@@ -37,4 +37,49 @@
         <item name="boxCornerRadiusBottomEnd">@dimen/radius_sm</item>
         <item name="boxStrokeColor">@color/primary_accent</item>
     </style>
+
+    <!-- Bottom Navigation Premium Active Indicator Pill (White) -->
+    <style name="NavActiveIndicatorPremium" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#FAFAFA</item>
+        <item name="android:width">56dp</item>
+        <item name="android:height">32dp</item>
+    </style>
+
+    <!-- Legacy Active Indicator (kept for compatibility) -->
+    <style name="NavActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#FAFAFA</item>
+        <item name="android:width">56dp</item>
+        <item name="android:height">32dp</item>
+    </style>
+
+    <!-- Bottom Navigation Premium Item Text Styles -->
+    <style name="NavActiveTextPremium" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FAFAFA</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="NavInactiveTextPremium" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#71717A</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Legacy Text Styles (kept for compatibility) -->
+    <style name="NavActiveText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FAFAFA</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="NavInactiveText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#71717A</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+
 </resources>

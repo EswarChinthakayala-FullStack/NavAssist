@@ -34,7 +34,7 @@ class TransactionAdapter : ListAdapter<WalletTransaction, TransactionAdapter.Tra
             binding.tvDescription.text = item.description
             binding.tvTimestamp.text = item.timestamp
             val prefix = if (item.type == TransactionType.CREDIT) "+" else "-"
-            binding.tvAmount.text = "$prefix$${String.format("%.2f", item.amount)}"
+            binding.tvAmount.text = "$prefix₹${String.format("%.2f", item.amount)}"
             val color = if (item.type == TransactionType.CREDIT) R.color.accent_emerald_dark else R.color.sos_red
             binding.tvAmount.setTextColor(ContextCompat.getColor(binding.root.context, color))
         }

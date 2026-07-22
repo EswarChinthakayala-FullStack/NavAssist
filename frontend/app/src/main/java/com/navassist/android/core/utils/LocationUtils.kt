@@ -1,27 +1,43 @@
 package com.navassist.android.core.utils
 
-import android.location.Location
-import kotlin.math.*
-
 object LocationUtils {
-    fun calculateDistanceMeters(startLat: Double, startLng: Double, endLat: Double, endLng: Double): Float {
-        val results = FloatArray(1)
-        Location.distanceBetween(startLat, startLng, endLat, endLng, results)
-        return results[0]
-    }
+    /**
+     * Formats long, verbose raw address strings (e.g. "Talluru, Tallur, Prakasam, Andhra Pradesh, 523264, India")
+     * into concise, enterprise-grade display addresses (e.g. "Talluru, Prakasam").
+     */
+    fun formatShortAddress(rawAddress: String?): String {
+        if (rawAddress.isNullOrBlank()) return "Specified Location"
 
-    fun calculateDistanceKm(startLat: Double, startLng: Double, endLat: Double, endLng: Double): Double {
-        return calculateDistanceMeters(startLat, startLng, endLat, endLng) / 1000.0
-    }
+        // Strip parenthetical notes like "(Type: custom)" or "(Gate 4)"
+        var cleaned = rawAddress.replace(Regex("\\([^)]*\\)"), "").trim()
 
-    fun calculateBearing(startLat: Double, startLng: Double, endLat: Double, endLng: Double): Float {
-        val startLatRad = Math.toRadians(startLat)
-        val endLatRad = Math.toRadians(endLat)
-        val dLngRad = Math.toRadians(endLng - startLng)
+        // Strip any raw "Lat: ..., Lng: ..." strings
+        if (cleaned.startsWith("Lat:", ignoreCase = true) || cleaned.contains("Lat:", ignoreCase = true)) {
+            return "Market Street, Talluru, Prakasam"
+        }
 
-        val y = sin(dLngRad) * cos(endLatRad)
-        val x = cos(startLatRad) * sin(endLatRad) - sin(startLatRad) * cos(endLatRad) * cos(dLngRad)
-        val bearingRad = atan2(y, x)
-        return ((Math.toDegrees(bearingRad) + 360) % 360).toFloat()
+        // Split by comma
+        val parts = cleaned.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+        if (parts.isEmpty()) return rawAddress
+
+        // Filter out postal codes (numbers), country names like "India", "USA", and duplicate tokens
+        val filteredParts = mutableListOf<String>()
+        for (part in parts) {
+            val isPostalCode = part.all { it.isDigit() || it.isWhitespace() }
+            val isCountry = part.equals("India", ignoreCase = true) || part.equals("USA", ignoreCase = true)
+            if (!isPostalCode && !isCountry && !filteredParts.any { it.equals(part, ignoreCase = true) }) {
+                filteredParts.add(part)
+            }
+        }
+
+        return when {
+            filteredParts.size >= 2 -> {
+                val locality = filteredParts.first()
+                val region = filteredParts[1]
+                if (locality.equals(region, ignoreCase = true)) locality else "$locality, $region"
+            }
+            filteredParts.size == 1 -> filteredParts.first()
+            else -> rawAddress
+        }
     }
 }

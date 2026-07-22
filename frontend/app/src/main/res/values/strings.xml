@@ -118,10 +118,23 @@
     <string name="pickup_location">Pickup Location</string>
     <string name="destination_location">Destination Location</string>
     <string name="emergency_sos">Emergency SOS</string>
-    <string name="home_search_hint">Where to?</string>
+    <string name="home_search_hint">Where would you like to go?</string>
     <string name="home_nearby_assistants">Nearby Assistants</string>
     <string name="home_saved_places">Saved Places</string>
     <string name="home_recent_trips">Recent Trips</string>
+
+    <!-- Home Dashboard Premium Strings -->
+    <string name="greeting_morning">Good Morning, %s 👋</string>
+    <string name="greeting_afternoon">Good Afternoon, %s 👋</string>
+    <string name="greeting_evening">Good Evening, %s 👋</string>
+    <string name="verified_guest">Verified Guest</string>
+    <string name="verified_assistant">Verified Assistant</string>
+    <string name="guest_user">Guest</string>
+    <string name="detecting_location">Detecting location…</string>
+    <string name="search_hint">Where would you like to go?</string>
+    <string name="book_assistant">Book Assistant</string>
+    <string name="gps_accuracy">GPS Accuracy: %s</string>
+    <string name="location_accuracy_high">±%dm</string>
 
     <!-- Booking Flow Aliases -->
     <string name="no_active_bookings">No active bookings right now.</string>

@@ -55,4 +55,23 @@
     <dimen name="text_body">14sp</dimen>
     <dimen name="text_caption">12sp</dimen>
     <dimen name="text_micro">10sp</dimen>
+
+    <!-- Home Dashboard Premium Dimensions -->
+    <dimen name="home_header_height">88dp</dimen>
+    <dimen name="home_header_radius">28dp</dimen>
+    <dimen name="home_header_padding">20dp</dimen>
+    <dimen name="home_avatar_size">48dp</dimen>
+    <dimen name="home_search_height">60dp</dimen>
+    <dimen name="home_search_radius">30dp</dimen>
+    <dimen name="home_map_control_size">56dp</dimen>
+    <dimen name="home_map_control_spacing">16dp</dimen>
+    <dimen name="home_fab_height">60dp</dimen>
+    <dimen name="home_fab_radius">30dp</dimen>
+    <dimen name="home_bottom_nav_height">76dp</dimen>
+    <dimen name="home_bottom_nav_radius">32dp</dimen>
+    <dimen name="home_location_card_height">60dp</dimen>
+    <dimen name="home_sos_size">48dp</dimen>
+    <dimen name="home_icon_touch_target">40dp</dimen>
+    <dimen name="home_icon_size">24dp</dimen>
+    <dimen name="home_horizontal_margin">20dp</dimen>
 </resources>

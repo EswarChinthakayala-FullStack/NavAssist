@@ -1,66 +1,328 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/NavAssistCard"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardBooking"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp">
+    android:layout_marginVertical="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="#161616"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="6dp"
+    app:strokeColor="#27272A"
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="20dp">
 
-        <TextView
-            android:id="@+id/tvBookingId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.navassist.android.presentation.widgets.status.StatusBadgeView
-            android:id="@+id/statusBadge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvPickup"
+        <!-- Header: Booking ID & Status Chip -->
+        <LinearLayout
+            android:id="@+id/layoutCardHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:textColor="@color/text_primary"
-            android:textSize="15sp"
-            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvBookingId" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvDestination"
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:contentDescription="Booking ID"
+                android:src="@drawable/ic_ms_confirmation_number"
+                app:tint="#A1A1AA" />
+
+            <TextView
+                android:id="@+id/tvBookingId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Booking #BK-145"
+                android:textColor="#A1A1AA"
+                android:textSize="13sp" />
+
+            <!-- Material 3 Status Chip (32dp height, 999dp radius) -->
+            <LinearLayout
+                android:id="@+id/chipStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_status_chip_completed"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
+
+                <ImageView
+                    android:id="@+id/ivStatusIcon"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginEnd="6dp"
+                    android:contentDescription="Status"
+                    android:src="@drawable/ic_ms_check_circle"
+                    app:tint="#22C55E" />
+
+                <TextView
+                    android:id="@+id/tvStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="COMPLETED"
+                    android:textColor="#22C55E"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/dividerTop"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="#1F27272A"
+            app:layout_constraintTop_toBottomOf="@id/layoutCardHeader" />
+
+        <!-- Route Section: Pickup & Destination -->
+        <LinearLayout
+            android:id="@+id/layoutRoute"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
+            android:layout_marginTop="14dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPickup" />
+            app:layout_constraintTop_toBottomOf="@id/dividerTop">
 
-        <TextView
-            android:id="@+id/tvFare"
-            android:layout_width="wrap_content"
+            <!-- Pickup Point -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="Pickup"
+                    android:src="@drawable/ic_ms_location_on"
+                    app:tint="#22C55E" />
+
+                <TextView
+                    android:id="@+id/tvPickup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:maxLines="2"
+                    android:text="Talluru, Andhra Pradesh"
+                    android:textColor="#FAFAFA"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Connecting Route Dotted Line -->
+            <View
+                android:layout_width="2dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="#3F3F46" />
+
+            <!-- Destination Point -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="Destination"
+                    android:src="@drawable/ic_ms_location_on"
+                    app:tint="#EF4444" />
+
+                <TextView
+                    android:id="@+id/tvDestination"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:maxLines="2"
+                    android:text="Guntur, Andhra Pradesh"
+                    android:textColor="#D4D4D8"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Meta Section: Date, Time & Assistant -->
+        <LinearLayout
+            android:id="@+id/layoutMeta"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:textColor="@color/accent_emerald_dark"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:layout_marginTop="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDestination" />
+            app:layout_constraintTop_toBottomOf="@id/layoutRoute">
+
+            <!-- Date -->
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="Date"
+                android:src="@drawable/ic_ms_calendar_today"
+                app:tint="#71717A" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif"
+                android:text="Today"
+                android:textColor="#A1A1AA"
+                android:textSize="13sp" />
+
+            <!-- Time / Duration -->
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="Time"
+                android:src="@drawable/ic_ms_schedule"
+                app:tint="#71717A" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif"
+                android:text="11:40 AM"
+                android:textColor="#A1A1AA"
+                android:textSize="13sp" />
+
+            <!-- Assistant Name -->
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="4dp"
+                android:contentDescription="Assistant"
+                android:src="@drawable/ic_ms_person"
+                app:tint="#71717A" />
+
+            <TextView
+                android:id="@+id/tvAssistant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="1"
+                android:text="Ravi Kumar"
+                android:textColor="#A1A1AA"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/dividerBottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="#1F27272A"
+            app:layout_constraintTop_toBottomOf="@id/layoutMeta" />
+
+        <!-- Footer Row: Total Fare (₹) & Action CTA -->
+        <LinearLayout
+            android:id="@+id/layoutFooter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerBottom">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="TOTAL FARE"
+                    android:textColor="#71717A"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.05" />
+
+                <TextView
+                    android:id="@+id/tvFare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="₹1,498"
+                    android:textColor="#FAFAFA"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- View Details Button -->
+            <LinearLayout
+                android:id="@+id/btnViewDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:background="@drawable/bg_glass_pill"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="View Details"
+                    android:textColor="#FAFAFA"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="6dp"
+                    android:contentDescription="Next"
+                    android:src="@drawable/ic_ms_chevron_right"
+                    app:tint="#FAFAFA" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

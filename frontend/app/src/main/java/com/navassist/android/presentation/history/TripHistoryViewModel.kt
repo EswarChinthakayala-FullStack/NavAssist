@@ -18,9 +18,9 @@ class TripHistoryViewModel @Inject constructor() : ViewModel() {
     val historyState: StateFlow<UiState<List<TripHistoryItem>>> = _historyState.asStateFlow()
 
     private val tripsList = listOf(
-        TripHistoryItem("1", "Booking #BK_10293", "Central Station, Entrance #1", "Terminal 2 Entrance", "Vikram Sharma", "18.5 km", "$48.50", "July 20, 2026", "COMPLETED"),
-        TripHistoryItem("2", "Booking #BK_10188", "Airport Express Plaza", "Hilton Grand Hotel", "Ananya Roy", "12.2 km", "$32.00", "July 18, 2026", "COMPLETED"),
-        TripHistoryItem("3", "Booking #BK_10045", "City Mall Gate 4", "Tech Park Tower B", "Rahul Verma", "8.0 km", "$22.40", "July 12, 2026", "COMPLETED")
+        TripHistoryItem("1", "Booking #BK_10293", "Central Station, Entrance #1", "Terminal 2 Entrance", "Vikram Sharma", "18.5 km", "₹48.50", "July 20, 2026", "COMPLETED"),
+        TripHistoryItem("2", "Booking #BK_10188", "Airport Express Plaza", "Hilton Grand Hotel", "Ananya Roy", "12.2 km", "₹32.00", "July 18, 2026", "COMPLETED"),
+        TripHistoryItem("3", "Booking #BK_10045", "City Mall Gate 4", "Tech Park Tower B", "Rahul Verma", "8.0 km", "₹22.40", "July 12, 2026", "COMPLETED")
     )
 
     fun loadTripHistory() {

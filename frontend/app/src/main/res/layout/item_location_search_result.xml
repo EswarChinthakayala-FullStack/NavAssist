@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
@@ -13,41 +15,62 @@
     android:paddingBottom="12dp">
 
     <FrameLayout
+        android:id="@+id/layoutSearchIcon"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@drawable/bg_icon_circle">
+        android:background="@drawable/bg_glass_circle">
 
         <ImageView
+            android:id="@+id/ivLocationTypeIcon"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center"
             android:contentDescription="Location Result"
-            android:src="@drawable/ic_benefit_nearby" />
+            android:src="@drawable/ic_ms_location_on"
+            app:tint="#FAFAFA" />
 
     </FrameLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvLocationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
             android:textColor="#FAFAFA"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="Kempegowda International Airport" />
 
         <TextView
             android:id="@+id/tvLocationSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
             android:textColor="#A1A1AA"
-            android:textSize="13sp" />
+            android:textSize="12sp"
+            tools:text="Devanahalli, Bengaluru, Karnataka" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivChevron"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:contentDescription="Select"
+        android:src="@drawable/ic_ms_chevron_right"
+        app:tint="#71717A" />
 
 </LinearLayout>

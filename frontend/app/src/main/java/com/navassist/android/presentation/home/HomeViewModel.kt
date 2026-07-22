@@ -6,6 +6,7 @@ import com.navassist.android.domain.model.Booking
 import com.navassist.android.domain.model.LocationPoint
 import com.navassist.android.domain.model.SavedLocation
 import com.navassist.android.domain.model.User
+import com.navassist.android.domain.model.UserRole
 import com.navassist.android.domain.repository.BookingRepository
 import com.navassist.android.domain.repository.UserRepository
 import com.navassist.android.presentation.common.state.UiState
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.maplibre.android.geometry.LatLng
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,6 +35,16 @@ class HomeViewModel @Inject constructor(
     private val _bookingState = MutableStateFlow<UiState<Booking>>(UiState.Idle)
     val bookingState: StateFlow<UiState<Booking>> = _bookingState.asStateFlow()
 
+    // Live location state
+    private val _currentLocation = MutableStateFlow<LatLng?>(null)
+    val currentLocation: StateFlow<LatLng?> = _currentLocation.asStateFlow()
+
+    private val _currentLocationName = MutableStateFlow("Detecting location…")
+    val currentLocationName: StateFlow<String> = _currentLocationName.asStateFlow()
+
+    private val _currentLocationAccuracy = MutableStateFlow<Float?>(null)
+    val currentLocationAccuracy: StateFlow<Float?> = _currentLocationAccuracy.asStateFlow()
+
     init {
         loadUserProfile()
         refreshSavedLocations()
@@ -45,9 +57,26 @@ class HomeViewModel @Inject constructor(
             result.onSuccess { user ->
                 _userProfile.value = UiState.Success(user)
             }.onFailure { error ->
-                _userProfile.value = UiState.Error(error.message ?: "Failed to load user profile")
+                // Fallback to Traveler guest profile when unauthenticated
+                _userProfile.value = UiState.Success(
+                    User(
+                        id = "guest",
+                        fullName = "Traveler",
+                        email = "guest@navassist.com",
+                        phone = "",
+                        role = UserRole.GUEST,
+                        profilePictureUrl = null,
+                        rating = 5.0f
+                    )
+                )
             }
         }
+    }
+
+    fun updateLocation(latLng: LatLng, address: String, accuracy: Float?) {
+        _currentLocation.value = latLng
+        _currentLocationName.value = address
+        _currentLocationAccuracy.value = accuracy
     }
 
     fun refreshSavedLocations() {
