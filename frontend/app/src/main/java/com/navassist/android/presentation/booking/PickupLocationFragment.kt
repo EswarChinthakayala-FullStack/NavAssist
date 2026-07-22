@@ -59,6 +59,7 @@ class PickupLocationFragment : Fragment(), OnMapReadyCallback {
     private var isDarkThemeMap = true
     private var hasInitialLocationFix = false
     private var hasPlayedEntranceAnimation = false
+    private var isPinEditingEnabled = false
 
     private val locationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -176,10 +177,16 @@ class PickupLocationFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
-        // Edit location button
+        // Edit location / Move Pin button
         binding.btnEditLocation.setOnClickListener { view ->
             animatePress(view) {
-                binding.searchLocationView.searchEditText.requestFocus()
+                isPinEditingEnabled = !isPinEditingEnabled
+                if (isPinEditingEnabled) {
+                    Toast.makeText(requireContext(), "Pin Unlocked — Drag map to adjust pickup location", Toast.LENGTH_SHORT).show()
+                    binding.tvPickupSubtitle.text = "Drag map to reposition pin"
+                } else {
+                    Toast.makeText(requireContext(), "Pin Locked at selected location", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -188,6 +195,7 @@ class PickupLocationFragment : Fragment(), OnMapReadyCallback {
             val currentPickup = pickupViewModel.selectedPickup.value
             if (currentPickup != null) {
                 animatePress(view) {
+                    isPinEditingEnabled = false
                     bookingViewModel.setPickup(
                         currentPickup.latitude,
                         currentPickup.longitude,
@@ -433,7 +441,11 @@ class PickupLocationFragment : Fragment(), OnMapReadyCallback {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPos, 15.0))
         pickupViewModel.reverseGeocodeLocation(initialPos.latitude, initialPos.longitude)
 
+        // Auto-fetch GPS position on open
+        checkPermissionAndFetchLocation()
+
         map.addOnCameraIdleListener {
+            if (!isPinEditingEnabled) return@addOnCameraIdleListener
             val target = map.cameraPosition.target
             target?.let {
                 animateMarkerDrop()

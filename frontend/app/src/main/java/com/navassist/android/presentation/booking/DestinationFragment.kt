@@ -49,6 +49,7 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
     private var isDarkThemeMap = true
     private var hasPlayedEntranceAnimation = false
     private var isProgrammaticSelection = false
+    private var isPinEditingEnabled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -167,6 +168,7 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
             }
 
             animatePress(view) {
+                isPinEditingEnabled = false
                 bookingViewModel.setDestination(
                     dest.latitude,
                     dest.longitude,
@@ -217,8 +219,8 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
                 launch {
                     destinationViewModel.selectedDestination.collect { dest ->
                         val pickup = bookingViewModel.pickupLocation.value
-                        val pickupAddress = pickup?.address ?: "Pickup Location"
-                        val destAddress = dest?.address ?: "Market Street, Talluru, Prakasam"
+                        val pickupAddress = pickup?.address ?: "Talluru Bus Stand, Talluru, Prakasam"
+                        val destAddress = dest?.address ?: "Darsi Center, Darsi, Prakasam"
                         val dist = destinationViewModel.calculatedDistance.value
                         val eta = destinationViewModel.calculatedEtaMins.value
 
@@ -336,16 +338,16 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
                 val altPolyline = PolylineOptions()
                     .addAll(altPoints)
                     .color(Color.parseColor("#71717A"))
-                    .width(5f)
+                    .width(7f)
                 map.addPolyline(altPolyline)
             }
 
-            // 4. Draw Primary Route Polyline (Vibrant Navigation Blue)
+            // 4. Draw Primary Route Polyline (12dp width Navigation Blue)
             if (primaryPoints.isNotEmpty()) {
                 val primaryPolyline = PolylineOptions()
                     .addAll(primaryPoints)
                     .color(Color.parseColor("#3B82F6"))
-                    .width(7f)
+                    .width(12f)
                 map.addPolyline(primaryPolyline)
             }
         }
@@ -403,11 +405,11 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
         applyMapStyle(isDarkThemeMap)
 
         val pickup = bookingViewModel.pickupLocation.value
-        val initialPos = if (pickup != null) LatLng(pickup.latitude, pickup.longitude) else LatLng(12.9716, 77.5946)
+        val initialPos = if (pickup != null) LatLng(pickup.latitude, pickup.longitude) else LatLng(15.7337, 79.8800)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPos, 14.0))
 
         map.addOnCameraIdleListener {
-            if (isProgrammaticSelection) {
+            if (isProgrammaticSelection || !isPinEditingEnabled) {
                 isProgrammaticSelection = false
                 return@addOnCameraIdleListener
             }

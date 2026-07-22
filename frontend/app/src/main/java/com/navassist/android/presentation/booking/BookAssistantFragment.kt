@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialSharedAxis
 import com.navassist.android.R
@@ -38,11 +39,17 @@ class BookAssistantFragment : BaseFragment<FragmentBookAssistantBinding>(Fragmen
         // Start Initialization Micro-Animations
         startPulseAnimation()
 
-        // Navigate automatically after 300ms initialization
+        // Navigate automatically after 200ms initialization and pop self off back stack
         viewLifecycleOwner.lifecycleScope.launch {
-            delay(300)
+            delay(200)
             if (isAdded) {
-                findNavController().navigate(R.id.pickupLocationFragment)
+                findNavController().navigate(
+                    R.id.pickupLocationFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.bookAssistantFragment, true)
+                        .build()
+                )
             }
         }
     }

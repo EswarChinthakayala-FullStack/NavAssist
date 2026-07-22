@@ -73,11 +73,11 @@ class DestinationViewModel @Inject constructor(
 
     fun loadDefaultSuggestions() {
         val defaultSuggestions = listOf(
+            LocationPoint(15.7337, 79.8800, "Tallur, Talluru, Prakasam, Andhra Pradesh, 523264", "Talluru Bus Stand"),
+            LocationPoint(15.7766, 79.6738, "Darsi, Prakasam, Andhra Pradesh, 523247", "Darsi Center"),
             LocationPoint(12.9716, 77.5946, "Devanahalli, Bengaluru, Karnataka", "Kempegowda International Airport"),
             LocationPoint(17.3850, 78.4867, "Bengaluru, Karnataka", "MG Road"),
-            LocationPoint(12.9279, 77.6271, "Indiranagar, Bengaluru, Karnataka", "Indiranagar 100 Feet Road"),
-            LocationPoint(12.9352, 77.6245, "Koramangala, Bengaluru, Karnataka", "Koramangala 4th Block"),
-            LocationPoint(12.9784, 77.5701, "Sampangi Rama Nagar, Bengaluru, Karnataka", "Bengaluru City Railway Station")
+            LocationPoint(12.9279, 77.6271, "Indiranagar, Bengaluru, Karnataka", "Indiranagar 100 Feet Road")
         )
         _searchResults.value = UiState.Success(defaultSuggestions)
     }
@@ -114,7 +114,7 @@ class DestinationViewModel @Inject constructor(
             _calculatedDistance.value = haversineDist
             _calculatedEtaMins.value = Math.max(5, (haversineDist * 2.5).toInt())
 
-            // Fetch OSRM Driving Route
+            // Fetch OSRM Driving Route with full road overview
             fetchOsrmRoute(pickup, destination)
         }
     }
@@ -136,12 +136,12 @@ class DestinationViewModel @Inject constructor(
             try {
                 val osrmUrl = "https://router.project-osrm.org/route/v1/driving/" +
                         "${pickup.longitude},${pickup.latitude};${dest.longitude},${dest.latitude}" +
-                        "?overview=full&geometries=geojson&alternatives=true"
+                        "?overview=full&steps=true&geometries=geojson&alternatives=true"
 
                 val connection = (URL(osrmUrl).openConnection() as HttpURLConnection).apply {
                     requestMethod = "GET"
-                    connectTimeout = 4000
-                    readTimeout = 4000
+                    connectTimeout = 5000
+                    readTimeout = 5000
                 }
 
                 if (connection.responseCode == 200) {
@@ -186,7 +186,7 @@ class DestinationViewModel @Inject constructor(
                 // Fallback route interpolation on network failure
             }
 
-            // Fallback interpolation between pickup and destination
+            // Fallback interpolation between pickup and destination with 40 curve waypoints
             val interpolatedPoints = generateInterpolatedRoute(pickup, dest)
             withContext(Dispatchers.Main) {
                 _primaryRoutePoints.value = interpolatedPoints
@@ -197,14 +197,14 @@ class DestinationViewModel @Inject constructor(
 
     private fun generateInterpolatedRoute(pickup: LocationPoint, dest: LocationPoint): List<LatLng> {
         val points = mutableListOf<LatLng>()
-        val count = 25
+        val count = 40
         val latSpan = dest.latitude - pickup.latitude
         val lngSpan = dest.longitude - pickup.longitude
 
         for (i in 0..count) {
             val fraction = i.toDouble() / count
-            // Slight curve offset
-            val curveOffset = sin(fraction * Math.PI) * 0.005
+            // Curve following natural road arc
+            val curveOffset = sin(fraction * Math.PI) * 0.008
             val lat = pickup.latitude + (latSpan * fraction) + curveOffset
             val lng = pickup.longitude + (lngSpan * fraction)
             points.add(LatLng(lat, lng))
