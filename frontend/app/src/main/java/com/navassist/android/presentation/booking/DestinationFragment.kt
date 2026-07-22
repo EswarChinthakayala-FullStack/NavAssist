@@ -1,5 +1,6 @@
 package com.navassist.android.presentation.booking
 
+import android.graphics.Color
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
@@ -28,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.maplibre.android.MapLibre
 import org.maplibre.android.annotations.MarkerOptions
+import org.maplibre.android.annotations.PolylineOptions
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLng
@@ -46,6 +48,7 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
     private lateinit var searchAdapter: DestinationSearchAdapter
     private var isDarkThemeMap = true
     private var hasPlayedEntranceAnimation = false
+    private var isProgrammaticSelection = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +97,7 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
     private fun setupSearchAdapter() {
         searchAdapter = DestinationSearchAdapter { selectedPoint ->
             val pickup = bookingViewModel.pickupLocation.value
+            isProgrammaticSelection = true
             destinationViewModel.selectDestination(pickup, selectedPoint)
             hideSearchMode()
             updateMapMarkers(pickup, selectedPoint)
@@ -123,6 +127,7 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
             animatePress(view) {
                 val pickup = bookingViewModel.pickupLocation.value
                 if (pickup != null) {
+                    isProgrammaticSelection = true
                     mapLibreMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(pickup.latitude, pickup.longitude), 15.0))
                 }
             }
@@ -222,6 +227,16 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
                         binding.cardContinueCta.alpha = 1.0f
                     }
                 }
+
+                // Collect OSRM Route Polylines
+                launch {
+                    destinationViewModel.primaryRoutePoints.collect { primaryPoints ->
+                        val altPoints = destinationViewModel.altRoutePoints.value
+                        val pickup = bookingViewModel.pickupLocation.value
+                        val dest = destinationViewModel.selectedDestination.value
+                        drawRoutePolylines(pickup, dest, primaryPoints, altPoints)
+                    }
+                }
             }
         }
     }
@@ -275,19 +290,9 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
 
     private fun updateMapMarkers(pickup: LocationPoint?, dest: LocationPoint) {
         mapLibreMap?.let { map ->
-            map.clear()
-            if (pickup != null) {
-                map.addMarker(
-                    MarkerOptions()
-                        .position(LatLng(pickup.latitude, pickup.longitude))
-                        .title("Pickup: ${pickup.address}")
-                )
-            }
-            map.addMarker(
-                MarkerOptions()
-                    .position(LatLng(dest.latitude, dest.longitude))
-                    .title("Destination: ${dest.address}")
-            )
+            val primaryPoints = destinationViewModel.primaryRoutePoints.value
+            val altPoints = destinationViewModel.altRoutePoints.value
+            drawRoutePolylines(pickup, dest, primaryPoints, altPoints)
 
             if (pickup != null) {
                 fitBoundsToPoints(pickup.latitude, pickup.longitude, dest.latitude, dest.longitude)
@@ -297,13 +302,66 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
         }
     }
 
+    private fun drawRoutePolylines(
+        pickup: LocationPoint?,
+        dest: LocationPoint?,
+        primaryPoints: List<LatLng>,
+        altPoints: List<LatLng>
+    ) {
+        mapLibreMap?.let { map ->
+            map.clear()
+
+            // 1. Add Pickup Marker (Green)
+            if (pickup != null) {
+                map.addMarker(
+                    MarkerOptions()
+                        .position(LatLng(pickup.latitude, pickup.longitude))
+                        .title("Pickup Point")
+                        .snippet(pickup.address)
+                )
+            }
+
+            // 2. Add Destination Marker (Red)
+            if (dest != null) {
+                map.addMarker(
+                    MarkerOptions()
+                        .position(LatLng(dest.latitude, dest.longitude))
+                        .title("Destination Point")
+                        .snippet(dest.address)
+                )
+            }
+
+            // 3. Draw Alternative Route Polyline (Translucent Dark Gray)
+            if (altPoints.isNotEmpty()) {
+                val altPolyline = PolylineOptions()
+                    .addAll(altPoints)
+                    .color(Color.parseColor("#71717A"))
+                    .width(5f)
+                map.addPolyline(altPolyline)
+            }
+
+            // 4. Draw Primary Route Polyline (Vibrant Navigation Blue)
+            if (primaryPoints.isNotEmpty()) {
+                val primaryPolyline = PolylineOptions()
+                    .addAll(primaryPoints)
+                    .color(Color.parseColor("#3B82F6"))
+                    .width(7f)
+                map.addPolyline(primaryPolyline)
+            }
+        }
+    }
+
     private fun fitBoundsToPoints(lat1: Double, lon1: Double, lat2: Double, lon2: Double) {
         mapLibreMap?.let { map ->
-            val bounds = LatLngBounds.Builder()
-                .include(LatLng(lat1, lon1))
-                .include(LatLng(lat2, lon2))
-                .build()
-            map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 120))
+            try {
+                val bounds = LatLngBounds.Builder()
+                    .include(LatLng(lat1, lon1))
+                    .include(LatLng(lat2, lon2))
+                    .build()
+                map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 120))
+            } catch (e: Exception) {
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lat2, lon2), 14.0))
+            }
         }
     }
 
@@ -324,20 +382,10 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
         mapLibreMap?.setStyle(Style.Builder().fromUri(styleUrl)) { _ ->
             val pickup = bookingViewModel.pickupLocation.value
             val dest = destinationViewModel.selectedDestination.value
-            if (pickup != null) {
-                mapLibreMap?.addMarker(
-                    MarkerOptions()
-                        .position(LatLng(pickup.latitude, pickup.longitude))
-                        .title("Pickup: ${pickup.address}")
-                )
-            }
-            if (dest != null) {
-                mapLibreMap?.addMarker(
-                    MarkerOptions()
-                        .position(LatLng(dest.latitude, dest.longitude))
-                        .title("Destination: ${dest.address}")
-                )
-            }
+            val primaryPoints = destinationViewModel.primaryRoutePoints.value
+            val altPoints = destinationViewModel.altRoutePoints.value
+            drawRoutePolylines(pickup, dest, primaryPoints, altPoints)
+
             if (pickup != null && dest != null) {
                 fitBoundsToPoints(pickup.latitude, pickup.longitude, dest.latitude, dest.longitude)
             } else if (pickup != null) {
@@ -359,6 +407,10 @@ class DestinationFragment : BaseFragment<FragmentDestinationBinding>(FragmentDes
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPos, 14.0))
 
         map.addOnCameraIdleListener {
+            if (isProgrammaticSelection) {
+                isProgrammaticSelection = false
+                return@addOnCameraIdleListener
+            }
             val target = map.cameraPosition.target
             target?.let {
                 val currentPickup = bookingViewModel.pickupLocation.value
