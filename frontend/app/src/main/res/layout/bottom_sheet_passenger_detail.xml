@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#18181B"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Passenger Profile"
+        android:textColor="#FAFAFA"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:text="Priya S. • 4.9 ★ Rating (18 Completed Trips)"
+        android:textColor="#A1A1AA"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pickup Note: Please meet near Departure Gate 2 near Costa Coffee."
+        android:textColor="#FAFAFA"
+        android:textSize="14sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnClosePassengerDetail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#FAFAFA"
+        android:text="Close"
+        android:textColor="#09090B"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:cornerRadius="14dp" />
+
+</LinearLayout>

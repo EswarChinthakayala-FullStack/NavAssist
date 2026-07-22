@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboardingContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:fitsSystemWindows="true">
+
+    <!-- Ambient Lighting & Radial Glow Background -->
+    <View
+        android:id="@+id/vAmbientBackground"
+        android:layout_width="340dp"
+        android:layout_height="340dp"
+        android:alpha="0.5"
+        android:background="@drawable/bg_ambient_glow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Skip Button (Top-Right Action) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSkip"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="12dp"
+        android:translationZ="12dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/btn_skip"
+        android:text="@string/btn_skip"
+        android:textColor="@color/color_foreground_secondary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- ViewPager2 for 6 Onboarding Pages -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerOnboarding"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutCapsuleProgress"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Custom Animated Capsule Progress Indicator (6 Dots) -->
+    <LinearLayout
+        android:id="@+id/layoutCapsuleProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/cardCta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:id="@+id/dot0"
+            android:layout_width="24dp"
+            android:layout_height="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/bg_button_primary" />
+
+        <View
+            android:id="@+id/dot1"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginEnd="6dp"
+            android:alpha="0.3"
+            android:background="@drawable/bg_button_primary" />
+
+        <View
+            android:id="@+id/dot2"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginEnd="6dp"
+            android:alpha="0.3"
+            android:background="@drawable/bg_button_primary" />
+
+        <View
+            android:id="@+id/dot3"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginEnd="6dp"
+            android:alpha="0.3"
+            android:background="@drawable/bg_button_primary" />
+
+        <View
+            android:id="@+id/dot4"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginEnd="6dp"
+            android:alpha="0.3"
+            android:background="@drawable/bg_button_primary" />
+
+        <View
+            android:id="@+id/dot5"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:alpha="0.3"
+            android:background="@drawable/bg_button_primary" />
+
+    </LinearLayout>
+
+    <!-- Custom Evolving Primary Action Card Button -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCta"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="36dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/btn_get_started"
+        app:cardBackgroundColor="@color/color_primary"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="24dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/tvCta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.02"
+                android:text="@string/btn_get_started"
+                android:textColor="@color/color_on_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivArrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/btn_get_started"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

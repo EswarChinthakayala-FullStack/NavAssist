@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B">
+
+    <!-- Ambient Glow Top Backdrop -->
+    <View
+        android:id="@+id/vAmbientGlow"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:background="@drawable/bg_ambient_glow"
+        android:alpha="0.4" />
+
+    <!-- App Bar Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="NavAssist Partner"
+            app:titleTextColor="#FAFAFA" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Scrollable Dashboard -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="88dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp">
+
+            <!-- Greeting Header -->
+            <TextView
+                android:id="@+id/tvGreeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Good Morning, Guide 👋"
+                android:textColor="#FAFAFA"
+                android:textSize="24sp"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="16dp"
+                android:text="Ready to assist your next passenger today."
+                android:textColor="#A1A1AA"
+                android:textSize="14sp" />
+
+            <!-- Loading Shimmer Skeleton -->
+            <com.navassist.android.presentation.assistant.home.widgets.AssistantSkeletonView
+                android:id="@+id/skeletonView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <!-- Error Inline Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#26EF4444"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#EF4444"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="14dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tvErrorMessage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Unable to sync dashboard data."
+                        android:textColor="#EF4444"
+                        android:textSize="13sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRetry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Retry"
+                        android:textSize="12sp"
+                        app:backgroundTint="#EF4444"
+                        app:cornerRadius="10dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Content Layout -->
+            <LinearLayout
+                android:id="@+id/layoutContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Assistant Status Card (Avatar, Verified Badge, Online Switch) -->
+                <com.navassist.android.presentation.assistant.home.widgets.AssistantStatusCard
+                    android:id="@+id/statusCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Dashboard Statistics Grid -->
+                <com.navassist.android.presentation.assistant.home.widgets.AssistantStatsCard
+                    android:id="@+id/statsCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Today's Earnings Summary Card -->
+                <com.navassist.android.presentation.assistant.home.widgets.TodayEarningsCard
+                    android:id="@+id/earningsCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Quick Action Shortcuts -->
+                <com.navassist.android.presentation.assistant.home.widgets.QuickActionsCard
+                    android:id="@+id/quickActionsCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Profile Completion Status -->
+                <com.navassist.android.presentation.assistant.home.widgets.ProfileCompletionCard
+                    android:id="@+id/completionCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- Section: Live Booking Requests -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="INCOMING BOOKING REQUESTS"
+                        android:textColor="#FAFAFA"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05" />
+
+                    <TextView
+                        android:id="@+id/tvRequestBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="LIVE"
+                        android:textColor="#22C55E"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/bg_ambient_glow"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp" />
+
+                </LinearLayout>
+
+                <!-- Empty State (Shown when Offline or no bookings) -->
+                <com.navassist.android.presentation.assistant.home.widgets.EmptyStateView
+                    android:id="@+id/emptyStateView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone" />
+
+                <!-- RecyclerView for Incoming Requests -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvIncomingBookings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- Section: Recent Completed Trips -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="RECENT ASSISTED TRIPS"
+                    android:textColor="#FAFAFA"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="12dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRecentTrips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Emergency SOS Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:contentDescription="Emergency SOS"
+        app:backgroundTint="#DC2626"
+        app:tint="#FFFFFF"
+        app:srcCompat="@drawable/ic_sos" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

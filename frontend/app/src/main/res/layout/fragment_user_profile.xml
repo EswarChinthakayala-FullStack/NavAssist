@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B">
+
+    <!-- Ambient Glow Top Backdrop -->
+    <View
+        android:id="@+id/vAmbientGlow"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:background="@drawable/bg_ambient_glow"
+        android:alpha="0.4" />
+
+    <!-- App Bar Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="My Profile"
+            app:titleTextColor="#FAFAFA"
+            app:navigationIcon="@drawable/ic_arrow_left"
+            app:navigationIconTint="#FAFAFA" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Profile Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="88dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="8dp">
+
+            <!-- Skeleton Loading Shimmer -->
+            <com.navassist.android.presentation.profile.widgets.ProfileSkeletonView
+                android:id="@+id/skeletonView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <!-- Main Content Layout -->
+            <LinearLayout
+                android:id="@+id/layoutContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Header Card (Avatar, Name, Email, Role) -->
+                <com.navassist.android.presentation.profile.widgets.ProfileHeaderCard
+                    android:id="@+id/headerCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Personal Information Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#18181B"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#27272A"
+                    app:strokeWidth="1.5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="PERSONAL INFORMATION"
+                            android:textColor="#71717A"
+                            android:textSize="11sp"
+                            android:fontFamily="sans-serif-medium"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.05"
+                            android:layout_marginBottom="12dp" />
+
+                        <!-- Full Name -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Full Name *"
+                            android:textColor="#A1A1AA"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/etFullName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="#111113"
+                            android:hint="Enter full name"
+                            android:inputType="textPersonName"
+                            android:padding="10dp"
+                            android:textColor="#FAFAFA"
+                            android:textColorHint="#71717A"
+                            android:textSize="14sp" />
+
+                        <!-- Email -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email Address *"
+                            android:textColor="#A1A1AA"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/etEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="#111113"
+                            android:hint="Enter email"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"
+                            android:textColor="#FAFAFA"
+                            android:textColorHint="#71717A"
+                            android:textSize="14sp" />
+
+                        <!-- Phone Number (Read-only) -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mobile Phone (Verified)"
+                            android:textColor="#A1A1AA"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/etPhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:background="#111113"
+                            android:enabled="false"
+                            android:padding="10dp"
+                            android:textColor="#71717A"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Assistant Specific Section (Dynamically visible if Assistant) -->
+                <LinearLayout
+                    android:id="@+id/layoutAssistantSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <!-- Profile Completion Card -->
+                    <com.navassist.android.presentation.profile.widgets.ProfileCompletionCard
+                        android:id="@+id/profileCompletionCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Verification & KYC Status Card -->
+                    <com.navassist.android.presentation.profile.widgets.VerificationStatusCard
+                        android:id="@+id/verificationCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Assistant Statistics Grid -->
+                    <com.navassist.android.presentation.profile.widgets.StatisticsCard
+                        android:id="@+id/statisticsCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Professional Details Card (Bio, Exp, Radius) -->
+                    <com.navassist.android.presentation.profile.widgets.AssistantProfessionalCard
+                        android:id="@+id/professionalCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Languages Spoken Card -->
+                    <com.navassist.android.presentation.profile.widgets.LanguagesCard
+                        android:id="@+id/languagesCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Skills & Specializations Card -->
+                    <com.navassist.android.presentation.profile.widgets.SkillsCard
+                        android:id="@+id/skillsCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Sticky Bottom Save Changes Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSaveChanges"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:text="Save Changes"
+        android:textColor="#09090B"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#FAFAFA"
+        app:cornerRadius="16dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

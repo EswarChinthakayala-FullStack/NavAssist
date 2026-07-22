@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sosConfirmContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#18181B"
+    android:padding="24dp">
+
+    <View
+        android:id="@+id/vDragHandle"
+        android:layout_width="36dp"
+        android:layout_height="4dp"
+        android:background="#3F3F46"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivWarningIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Emergency SOS Warning"
+        android:src="@drawable/ic_benefit_safety"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vDragHandle"
+        app:tint="#DC2626" />
+
+    <TextView
+        android:id="@+id/tvSosTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Emergency SOS Assistance"
+        android:textColor="#FAFAFA"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivWarningIcon" />
+
+    <TextView
+        android:id="@+id/tvSosDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="An emergency alert will immediately notify our safety response team, your emergency contacts, and dispatch live location tracking to operations."
+        android:textColor="#A1A1AA"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSosTitle" />
+
+    <!-- Current Location Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardLocationInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="#242428"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSosDescription"
+        app:strokeColor="#303038"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Broadcast Location"
+                android:textColor="#FAFAFA"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCurrentCoordinates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Lat: 37.7749 · Lng: -122.4194 (Accuracy: 5.4m)"
+                android:textColor="#22C55E"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Confirm SOS Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirmSos"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="20dp"
+        android:text="Confirm SOS &amp; Alert Safety Team"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:backgroundTint="#DC2626"
+        app:cornerRadius="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardLocationInfo" />
+
+    <!-- Cancel Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancel"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:text="Cancel"
+        android:textColor="#A1A1AA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnConfirmSos" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

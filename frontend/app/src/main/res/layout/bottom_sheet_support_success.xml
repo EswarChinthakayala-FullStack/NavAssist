@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/supportSuccessContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#18181B"
+    android:padding="24dp">
+
+    <View
+        android:id="@+id/vDragHandle"
+        android:layout_width="36dp"
+        android:layout_height="4dp"
+        android:background="#3F3F46"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/flCheckIcon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_icon_circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vDragHandle">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="✔"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvTicketId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Ticket #SUP-2026-1054"
+        android:textColor="#22C55E"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flCheckIcon" />
+
+    <TextView
+        android:id="@+id/tvSupportTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Support Ticket Created"
+        android:textColor="#FAFAFA"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTicketId" />
+
+    <TextView
+        android:id="@+id/tvSupportDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Our support operations team has received your report. Estimated response time is under 15 minutes."
+        android:textColor="#A1A1AA"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSupportTitle" />
+
+    <!-- Back to Home CTA -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSupportDone"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="24dp"
+        android:text="Back to Home"
+        android:textColor="#09090B"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:backgroundTint="#FFFFFF"
+        app:cornerRadius="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSupportDesc" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

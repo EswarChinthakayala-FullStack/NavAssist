@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_journey"
+    app:startDestination="@id/sosFragment">
+
+    <fragment
+        android:id="@+id/sosFragment"
+        android:name="com.navassist.android.presentation.sos.SosFragment"
+        android:label="Emergency SOS"
+        tools:layout="@layout/fragment_sos" />
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.navassist.android.presentation.chat.ChatFragment"
+        android:label="Messages"
+        tools:layout="@layout/fragment_chat" />
+
+</navigation>

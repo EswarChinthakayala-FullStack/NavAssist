@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Outer Location Pin -->
+    <path
+        android:fillColor="@color/color_primary"
+        android:pathData="M24,4C14.611,4 7,11.611 7,21C7,32.5 24,45 24,45C24,45 41,32.5 41,21C41,11.611 33.389,4 24,4Z" />
+    <!-- Inner Porthole Knockout -->
+    <path
+        android:fillColor="@color/color_background"
+        android:pathData="M24,12 A8,8 0 1,0 24,28 A8,8 0 1,0 24,12 Z" />
+    <!-- Compass Needle -->
+    <path
+        android:fillColor="@color/color_primary"
+        android:pathData="M24,14L27.5,22L24,19.8L20.5,22Z" />
+</vector>

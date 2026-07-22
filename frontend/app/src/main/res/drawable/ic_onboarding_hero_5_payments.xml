@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+
+    <!-- Secondary Back Card Surface -->
+    <path
+        android:fillColor="#71717A"
+        android:pathData="M50,70 H170 C175.5,70 180,74.5 180,80 V130 C180,135.5 175.5,140 170,140 H50 C44.5,140 40,135.5 40,130 V80 C40,74.5 44.5,70 50,70 Z" />
+
+    <!-- Bright High-Contrast Front Card Surface -->
+    <path
+        android:fillColor="#FAFAFA"
+        android:pathData="M70,100 H190 C195.5,100 200,104.5 200,110 V160 C200,165.5 195.5,170 190,170 H70 C64.5,170 60,165.5 60,160 V110 C60,104.5 64.5,100 70,100 Z" />
+
+    <!-- Dark Contrast Metallic Chip -->
+    <path
+        android:fillColor="#18181B"
+        android:pathData="M85,120 H105 V135 H85 Z" />
+
+</vector>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#18181B"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coupon Applied Successfully! 🎉"
+        android:textColor="#22C55E"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvSavings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:text="You saved ₹50.00 on this booking!"
+        android:textColor="#FAFAFA"
+        android:textSize="15sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDoneCoupon"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:backgroundTint="#FAFAFA"
+        android:text="Done"
+        android:textColor="#09090B"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:cornerRadius="14dp" />
+
+</LinearLayout>

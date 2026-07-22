@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/introRootContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B"
+    android:fitsSystemWindows="true">
+
+    <!-- Top Bar: Logo Title & Skip Action -->
+    <TextView
+        android:id="@+id/tvLogoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:letterSpacing="0.05"
+        android:text="@string/app_name"
+        android:textColor="#FAFAFA"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSkip"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="12dp"
+        android:translationZ="12dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/btn_skip"
+        android:text="@string/btn_skip"
+        android:textColor="#A1A1AA"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- ViewPager2 for 5 Intro Pages -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerIntro"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutCapsuleProgress"
+        app:layout_constraintTop_toBottomOf="@id/tvLogoTitle" />
+
+    <!-- Custom Animated Capsule Progress Indicator (5 Dots) -->
+    <LinearLayout
+        android:id="@+id/layoutCapsuleProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/cardCta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <include layout="@layout/item_intro_indicator" android:id="@+id/dot0" />
+        <include layout="@layout/item_intro_indicator" android:id="@+id/dot1" />
+        <include layout="@layout/item_intro_indicator" android:id="@+id/dot2" />
+        <include layout="@layout/item_intro_indicator" android:id="@+id/dot3" />
+        <include layout="@layout/item_intro_indicator" android:id="@+id/dot4" />
+
+    </LinearLayout>
+
+    <!-- Custom Evolving Primary Action Card Button -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCta"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="36dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/btn_continue"
+        app:cardBackgroundColor="@color/color_primary"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="24dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/tvCta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.02"
+                android:text="@string/btn_continue"
+                android:textColor="@color/color_on_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivArrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/btn_continue"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

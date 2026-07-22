@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B">
+
+    <!-- Layer 1: Fullscreen MapLibre GL Map -->
+    <org.maplibre.android.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Layer 2: Top Gradient & Ambient Lighting Overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@drawable/bg_ambient_glow"
+        android:alpha="0.2" />
+
+    <!-- Top Bar: Greeting Header + Emergency SOS FAB -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBarHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingTop="36dp"
+        android:paddingEnd="20dp">
+
+        <LinearLayout
+            android:id="@+id/layoutGreeting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/fabSos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvGreetingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.01"
+                android:text="Good Morning 👋"
+                android:textColor="#FAFAFA"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvGreetingSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Ready for your next journey?"
+                android:textColor="#A1A1AA"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <!-- Emergency SOS FAB -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabSos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/emergency_sos"
+            app:backgroundTint="#EF4444"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_sos"
+            app:tint="#FFFFFF" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Floating Glass Search Bar & Saved Places Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="90dp"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <!-- Custom Floating Search Bar Widget -->
+        <com.navassist.android.presentation.widgets.search.SearchBarView
+            android:id="@+id/searchBarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="12dp" />
+
+        <!-- Saved Locations Title & Horizontal RecyclerView -->
+        <TextView
+            android:id="@+id/tvSavedLocationsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Saved Places"
+            android:textColor="#A1A1AA"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSavedLocations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_saved_location" />
+
+    </LinearLayout>
+
+    <!-- Flagship Extended FAB: Book Assistant -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardBookAssistant"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="Book Assistant"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="Book Assistant"
+                android:src="@drawable/ic_benefit_pickup"
+                app:tint="#09090B" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:letterSpacing="0.01"
+                android:text="Book Assistant"
+                android:textColor="#09090B"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

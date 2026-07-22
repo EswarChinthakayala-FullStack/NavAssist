@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetVerificationContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#18181B"
+    android:paddingBottom="32dp">
+
+    <!-- Top Drag Handle -->
+    <View
+        android:id="@+id/vDragHandle"
+        android:layout_width="48dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_bottom_sheet_handle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Scrollable Body -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/cardGotItCta"
+        app:layout_constraintTop_toBottomOf="@id/vDragHandle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <!-- Header -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Verification &amp; Trust"
+                android:textColor="#FAFAFA"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="This assistant has completed full identity and security verification for a safe travel experience."
+                android:textColor="#A1A1AA"
+                android:textSize="13sp" />
+
+            <!-- Trust Score Gauge -->
+            <com.navassist.android.presentation.widgets.gauge.TrustScoreGaugeView
+                android:id="@+id/gaugeTrustScore"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp" />
+
+            <!-- Verification Status Cards -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Verified Credentials"
+                android:textColor="#FAFAFA"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.navassist.android.presentation.widgets.card.VerificationStatusCard
+                android:id="@+id/cardAadhaarVerified"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+
+            <com.navassist.android.presentation.widgets.card.VerificationStatusCard
+                android:id="@+id/cardBackgroundCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <!-- Verification Timeline -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Verification Audit Trail"
+                android:textColor="#FAFAFA"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.navassist.android.presentation.widgets.timeline.VerificationTimelineView
+                android:id="@+id/timelineVerification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+
+            <!-- Security Badge -->
+            <com.navassist.android.presentation.widgets.badge.SecurityBadgeView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Got It Close Button -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardGotItCta"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Got It"
+            android:textColor="#09090B"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

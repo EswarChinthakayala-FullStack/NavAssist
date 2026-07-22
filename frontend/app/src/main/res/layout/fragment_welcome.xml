@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/welcomeContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:fitsSystemWindows="true">
+
+    <!-- Ambient Lighting & Soft Gradient Overlay -->
+    <View
+        android:id="@+id/vAmbientBackground"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:alpha="0.0"
+        android:background="@drawable/bg_ambient_glow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Subtle Decorative Floating Accents (5-10% Opacity) -->
+    <View
+        android:id="@+id/vAccentCircle"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="30dp"
+        android:alpha="0.06"
+        android:background="@drawable/bg_ambient_glow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vAccentPin"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="120dp"
+        android:alpha="0.08"
+        android:background="@drawable/ic_welcome_hero"
+        app:layout_constraintBottom_toTopOf="@id/cardGetStarted"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Skip Button (Top-Right Action) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSkip"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="1.0"
+        android:elevation="12dp"
+        android:translationZ="12dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/btn_skip"
+        android:text="@string/btn_skip"
+        android:textColor="@color/color_foreground_secondary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Top Guideline for Hero Container (45% screen height) -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <!-- Hero Artwork Card Surface -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardHero"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="32dp"
+        android:alpha="0.0"
+        app:cardBackgroundColor="@color/color_surface"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="6dp"
+        app:strokeColor="@color/color_border"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivHero"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="24dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_welcome_hero" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Welcome Headline Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:alpha="0.0"
+        android:gravity="center"
+        android:letterSpacing="-0.01"
+        android:text="@string/auth_welcome"
+        android:textColor="@color/color_foreground"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineHero" />
+
+    <!-- Supporting Description Text -->
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="36dp"
+        android:alpha="0.0"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:maxLines="3"
+        android:text="@string/app_tagline"
+        android:textColor="@color/color_foreground_secondary"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <!-- Custom Animated Progress Indicator Dots (● ○ ○) -->
+    <LinearLayout
+        android:id="@+id/layoutProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:alpha="0.0"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/cardGetStarted"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:id="@+id/dotActive"
+            android:layout_width="24dp"
+            android:layout_height="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/bg_button_primary" />
+
+        <View
+            android:id="@+id/dotInactive1"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginEnd="6dp"
+            android:alpha="0.3"
+            android:background="@drawable/bg_button_primary" />
+
+        <View
+            android:id="@+id/dotInactive2"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:alpha="0.3"
+            android:background="@drawable/bg_button_primary" />
+
+    </LinearLayout>
+
+    <!-- Custom Primary Action Card Button -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardGetStarted"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="36dp"
+        android:alpha="0.0"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/btn_get_started"
+        app:cardBackgroundColor="@color/color_primary"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="24dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/tvGetStarted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.02"
+                android:text="@string/btn_get_started"
+                android:textColor="@color/color_on_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivArrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/btn_get_started"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

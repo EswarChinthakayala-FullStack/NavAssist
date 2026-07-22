@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+
+    <!-- High-Contrast Outer Starburst Ring -->
+    <path
+        android:strokeColor="#52525B"
+        android:strokeWidth="2"
+        android:pathData="M120,20 C175.228,20 220,64.772 220,120 C220,175.228 175.228,220 120,220 C64.772,220 20,175.228 20,120 C20,64.772 64.772,20 120,20Z" />
+
+    <!-- Bright High-Contrast Star Emblem -->
+    <path
+        android:fillColor="#FAFAFA"
+        android:pathData="M120,70 L133,105 L170,105 L140,127 L151,162 L120,140 L89,162 L100,127 L70,105 L107,105 Z" />
+
+</vector>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B">
+
+    <!-- Ambient Glow Top Backdrop -->
+    <View
+        android:id="@+id/vAmbientGlow"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:background="@drawable/bg_ambient_glow"
+        android:alpha="0.4" />
+
+    <!-- App Bar Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="My Wallet"
+            app:titleTextColor="#FAFAFA"
+            app:navigationIcon="@drawable/ic_arrow_left"
+            app:navigationIconTint="#FAFAFA" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Wallet Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="88dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Manage your balance, add funds, and view payments."
+                android:textColor="#A1A1AA"
+                android:textSize="14sp" />
+
+            <!-- Skeleton Loading Shimmer -->
+            <com.navassist.android.presentation.wallet.widgets.WalletSkeletonView
+                android:id="@+id/skeletonView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <!-- Main Content Layout -->
+            <LinearLayout
+                android:id="@+id/layoutContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Wallet Hero Card (Available, Pending, Cashback) -->
+                <com.navassist.android.presentation.wallet.widgets.WalletBalanceCard
+                    android:id="@+id/heroBalanceCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Quick Top-Up Card ("+ Add Money") -->
+                <com.navassist.android.presentation.wallet.widgets.QuickTopUpCard
+                    android:id="@+id/quickTopUpCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Wallet Activity Analytics Card -->
+                <com.navassist.android.presentation.wallet.widgets.WalletAnalyticsCard
+                    android:id="@+id/analyticsCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp" />
+
+                <!-- Search Input Field -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardBackgroundColor="#18181B"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#27272A"
+                    app:strokeWidth="1.5dp">
+
+                    <EditText
+                        android:id="@+id/etSearchTransaction"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Search by Booking ID or transaction..."
+                        android:inputType="text"
+                        android:padding="12dp"
+                        android:textColor="#FAFAFA"
+                        android:textColorHint="#71717A"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Filter Chips Section -->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipAll"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="All"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCredits"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Credits"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipDebits"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Debits"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipRefunds"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Refunds"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <!-- Section Header: History -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TRANSACTION HISTORY"
+                    android:textColor="#FAFAFA"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Empty State -->
+                <com.navassist.android.presentation.wallet.widgets.EmptyTransactionView
+                    android:id="@+id/emptyTransactionView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <!-- Transaction History RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTransactions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Refresh FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:contentDescription="Refresh Wallet"
+        app:backgroundTint="#FAFAFA"
+        app:tint="#09090B"
+        app:srcCompat="@drawable/ic_feature_payments" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

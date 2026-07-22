@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookAssistantContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B"
+    android:fitsSystemWindows="true">
+
+    <!-- Reusable 8-Layer Navigation Grid & Ambient Lighting Background -->
+    <com.navassist.android.presentation.widgets.background.NavigationGridBackgroundView
+        android:id="@+id/vNavigationBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Top Reusable Booking Stepper -->
+    <com.navassist.android.presentation.customviews.BookingStepperView
+        android:id="@+id/stepperView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Center Hero Booking Initialization Section -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stepperView">
+
+        <FrameLayout
+            android:id="@+id/layoutPinContainer"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+
+            <View
+                android:id="@+id/vPulseCircle"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:alpha="0.4"
+                android:background="@drawable/bg_ambient_glow" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="#18181B"
+                app:cardCornerRadius="36dp"
+                app:cardElevation="8dp"
+                app:strokeColor="#303038"
+                app:strokeWidth="1.5dp">
+
+                <ImageView
+                    android:id="@+id/ivBookingPin"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="Start Booking"
+                    android:src="@drawable/ic_benefit_nearby" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvPreparingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Preparing Your Booking..."
+            android:textColor="#FAFAFA"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPreparingSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Finding the fastest way to start your journey."
+            android:textColor="#A1A1AA"
+            android:textSize="14sp" />
+
+        <ProgressBar
+            android:id="@+id/pbInitializing"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="24dp"
+            android:indeterminateTint="#FFFFFF" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

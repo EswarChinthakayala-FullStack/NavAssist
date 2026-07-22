@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+
+    <!-- High-Contrast Radar Wave Outer Ring -->
+    <path
+        android:strokeColor="#52525B"
+        android:strokeWidth="1.5"
+        android:pathData="M120,40 A80,80 0 1,0 120,200 A80,80 0 1,0 120,40 Z" />
+
+    <!-- High-Contrast Radar Wave Inner Ring -->
+    <path
+        android:strokeColor="#A1A1AA"
+        android:strokeWidth="1.5"
+        android:pathData="M120,70 A50,50 0 1,0 120,170 A50,50 0 1,0 120,70 Z" />
+
+    <!-- Crisp Avatar Card Container -->
+    <path
+        android:fillColor="#FAFAFA"
+        android:pathData="M120,95 A25,25 0 1,0 120,145 A25,25 0 1,0 120,95 Z" />
+
+    <!-- Avatar Person Head & Body (Dark Contrast inside White Card) -->
+    <path
+        android:fillColor="#18181B"
+        android:pathData="M120,105 A6,6 0 1,0 120,117 A6,6 0 1,0 120,105 Z" />
+
+    <path
+        android:fillColor="#18181B"
+        android:pathData="M110,135 C110,127 114,123 120,123 C126,123 130,127 130,135 Z" />
+
+</vector>

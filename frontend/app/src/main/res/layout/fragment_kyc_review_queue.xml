@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B">
+
+    <!-- Ambient Glow Top Backdrop -->
+    <View
+        android:id="@+id/vAmbientGlow"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:background="@drawable/bg_ambient_glow"
+        android:alpha="0.4" />
+
+    <!-- App Bar Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="KYC Review Queue"
+            app:titleTextColor="#FAFAFA"
+            app:navigationIcon="@drawable/ic_arrow_left"
+            app:navigationIconTint="#FAFAFA" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="88dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Verify Aadhaar &amp; identity documents before activating guides."
+                android:textColor="#A1A1AA"
+                android:textSize="14sp" />
+
+            <!-- Skeleton Loading Shimmer -->
+            <com.navassist.android.presentation.admin.kyc.widgets.KycQueueSkeleton
+                android:id="@+id/skeletonView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <!-- Main Content Layout -->
+            <LinearLayout
+                android:id="@+id/layoutContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Queue Statistics Card -->
+                <com.navassist.android.presentation.admin.kyc.widgets.KycStatisticsCard
+                    android:id="@+id/statsCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Search Input Field -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardBackgroundColor="#18181B"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#27272A"
+                    app:strokeWidth="1.5dp">
+
+                    <EditText
+                        android:id="@+id/etSearchKyc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Search applicant by name or ID..."
+                        android:inputType="text"
+                        android:padding="12dp"
+                        android:textColor="#FAFAFA"
+                        android:textColorHint="#71717A"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Filter Chips Section -->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipAll"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="All Pending"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipHighPriority"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="High Priority 🔴"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipNewest"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Newest 🟢"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <!-- Section Header -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="APPLICATIONS AWAITING REVIEW"
+                    android:textColor="#FAFAFA"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Empty State -->
+                <com.navassist.android.presentation.admin.kyc.widgets.KycEmptyState
+                    android:id="@+id/emptyStateView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <!-- Pending Applications RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPendingKyc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Refresh FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRefreshKyc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:contentDescription="Refresh KYC Queue"
+        app:backgroundTint="#FAFAFA"
+        app:tint="#09090B"
+        app:srcCompat="@drawable/ic_add" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

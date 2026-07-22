@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/featureOverviewContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B"
+    android:fitsSystemWindows="true">
+
+    <!-- Ambient Lighting & Soft Background Layer -->
+    <View
+        android:id="@+id/vAmbientBackground"
+        android:layout_width="340dp"
+        android:layout_height="340dp"
+        android:alpha="0.4"
+        android:background="@drawable/bg_ambient_glow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Top Header Section -->
+    <ImageView
+        android:id="@+id/ivBrandLogo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_app_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:letterSpacing="0.1"
+        android:text="@string/feature_overview_caption"
+        android:textColor="#A1A1AA"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivBrandLogo" />
+
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:letterSpacing="-0.01"
+        android:text="@string/feature_overview_heading"
+        android:textColor="#FAFAFA"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCaption" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="36dp"
+        android:gravity="center"
+        android:lineSpacingExtra="3dp"
+        android:maxLines="3"
+        android:text="@string/feature_overview_desc"
+        android:textColor="#A1A1AA"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHeading" />
+
+    <!-- 2 × 2 Feature Cards Grid -->
+
+    <!-- Card 1: Assistant Booking (Top-Left) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardBooking"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/feature_booking_title"
+        app:cardBackgroundColor="#18181B"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#3F3F46"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/cardSafety"
+        app:layout_constraintEnd_toStartOf="@id/cardTracking"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDescription">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/feature_booking_title"
+                android:src="@drawable/ic_feature_booking" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/feature_booking_title"
+                android:textColor="#FAFAFA"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/feature_booking_desc"
+                android:textColor="#A1A1AA"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Card 2: Live Tracking (Top-Right) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardTracking"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/feature_tracking_title"
+        app:cardBackgroundColor="#18181B"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#3F3F46"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/cardPayments"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardBooking"
+        app:layout_constraintTop_toBottomOf="@id/tvDescription">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/feature_tracking_title"
+                android:src="@drawable/ic_feature_tracking" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/feature_tracking_title"
+                android:textColor="#FAFAFA"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/feature_tracking_desc"
+                android:textColor="#A1A1AA"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Card 3: Safety & SOS (Bottom-Left) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardSafety"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/feature_safety_title"
+        app:cardBackgroundColor="#18181B"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#3F3F46"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutSegmentedProgress"
+        app:layout_constraintEnd_toStartOf="@id/cardPayments"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardBooking">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/feature_safety_title"
+                android:src="@drawable/ic_feature_safety" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/feature_safety_title"
+                android:textColor="#FAFAFA"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/feature_safety_desc"
+                android:textColor="#A1A1AA"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Card 4: Secure Payments (Bottom-Right) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardPayments"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/feature_payments_title"
+        app:cardBackgroundColor="#18181B"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="4dp"
+        app:strokeColor="#3F3F46"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutSegmentedProgress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardSafety"
+        app:layout_constraintTop_toBottomOf="@id/cardTracking">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/feature_payments_title"
+                android:src="@drawable/ic_feature_payments" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/feature_payments_title"
+                android:textColor="#FAFAFA"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/feature_payments_desc"
+                android:textColor="#A1A1AA"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Segmented 4-Step Progress Indicator -->
+    <LinearLayout
+        android:id="@+id/layoutSegmentedProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/cardCreateAccount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:layout_width="16dp"
+            android:layout_height="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/bg_button_primary" />
+
+        <View
+            android:layout_width="16dp"
+            android:layout_height="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/bg_button_primary" />
+
+        <View
+            android:layout_width="16dp"
+            android:layout_height="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/bg_button_primary" />
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="4dp"
+            android:background="@drawable/bg_button_primary" />
+
+    </LinearLayout>
+
+    <!-- Primary Action CTA Button: Create Account -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCreateAccount"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="12dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="12dp"
+        android:translationZ="12dp"
+        android:contentDescription="@string/btn_create_account"
+        app:cardBackgroundColor="@color/color_primary"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toTopOf="@id/tvSignIn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="24dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/tvCreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.02"
+                android:text="@string/btn_create_account"
+                android:textColor="@color/color_on_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivArrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/btn_create_account"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Secondary Text Action: Sign In -->
+    <TextView
+        android:id="@+id/tvSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:text="@string/already_have_account_action"
+        android:textColor="#A1A1AA"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

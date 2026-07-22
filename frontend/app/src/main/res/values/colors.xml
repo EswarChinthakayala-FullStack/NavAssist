@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Zinc Monochrome Palette (Light Theme) -->
+    <color name="color_background">#FFFFFF</color>
+    <color name="color_surface">#FAFAFA</color>
+    <color name="color_surface_variant">#F4F4F5</color>
+    <color name="color_primary">#18181B</color>
+    <color name="color_on_primary">#FFFFFF</color>
+    <color name="color_secondary">#3F3F46</color>
+    <color name="color_foreground">#09090B</color>
+    <color name="color_foreground_secondary">#52525B</color>
+    <color name="color_muted">#71717A</color>
+    <color name="color_border">#E4E4E7</color>
+    <color name="color_divider">#F1F5F9</color>
+    <color name="color_card">#FFFFFF</color>
+    <color name="color_card_stroke">#E5E7EB</color>
+
+    <!-- State Indications Only -->
+    <color name="status_success">#16A34A</color>
+    <color name="status_success_bg">#1A16A34A</color>
+    <color name="status_warning">#D97706</color>
+    <color name="status_warning_bg">#1AD97706</color>
+    <color name="status_error">#DC2626</color>
+    <color name="status_error_bg">#1ADC2626</color>
+    <color name="status_info">#2563EB</color>
+    <color name="status_info_bg">#1A2563EB</color>
+
+    <!-- Component Aliases (Light Mode) -->
+    <color name="bg_app">@color/color_background</color>
+    <color name="surface_glass">@color/color_surface</color>
+    <color name="surface_glass_high">@color/color_surface_variant</color>
+    <color name="surface_glass_translucent">#E6FAFAFA</color>
+    <color name="stroke_glass">@color/color_border</color>
+    <color name="stroke_glass_light">@color/color_card_stroke</color>
+    <color name="primary">@color/color_primary</color>
+    <color name="primary_dark">@color/color_primary</color>
+    <color name="primary_accent">@color/color_primary</color>
+    <color name="primary_variant">@color/color_secondary</color>
+    <color name="primary_glow">#1A18181B</color>
+    <color name="secondary">@color/color_secondary</color>
+    <color name="accent_cyan">@color/color_primary</color>
+    <color name="accent_emerald">@color/status_success</color>
+    <color name="accent_emerald_dark">@color/status_success</color>
+    <color name="accent_emerald_bg">@color/status_success_bg</color>
+    <color name="accent_amber">@color/status_warning</color>
+    <color name="accent_amber_bg">@color/status_warning_bg</color>
+    <color name="sos_crimson">@color/status_error</color>
+    <color name="sos_red">@color/status_error</color>
+    <color name="sos_crimson_bg">@color/status_error_bg</color>
+    <color name="sos_crimson_dark">#991B1B</color>
+    <color name="sos_red_dark">#991B1B</color>
+
+    <color name="background_light">@color/color_background</color>
+    <color name="surface_light">@color/color_surface</color>
+    <color name="surface_variant">@color/color_surface_variant</color>
+    <color name="card_border">@color/color_card_stroke</color>
+    <color name="text_primary">@color/color_foreground</color>
+    <color name="text_secondary">@color/color_foreground_secondary</color>
+    <color name="text_tertiary">@color/color_muted</color>
+    <color name="text_on_primary">@color/color_on_primary</color>
+    <color name="icon_tint">@color/color_foreground_secondary</color>
+
+    <color name="status_pending_bg">@color/status_warning_bg</color>
+    <color name="status_pending_text">@color/status_warning</color>
+    <color name="status_accepted_bg">@color/status_info_bg</color>
+    <color name="status_accepted_text">@color/status_info</color>
+    <color name="status_ongoing_bg">@color/status_success_bg</color>
+    <color name="status_ongoing_text">@color/status_success</color>
+    <color name="status_completed_bg">@color/status_success_bg</color>
+    <color name="status_completed_text">@color/status_success</color>
+    <color name="status_cancelled_bg">@color/status_error_bg</color>
+    <color name="status_cancelled_text">@color/status_error</color>
+
+    <color name="route_line">@color/color_primary</color>
+    <color name="pickup_dot">@color/status_success</color>
+    <color name="destination_dot">@color/status_error</color>
+    <color name="divider_glass">@color/color_divider</color>
+    <color name="ripple_glass">#1A000000</color>
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/splashContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background">
+
+    <!-- Ambient Glow Circle Overlay -->
+    <View
+        android:id="@+id/vAmbientGlow"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:alpha="0.0"
+        android:background="@drawable/bg_ambient_glow"
+        app:layout_constraintBottom_toBottomOf="@id/cardLogo"
+        app:layout_constraintEnd_toEndOf="@id/cardLogo"
+        app:layout_constraintStart_toStartOf="@id/cardLogo"
+        app:layout_constraintTop_toTopOf="@id/cardLogo" />
+
+    <!-- Logo Container Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:alpha="0.0"
+        app:cardBackgroundColor="@color/color_surface"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="8dp"
+        app:strokeColor="@color/color_border"
+        app:strokeWidth="1.5dp"
+        app:layout_constraintBottom_toTopOf="@id/tvAppName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_app_logo" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- App Name Title -->
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:alpha="0.0"
+        android:letterSpacing="0.05"
+        android:text="@string/app_name"
+        android:textColor="@color/color_foreground"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tvTagline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardLogo" />
+
+    <!-- App Tagline -->
+    <TextView
+        android:id="@+id/tvTagline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:alpha="0.0"
+        android:letterSpacing="0.03"
+        android:text="@string/app_tagline"
+        android:textColor="@color/color_foreground_secondary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAppName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

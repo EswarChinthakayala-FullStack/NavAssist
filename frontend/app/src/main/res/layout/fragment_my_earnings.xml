@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B">
+
+    <!-- Ambient Glow Top Backdrop -->
+    <View
+        android:id="@+id/vAmbientGlow"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:background="@drawable/bg_ambient_glow"
+        android:alpha="0.4" />
+
+    <!-- App Bar Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="My Earnings"
+            app:titleTextColor="#FAFAFA"
+            app:navigationIcon="@drawable/ic_arrow_left"
+            app:navigationIconTint="#FAFAFA" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Scroll View -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="88dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Track your income, payouts, and revenue performance."
+                android:textColor="#A1A1AA"
+                android:textSize="14sp" />
+
+            <!-- Skeleton Loading Shimmer -->
+            <com.navassist.android.presentation.assistant.earnings.widgets.EarningsSkeletonView
+                android:id="@+id/skeletonView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <!-- Main Content Layout -->
+            <LinearLayout
+                android:id="@+id/layoutContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Earnings Hero Card (Lifetime, Today, Weekly) -->
+                <com.navassist.android.presentation.assistant.earnings.widgets.EarningsSummaryCard
+                    android:id="@+id/heroSummaryCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Next Scheduled Payout Card -->
+                <com.navassist.android.presentation.assistant.earnings.widgets.PayoutCard
+                    android:id="@+id/payoutCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Weekly Goal Progress Card -->
+                <com.navassist.android.presentation.assistant.earnings.widgets.WeeklyProgressCard
+                    android:id="@+id/weeklyProgressCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Revenue Trend & Analytics Card -->
+                <com.navassist.android.presentation.assistant.earnings.widgets.EarningsAnalyticsCard
+                    android:id="@+id/analyticsCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Incentives & Bonuses Card -->
+                <com.navassist.android.presentation.assistant.earnings.widgets.BonusCard
+                    android:id="@+id/bonusCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp" />
+
+                <!-- Filter Chips Section -->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipToday"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Today"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipThisWeek"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="This Week"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipThisMonth"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="This Month"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipLifetime"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lifetime"
+                        android:textColor="#FAFAFA"
+                        app:chipBackgroundColor="#18181B"
+                        app:chipStrokeColor="#27272A" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <!-- Section Header: History -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TRIP-WISE EARNINGS HISTORY"
+                    android:textColor="#FAFAFA"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Empty State -->
+                <com.navassist.android.presentation.assistant.earnings.widgets.EmptyEarningsView
+                    android:id="@+id/emptyEarningsView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <!-- Earnings History RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvEarningsHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Download PDF Statement FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabDownloadStatement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:contentDescription="Download Statement PDF"
+        app:backgroundTint="#22C55E"
+        app:tint="#09090B"
+        app:srcCompat="@drawable/ic_feature_payments" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

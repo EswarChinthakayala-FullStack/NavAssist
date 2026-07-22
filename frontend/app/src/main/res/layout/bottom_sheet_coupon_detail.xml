@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#18181B"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coupon Code Details"
+        android:textColor="#FAFAFA"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:text="Terms &amp; conditions for promo code NAV50."
+        android:textColor="#A1A1AA"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Maximum discount: ₹50.00\n• Minimum booking amount: ₹150.00\n• Valid until 31 July 2026\n• Applicable once per passenger account"
+        android:textColor="#FAFAFA"
+        android:textSize="14sp"
+        android:lineSpacingExtra="6dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnApplyCouponNow"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#22C55E"
+        android:text="Apply Coupon Code"
+        android:textColor="#09090B"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:cornerRadius="14dp" />
+
+</LinearLayout>

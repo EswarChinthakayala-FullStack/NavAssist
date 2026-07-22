@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.navassist.android.presentation.home.HomeFragment"
+        android:label="NavAssist"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_sos"
+            app:destination="@id/sosFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookingsFragment"
+        android:name="com.navassist.android.presentation.booking.BookingsFragment"
+        android:label="Bookings"
+        tools:layout="@layout/fragment_bookings" />
+
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.navassist.android.presentation.wallet.WalletFragment"
+        android:label="Wallet"
+        tools:layout="@layout/fragment_wallet" />
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.navassist.android.presentation.chat.ChatFragment"
+        android:label="Messages"
+        tools:layout="@layout/fragment_chat" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.navassist.android.presentation.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/sosFragment"
+        android:name="com.navassist.android.presentation.sos.SosFragment"
+        android:label="Emergency SOS"
+        tools:layout="@layout/fragment_sos" />
+
+</navigation>

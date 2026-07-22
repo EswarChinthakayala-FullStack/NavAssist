@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#18181B">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Top Drag Handle Bar -->
+        <View
+            android:id="@+id/vHandleBar"
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_bottom_sheet_handle" />
+
+        <!-- Main Content Scroll Container -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Countdown Ring (Top Center) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingVertical="12dp">
+
+                    <com.navassist.android.presentation.assistant.booking.widgets.BookingCountdownRing
+                        android:id="@+id/countdownRing"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp" />
+
+                </LinearLayout>
+
+                <!-- Skeleton View (Loading State) -->
+                <com.navassist.android.presentation.assistant.booking.widgets.BookingSkeletonView
+                    android:id="@+id/skeletonView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <!-- Expired View (Expired State) -->
+                <com.navassist.android.presentation.assistant.booking.widgets.BookingExpiredView
+                    android:id="@+id/expiredView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <!-- Main Details Layout -->
+                <LinearLayout
+                    android:id="@+id/layoutMainDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Passenger Card -->
+                    <com.navassist.android.presentation.assistant.booking.widgets.PassengerCard
+                        android:id="@+id/passengerCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp" />
+
+                    <!-- Route Card -->
+                    <com.navassist.android.presentation.assistant.booking.widgets.TripRouteCard
+                        android:id="@+id/routeCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp" />
+
+                    <!-- Fare Card -->
+                    <com.navassist.android.presentation.assistant.booking.widgets.FareCard
+                        android:id="@+id/fareCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp" />
+
+                    <!-- Payment Method Card -->
+                    <com.navassist.android.presentation.assistant.booking.widgets.PaymentMethodCard
+                        android:id="@+id/paymentCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp" />
+
+                    <!-- Special Notes RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvTripNotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:layout_marginBottom="16dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Sticky Action Buttons Bar (Accept / Decline) -->
+        <com.navassist.android.presentation.assistant.booking.widgets.ActionButtonsView
+            android:id="@+id/actionButtonsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:background="#111113" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigationRouteContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B"
+    android:fitsSystemWindows="true">
+
+    <!-- Full-Screen MapLibre GL Navigation Map -->
+    <org.maplibre.android.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Top Overlay Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <!-- Navigation Header Card -->
+        <com.navassist.android.presentation.widgets.card.NavigationHeaderView
+            android:id="@+id/headerNavigation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintEnd_toStartOf="@id/btnSosFloating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Floating Live Arrival ETA Badge Overlay -->
+        <com.navassist.android.presentation.widgets.badge.EtaBadgeView
+            android:id="@+id/badgeEtaOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerNavigation" />
+
+        <!-- Floating SOS Emergency Action Button -->
+        <com.navassist.android.presentation.widgets.button.SosFloatingButton
+            android:id="@+id/btnSosFloating"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Floating Map Camera Controls -->
+        <com.navassist.android.presentation.widgets.controls.LiveMapControlsView
+            android:id="@+id/viewMapControls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSosFloating" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Turn-by-Turn Navigation Bottom Sheet -->
+    <com.navassist.android.presentation.widgets.card.TurnByTurnBottomSheet
+        android:id="@+id/sheetTurnByTurn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

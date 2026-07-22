@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+
+    <!-- High-Contrast Map Grid Lattice -->
+    <path
+        android:strokeColor="#3F3F46"
+        android:strokeWidth="1"
+        android:pathData="M30,60 H210 M30,120 H210 M30,180 H210 M60,30 V210 M120,30 V210 M180,30 V210" />
+
+    <!-- Bright Crisp Polyline Route -->
+    <path
+        android:strokeColor="#FAFAFA"
+        android:strokeWidth="4.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M60,180 C90,120 100,140 120,90 S170,100 180,60" />
+
+    <!-- Origin Node -->
+    <path
+        android:fillColor="#A1A1AA"
+        android:pathData="M60,186 A7,7 0 1,0 60,172 A7,7 0 1,0 60,186 Z" />
+
+    <!-- High-Contrast Destination Pin -->
+    <path
+        android:fillColor="#FAFAFA"
+        android:pathData="M180,42 C172.268,42 166,48.268 166,56 C166,66.5 180,79 180,79 C180,79 194,66.5 194,56 C194,48.268 187.732,42 180,42Z" />
+
+    <!-- Inner Pin Hole Accent -->
+    <path
+        android:fillColor="#18181B"
+        android:pathData="M180,50 A5,5 0 1,0 180,60 A5,5 0 1,0 180,50 Z" />
+
+</vector>

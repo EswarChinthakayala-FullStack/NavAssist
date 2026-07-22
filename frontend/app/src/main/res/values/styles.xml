@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Enterprise Card Style -->
+    <style name="NavAssistCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/radius_md</item>
+        <item name="cardElevation">@dimen/elevation_low</item>
+        <item name="cardBackgroundColor">@color/surface_glass</item>
+        <item name="strokeColor">@color/stroke_glass</item>
+        <item name="strokeWidth">1.5dp</item>
+    </style>
+
+    <!-- Primary Action Button Style -->
+    <style name="NavAssistPrimaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="cornerRadius">@dimen/radius_md</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_on_primary</item>
+    </style>
+
+    <!-- Emergency SOS Button Style -->
+    <style name="NavAssistSosButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="backgroundTint">@color/sos_crimson</item>
+        <item name="cornerRadius">@dimen/radius_md</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_on_primary</item>
+    </style>
+
+    <!-- TextInputStyle -->
+    <style name="NavAssistTextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/radius_sm</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radius_sm</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radius_sm</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radius_sm</item>
+        <item name="boxStrokeColor">@color/primary_accent</item>
+    </style>
+</resources>

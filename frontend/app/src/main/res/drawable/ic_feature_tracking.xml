@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="40"
+    android:viewportHeight="40">
+    <!-- Soft Outer Background Circle -->
+    <path
+        android:fillColor="#1F27272A"
+        android:pathData="M20,2 A18,18 0 1,0 20,38 A18,18 0 1,0 20,2 Z" />
+    <!-- Route Polyline Path -->
+    <path
+        android:strokeColor="#FAFAFA"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M11,27 Q15,15 20,20 T29,13" />
+    <!-- Live Location Pulse Node -->
+    <path
+        android:fillColor="#FAFAFA"
+        android:pathData="M29,13 A3.5,3.5 0 1,0 29,6 A3.5,3.5 0 1,0 29,13 Z" />
+    <!-- Origin Marker Node -->
+    <path
+        android:fillColor="#A1A1AA"
+        android:pathData="M11,27 A3,3 0 1,0 11,21 A3,3 0 1,0 11,27 Z" />
+</vector>

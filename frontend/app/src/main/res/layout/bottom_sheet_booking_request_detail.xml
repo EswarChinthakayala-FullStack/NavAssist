@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#18181B"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Incoming Trip Request ⚡"
+        android:textColor="#22C55E"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:text="Pickup at Delhi Airport Terminal 3 Gate 2 (250m away)."
+        android:textColor="#A1A1AA"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Passenger: Priya S. (4.9 ★)\nDistance: 2.4 km • Est. Fare: ₹280.00\nSpecial Assistance: Heavy Luggage"
+        android:textColor="#FAFAFA"
+        android:textSize="14sp"
+        android:lineSpacingExtra="6dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRejectRequest"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="Decline"
+            android:textColor="#EF4444"
+            app:cornerRadius="14dp"
+            app:strokeColor="#EF4444" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAcceptRequest"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1.5"
+            android:backgroundTint="#22C55E"
+            android:text="Accept Trip"
+            android:textColor="#09090B"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:cornerRadius="14dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

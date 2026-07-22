@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+
+    <!-- High-Contrast Security Outer Ring -->
+    <path
+        android:strokeColor="#52525B"
+        android:strokeWidth="1.5"
+        android:pathData="M120,30 A90,90 0 1,0 120,210 A90,90 0 1,0 120,30 Z" />
+
+    <!-- Bright Shield Emblem Surface -->
+    <path
+        android:fillColor="#FAFAFA"
+        android:pathData="M120,60 L170,85 V125 C170,160 145,185 120,195 C95,185 70,160 70,125 V85 Z" />
+
+    <!-- Dark Contrast Inner Checkmark -->
+    <path
+        android:strokeColor="#18181B"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M102,125 L114,137 L140,110" />
+
+</vector>

@@ -1,0 +1,1134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <!-- Splash Screen -->
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.navassist.android.presentation.onboarding.SplashFragment"
+        android:label="Splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splash_to_onboarding"
+            app:destination="@id/onboardingFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_welcome"
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_login"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_home"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_assistant_home"
+            app:destination="@id/assistantHomeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Redesigned 6-Page ViewPager2 Onboarding -->
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.navassist.android.presentation.onboarding.OnboardingFragment"
+        android:label="Onboarding"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_onboarding_to_featureOverview"
+            app:destination="@id/featureOverviewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_onboarding_to_login"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/onboardingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Feature Overview Destination -->
+    <fragment
+        android:id="@+id/featureOverviewFragment"
+        android:name="com.navassist.android.presentation.onboarding.FeatureOverviewFragment"
+        android:label="Feature Overview"
+        tools:layout="@layout/fragment_feature_overview">
+        <action
+            android:id="@+id/action_featureOverview_to_register"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/featureOverviewFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_featureOverview_to_login"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/featureOverviewFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Onboarding Legacy Destinations -->
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.navassist.android.presentation.onboarding.WelcomeFragment"
+        android:label="Welcome"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_welcome_to_intro"
+            app:destination="@id/introFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_welcome_to_login"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.navassist.android.presentation.onboarding.IntroFragment"
+        android:label="Intro"
+        tools:layout="@layout/fragment_intro">
+        <action
+            android:id="@+id/action_intro_to_login"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/introFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Auth Screens -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.navassist.android.presentation.auth.LoginFragment"
+        android:label="Sign In"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_login_to_assistant_home"
+            app:destination="@id/assistantHomeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.navassist.android.presentation.auth.RegisterFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_register_to_otp"
+            app:destination="@id/otpVerificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_register_to_home"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Dedicated OTP Verification Screen -->
+    <fragment
+        android:id="@+id/otpVerificationFragment"
+        android:name="com.navassist.android.presentation.auth.OtpVerificationFragment"
+        android:label="Verify OTP"
+        tools:layout="@layout/fragment_otp_verification">
+        <argument
+            android:name="phone"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="isSignUp"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_otp_to_home"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_otp_to_assistant_home"
+            app:destination="@id/assistantHomeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_otp_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_otp_to_location"
+            app:destination="@id/locationPermissionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Assistant Home Dashboard -->
+    <fragment
+        android:id="@+id/assistantHomeFragment"
+        android:name="com.navassist.android.presentation.assistant.home.AssistantHomeFragment"
+        android:label="Assistant Dashboard"
+        tools:layout="@layout/fragment_assistant_home">
+        <action
+            android:id="@+id/action_assistant_to_sos"
+            app:destination="@id/sosFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_assistant_to_kyc"
+            app:destination="@id/kycUploadFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_assistant_to_earnings"
+            app:destination="@id/myEarningsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- KYC Upload Destination -->
+    <fragment
+        android:id="@+id/kycUploadFragment"
+        android:name="com.navassist.android.presentation.assistant.kyc.KycUploadFragment"
+        android:label="Identity Verification"
+        tools:layout="@layout/fragment_kyc_upload" />
+
+    <!-- My Earnings Destination -->
+    <fragment
+        android:id="@+id/myEarningsFragment"
+        android:name="com.navassist.android.presentation.assistant.earnings.MyEarningsFragment"
+        android:label="My Earnings"
+        tools:layout="@layout/fragment_my_earnings" />
+
+    <!-- Unified User Profile Destination -->
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.navassist.android.presentation.profile.UserProfileFragment"
+        android:label="My Profile"
+        tools:layout="@layout/fragment_user_profile">
+        <action
+            android:id="@+id/action_profile_to_kyc"
+            app:destination="@id/kycUploadFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- NavAssist Wallet Destination -->
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.navassist.android.presentation.wallet.WalletFragment"
+        android:label="My Wallet"
+        tools:layout="@layout/fragment_wallet" />
+
+    <!-- Emergency Contacts Destination -->
+    <fragment
+        android:id="@+id/emergencyContactsFragment"
+        android:name="com.navassist.android.presentation.emergency.EmergencyContactsFragment"
+        android:label="Emergency Contacts"
+        tools:layout="@layout/fragment_emergency_contacts" />
+
+    <!-- Enterprise Admin Console Destination -->
+    <fragment
+        android:id="@+id/adminDashboardFragment"
+        android:name="com.navassist.android.presentation.admin.AdminDashboardFragment"
+        android:label="Admin Console"
+        tools:layout="@layout/fragment_admin_dashboard" />
+
+    <!-- Admin KYC Review Queue Destination -->
+    <fragment
+        android:id="@+id/kycReviewQueueFragment"
+        android:name="com.navassist.android.presentation.admin.kyc.KycReviewQueueFragment"
+        android:label="KYC Review Queue"
+        tools:layout="@layout/fragment_kyc_review_queue">
+        <action
+            android:id="@+id/action_kyc_queue_to_detail"
+            app:destination="@id/kycReviewDetailFragment" />
+    </fragment>
+
+    <!-- Admin KYC Review Detail Destination -->
+    <fragment
+        android:id="@+id/kycReviewDetailFragment"
+        android:name="com.navassist.android.presentation.admin.kyc.KycReviewDetailFragment"
+        android:label="KYC Verification Detail"
+        tools:layout="@layout/fragment_kyc_review_detail">
+        <argument
+            android:name="assistantId"
+            android:defaultValue="1"
+            app:argType="integer" />
+    </fragment>
+
+    <!-- Admin Bookings Management Destination -->
+    <fragment
+        android:id="@+id/bookingsManagementFragment"
+        android:name="com.navassist.android.presentation.admin.bookings.BookingsManagementFragment"
+        android:label="Bookings Management"
+        tools:layout="@layout/fragment_bookings_management">
+        <action
+            android:id="@+id/action_admin_bookings_to_detail"
+            app:destination="@id/adminBookingDetailFragment" />
+    </fragment>
+
+    <!-- Admin Booking Detail Destination -->
+    <fragment
+        android:id="@+id/adminBookingDetailFragment"
+        android:name="com.navassist.android.presentation.admin.bookings.AdminBookingDetailFragment"
+        android:label="Booking Audit Detail"
+        tools:layout="@layout/fragment_admin_booking_detail">
+        <argument
+            android:name="bookingId"
+            android:defaultValue="1"
+            app:argType="integer" />
+    </fragment>
+
+    <!-- Admin User Management Destination -->
+    <fragment
+        android:id="@+id/userManagementFragment"
+        android:name="com.navassist.android.presentation.admin.users.UserManagementFragment"
+        android:label="User Management"
+        tools:layout="@layout/fragment_user_management">
+        <action
+            android:id="@+id/action_admin_users_to_detail"
+            app:destination="@id/userDetailFragment" />
+    </fragment>
+
+    <!-- Admin User Detail Destination -->
+    <fragment
+        android:id="@+id/userDetailFragment"
+        android:name="com.navassist.android.presentation.admin.users.UserDetailFragment"
+        android:label="User Profile Audit"
+        tools:layout="@layout/fragment_user_detail">
+        <argument
+            android:name="userId"
+            android:defaultValue="1"
+            app:argType="integer" />
+    </fragment>
+
+    <!-- Admin Live SOS Alerts Destination -->
+    <fragment
+        android:id="@+id/sosAlertsFragment"
+        android:name="com.navassist.android.presentation.admin.sos.SosAlertsFragment"
+        android:label="Live SOS Emergency Monitor"
+        tools:layout="@layout/fragment_sos_alerts" />
+
+    <!-- Additional Guest Destinations -->
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.navassist.android.presentation.auth.ForgotPasswordFragment"
+        android:label="Forgot Password"
+        tools:layout="@layout/fragment_forgot_password" />
+
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.navassist.android.presentation.auth.ResetPasswordFragment"
+        android:label="Reset Password"
+        tools:layout="@layout/fragment_reset_password" />
+
+    <fragment
+        android:id="@+id/bookingCancelledFragment"
+        android:name="com.navassist.android.presentation.booking.BookingCancelledFragment"
+        android:label="Booking Cancelled"
+        tools:layout="@layout/fragment_booking_cancelled" />
+
+    <fragment
+        android:id="@+id/receiptFragment"
+        android:name="com.navassist.android.presentation.booking.ReceiptFragment"
+        android:label="Digital Receipt"
+        tools:layout="@layout/fragment_receipt" />
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.navassist.android.presentation.chat.ChatFragment"
+        android:label="Assistant Chat"
+        tools:layout="@layout/fragment_chat" />
+
+    <fragment
+        android:id="@+id/incomingCallFragment"
+        android:name="com.navassist.android.presentation.chat.IncomingCallFragment"
+        android:label="Incoming Call"
+        tools:layout="@layout/fragment_incoming_call" />
+
+    <fragment
+        android:id="@+id/tripDetailFragment"
+        android:name="com.navassist.android.presentation.booking.TripDetailFragment"
+        android:label="Trip Detail"
+        tools:layout="@layout/fragment_trip_detail" />
+
+    <fragment
+        android:id="@+id/walletTransactionsFragment"
+        android:name="com.navassist.android.presentation.wallet.WalletTransactionsFragment"
+        android:label="Wallet Passbook"
+        tools:layout="@layout/fragment_wallet_transactions" />
+
+    <fragment
+        android:id="@+id/referralFragment"
+        android:name="com.navassist.android.presentation.referral.ReferralFragment"
+        android:label="Referral Program"
+        tools:layout="@layout/fragment_referral" />
+
+    <fragment
+        android:id="@+id/legalFragment"
+        android:name="com.navassist.android.presentation.legal.LegalFragment"
+        android:label="Legal &amp; Policies"
+        tools:layout="@layout/fragment_legal" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.navassist.android.presentation.about.AboutFragment"
+        android:label="About NavAssist"
+        tools:layout="@layout/fragment_about" />
+
+    <fragment
+        android:id="@+id/assistantReviewsFragment"
+        android:name="com.navassist.android.presentation.assistant.AssistantReviewsFragment"
+        android:label="Assistant Reviews"
+        tools:layout="@layout/fragment_assistant_reviews" />
+
+    <fragment
+        android:id="@+id/savedPaymentMethodsFragment"
+        android:name="com.navassist.android.presentation.payment.SavedPaymentMethodsFragment"
+        android:label="Saved Payment Methods"
+        tools:layout="@layout/fragment_saved_payment_methods" />
+
+    <fragment
+        android:id="@+id/paymentFailedFragment"
+        android:name="com.navassist.android.presentation.payment.PaymentFailedFragment"
+        android:label="Payment Failed"
+        tools:layout="@layout/fragment_payment_failed" />
+
+    <fragment
+        android:id="@+id/paymentProcessingFragment"
+        android:name="com.navassist.android.presentation.payment.PaymentProcessingFragment"
+        android:label="Payment Processing"
+        tools:layout="@layout/fragment_payment_processing" />
+
+    <fragment
+        android:id="@+id/paymentSuccessFragment"
+        android:name="com.navassist.android.presentation.payment.PaymentSuccessFragment"
+        android:label="Payment Success"
+        tools:layout="@layout/fragment_payment_success" />
+
+    <fragment
+        android:id="@+id/bookingWaitingFragment"
+        android:name="com.navassist.android.presentation.booking.BookingWaitingFragment"
+        android:label="Finding Guide"
+        tools:layout="@layout/fragment_booking_waiting" />
+
+    <fragment
+        android:id="@+id/assistantArrivalFragment"
+        android:name="com.navassist.android.presentation.booking.AssistantArrivalFragment"
+        android:label="Assistant Arrived"
+        tools:layout="@layout/fragment_assistant_arrival" />
+
+    <fragment
+        android:id="@+id/callFragment"
+        android:name="com.navassist.android.presentation.chat.CallFragment"
+        android:label="Call Assistant"
+        tools:layout="@layout/fragment_call" />
+
+    <fragment
+        android:id="@+id/journeyTimelineFragment"
+        android:name="com.navassist.android.presentation.booking.JourneyTimelineFragment"
+        android:label="Journey Timeline"
+        tools:layout="@layout/fragment_journey_timeline" />
+
+    <fragment
+        android:id="@+id/sosStatusFragment"
+        android:name="com.navassist.android.presentation.sos.SosStatusFragment"
+        android:label="SOS Active"
+        tools:layout="@layout/fragment_sos_status" />
+
+    <fragment
+        android:id="@+id/sharedTripFragment"
+        android:name="com.navassist.android.presentation.booking.SharedTripFragment"
+        android:label="Shared Trip"
+        tools:layout="@layout/fragment_shared_trip" />
+
+    <fragment
+        android:id="@+id/lostFoundFragment"
+        android:name="com.navassist.android.presentation.support.LostFoundFragment"
+        android:label="Report Lost Item"
+        tools:layout="@layout/fragment_lost_found" />
+
+    <fragment
+        android:id="@+id/ratingSuccessFragment"
+        android:name="com.navassist.android.presentation.rating.RatingSuccessFragment"
+        android:label="Rating Success"
+        tools:layout="@layout/fragment_rating_success" />
+
+    <fragment
+        android:id="@+id/reviewDetailFragment"
+        android:name="com.navassist.android.presentation.rating.ReviewDetailFragment"
+        android:label="Review Detail"
+        tools:layout="@layout/fragment_review_detail" />
+
+    <fragment
+        android:id="@+id/supportTicketDetailFragment"
+        android:name="com.navassist.android.presentation.support.SupportTicketDetailFragment"
+        android:label="Support Ticket Detail"
+        tools:layout="@layout/fragment_support_ticket_detail" />
+
+    <fragment
+        android:id="@+id/faqDetailFragment"
+        android:name="com.navassist.android.presentation.support.FaqDetailFragment"
+        android:label="FAQ Detail"
+        tools:layout="@layout/fragment_faq_detail" />
+
+    <fragment
+        android:id="@+id/contactSupportFragment"
+        android:name="com.navassist.android.presentation.support.ContactSupportFragment"
+        android:label="Contact Support"
+        tools:layout="@layout/fragment_contact_support" />
+
+    <fragment
+        android:id="@+id/ticketHistoryFragment"
+        android:name="com.navassist.android.presentation.support.TicketHistoryFragment"
+        android:label="Ticket History"
+        tools:layout="@layout/fragment_ticket_history" />
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.navassist.android.presentation.settings.ChangePasswordFragment"
+        android:label="Change Password"
+        tools:layout="@layout/fragment_change_password" />
+
+    <fragment
+        android:id="@+id/securityFragment"
+        android:name="com.navassist.android.presentation.settings.SecurityFragment"
+        android:label="Security"
+        tools:layout="@layout/fragment_security" />
+
+    <fragment
+        android:id="@+id/privacyFragment"
+        android:name="com.navassist.android.presentation.settings.PrivacyFragment"
+        android:label="Privacy"
+        tools:layout="@layout/fragment_privacy" />
+
+    <fragment
+        android:id="@+id/identityVerificationFragment"
+        android:name="com.navassist.android.presentation.settings.IdentityVerificationFragment"
+        android:label="Identity Verification"
+        tools:layout="@layout/fragment_identity_verification" />
+
+    <fragment
+        android:id="@+id/deleteAccountFragment"
+        android:name="com.navassist.android.presentation.settings.DeleteAccountFragment"
+        android:label="Delete Account"
+        tools:layout="@layout/fragment_delete_account" />
+
+    <fragment
+        android:id="@+id/editSavedLocationFragment"
+        android:name="com.navassist.android.presentation.settings.EditSavedLocationFragment"
+        android:label="Edit Saved Location"
+        tools:layout="@layout/fragment_edit_saved_location" />
+
+    <fragment
+        android:id="@+id/notificationPreferencesFragment"
+        android:name="com.navassist.android.presentation.settings.NotificationPreferencesFragment"
+        android:label="Notification Preferences"
+        tools:layout="@layout/fragment_notification_preferences" />
+
+    <fragment
+        android:id="@+id/languageAccessibilityFragment"
+        android:name="com.navassist.android.presentation.settings.LanguageAccessibilityFragment"
+        android:label="Language &amp; Accessibility"
+        tools:layout="@layout/fragment_language_accessibility" />
+
+    <fragment
+        android:id="@+id/emergencyContactDetailFragment"
+        android:name="com.navassist.android.presentation.settings.EmergencyContactDetailFragment"
+        android:label="Emergency Contact Detail"
+        tools:layout="@layout/fragment_emergency_contact_detail" />
+
+    <fragment
+        android:id="@+id/sosHistoryFragment"
+        android:name="com.navassist.android.presentation.sos.SosHistoryFragment"
+        android:label="SOS History"
+        tools:layout="@layout/fragment_sos_history" />
+
+    <fragment
+        android:id="@+id/travelPreferencesFragment"
+        android:name="com.navassist.android.presentation.settings.TravelPreferencesFragment"
+        android:label="Travel Preferences"
+        tools:layout="@layout/fragment_travel_preferences" />
+
+    <fragment
+        android:id="@+id/appUpdateFragment"
+        android:name="com.navassist.android.presentation.about.AppUpdateFragment"
+        android:label="App Updates"
+        tools:layout="@layout/fragment_app_update" />
+
+    <fragment
+        android:id="@+id/assistantOverviewFragment"
+        android:name="com.navassist.android.presentation.assistant.AssistantOverviewFragment"
+        android:label="Assistant Overview"
+        tools:layout="@layout/fragment_assistant_overview" />
+
+    <fragment
+        android:id="@+id/bookingAcceptedFragment"
+        android:name="com.navassist.android.presentation.assistant.BookingAcceptedFragment"
+        android:label="Booking Accepted"
+        tools:layout="@layout/fragment_booking_accepted" />
+
+    <fragment
+        android:id="@+id/applicationStatusFragment"
+        android:name="com.navassist.android.presentation.assistant.ApplicationStatusFragment"
+        android:label="Application Status"
+        tools:layout="@layout/fragment_application_status" />
+
+    <fragment
+        android:id="@+id/kycStatusFragment"
+        android:name="com.navassist.android.presentation.assistant.KycStatusFragment"
+        android:label="KYC Status"
+        tools:layout="@layout/fragment_kyc_status" />
+
+    <fragment
+        android:id="@+id/earningsDetailFragment"
+        android:name="com.navassist.android.presentation.assistant.EarningsDetailFragment"
+        android:label="Earnings Detail"
+        tools:layout="@layout/fragment_earnings_detail" />
+
+    <fragment
+        android:id="@+id/payoutHistoryFragment"
+        android:name="com.navassist.android.presentation.assistant.PayoutHistoryFragment"
+        android:label="Payout History"
+        tools:layout="@layout/fragment_payout_history" />
+
+    <fragment
+        android:id="@+id/withdrawFragment"
+        android:name="com.navassist.android.presentation.assistant.WithdrawFragment"
+        android:label="Withdraw Earnings"
+        tools:layout="@layout/fragment_withdraw" />
+
+    <fragment
+        android:id="@+id/bankDetailsFragment"
+        android:name="com.navassist.android.presentation.assistant.BankDetailsFragment"
+        android:label="Bank Details"
+        tools:layout="@layout/fragment_bank_details" />
+
+    <fragment
+        android:id="@+id/taxInformationFragment"
+        android:name="com.navassist.android.presentation.assistant.TaxInformationFragment"
+        android:label="Tax Information"
+        tools:layout="@layout/fragment_tax_information" />
+
+    <fragment
+        android:id="@+id/assistantWalletFragment"
+        android:name="com.navassist.android.presentation.assistant.AssistantWalletFragment"
+        android:label="Assistant Wallet"
+        tools:layout="@layout/fragment_assistant_wallet" />
+
+    <fragment
+        android:id="@+id/availabilityFragment"
+        android:name="com.navassist.android.presentation.assistant.AvailabilityFragment"
+        android:label="Availability Schedule"
+        tools:layout="@layout/fragment_availability" />
+
+    <fragment
+        android:id="@+id/serviceAreaFragment"
+        android:name="com.navassist.android.presentation.assistant.ServiceAreaFragment"
+        android:label="Service Area"
+        tools:layout="@layout/fragment_service_area" />
+
+    <fragment
+        android:id="@+id/performanceFragment"
+        android:name="com.navassist.android.presentation.assistant.PerformanceFragment"
+        android:label="Assistant Performance"
+        tools:layout="@layout/fragment_performance" />
+
+    <fragment
+        android:id="@+id/passengerReviewsFragment"
+        android:name="com.navassist.android.presentation.assistant.PassengerReviewsFragment"
+        android:label="Passenger Reviews"
+        tools:layout="@layout/fragment_passenger_reviews" />
+
+    <fragment
+        android:id="@+id/documentsFragment"
+        android:name="com.navassist.android.presentation.assistant.DocumentsFragment"
+        android:label="Uploaded Documents"
+        tools:layout="@layout/fragment_documents" />
+
+    <fragment
+        android:id="@+id/assistantEmergencyFragment"
+        android:name="com.navassist.android.presentation.assistant.AssistantEmergencyFragment"
+        android:label="Assistant SOS"
+        tools:layout="@layout/fragment_assistant_emergency" />
+
+    <fragment
+        android:id="@+id/assistantNotificationsFragment"
+        android:name="com.navassist.android.presentation.assistant.AssistantNotificationsFragment"
+        android:label="Assistant Notifications"
+        tools:layout="@layout/fragment_assistant_notifications" />
+
+    <fragment
+        android:id="@+id/assistantTripHistoryFragment"
+        android:name="com.navassist.android.presentation.assistant.AssistantTripHistoryFragment"
+        android:label="Assistant Trip History"
+        tools:layout="@layout/fragment_assistant_trip_history" />
+
+    <fragment
+        android:id="@+id/assistantSupportFragment"
+        android:name="com.navassist.android.presentation.assistant.AssistantSupportFragment"
+        android:label="Assistant Support"
+        tools:layout="@layout/fragment_assistant_support" />
+
+    <fragment
+        android:id="@+id/assistantSettingsFragment"
+        android:name="com.navassist.android.presentation.assistant.AssistantSettingsFragment"
+        android:label="Assistant Settings"
+        tools:layout="@layout/fragment_assistant_settings" />
+
+    <!-- Location Permission Destination -->
+    <fragment
+        android:id="@+id/locationPermissionFragment"
+        android:name="com.navassist.android.presentation.onboarding.LocationPermissionFragment"
+        android:label="Location Permission"
+        tools:layout="@layout/fragment_location_permission">
+        <action
+            android:id="@+id/action_location_to_home"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Home Dashboard -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.navassist.android.presentation.home.HomeFragment"
+        android:label="NavAssist"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_sos"
+            app:destination="@id/sosFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_home_to_bookAssistant"
+            app:destination="@id/bookAssistantFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Booking Entry Point Destination -->
+    <fragment
+        android:id="@+id/bookAssistantFragment"
+        android:name="com.navassist.android.presentation.booking.BookAssistantFragment"
+        android:label="Book Assistant"
+        tools:layout="@layout/fragment_book_assistant">
+        <action
+            android:id="@+id/action_book_to_pickup"
+            app:destination="@id/pickupLocationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Pickup Location Destination -->
+    <fragment
+        android:id="@+id/pickupLocationFragment"
+        android:name="com.navassist.android.presentation.booking.PickupLocationFragment"
+        android:label="Pickup Location"
+        tools:layout="@layout/fragment_pickup_location">
+        <action
+            android:id="@+id/action_pickup_to_destination"
+            app:destination="@id/destinationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Destination Selection Destination -->
+    <fragment
+        android:id="@+id/destinationFragment"
+        android:name="com.navassist.android.presentation.booking.DestinationFragment"
+        android:label="Destination"
+        tools:layout="@layout/fragment_destination">
+        <action
+            android:id="@+id/action_destination_to_schedule"
+            app:destination="@id/scheduleDateTimeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Date & Time Selection Destination -->
+    <fragment
+        android:id="@+id/scheduleDateTimeFragment"
+        android:name="com.navassist.android.presentation.booking.ScheduleDateTimeFragment"
+        android:label="Travel Time"
+        tools:layout="@layout/fragment_schedule_datetime">
+        <action
+            android:id="@+id/action_schedule_to_assistants"
+            app:destination="@id/availableAssistantsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Available Assistants Destination -->
+    <fragment
+        android:id="@+id/availableAssistantsFragment"
+        android:name="com.navassist.android.presentation.booking.AvailableAssistantsFragment"
+        android:label="Available Assistants"
+        tools:layout="@layout/fragment_available_assistants">
+        <action
+            android:id="@+id/action_assistants_to_profile"
+            app:destination="@id/assistantProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Assistant Profile Destination -->
+    <fragment
+        android:id="@+id/assistantProfileFragment"
+        android:name="com.navassist.android.presentation.booking.AssistantProfileFragment"
+        android:label="Assistant Profile"
+        tools:layout="@layout/fragment_assistant_profile">
+        <action
+            android:id="@+id/action_profile_to_summary"
+            app:destination="@id/bookingSummaryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Booking Summary Destination -->
+    <fragment
+        android:id="@+id/bookingSummaryFragment"
+        android:name="com.navassist.android.presentation.booking.BookingSummaryFragment"
+        android:label="Booking Summary"
+        tools:layout="@layout/fragment_booking_summary">
+        <action
+            android:id="@+id/action_summary_to_payment"
+            app:destination="@id/priceEstimateFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Price Estimate Destination -->
+    <fragment
+        android:id="@+id/priceEstimateFragment"
+        android:name="com.navassist.android.presentation.booking.PriceEstimateFragment"
+        android:label="Price Estimate"
+        tools:layout="@layout/fragment_price_estimate">
+        <action
+            android:id="@+id/action_estimate_to_offers"
+            app:destination="@id/offersFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_estimate_to_pay"
+            app:destination="@id/paymentMethodFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Payment Method Destination -->
+    <fragment
+        android:id="@+id/paymentMethodFragment"
+        android:name="com.navassist.android.presentation.booking.PaymentMethodFragment"
+        android:label="Payment Method"
+        tools:layout="@layout/fragment_payment_method">
+        <action
+            android:id="@+id/action_payment_to_confirm"
+            app:destination="@id/paymentConfirmationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Payment Confirmation Destination -->
+    <fragment
+        android:id="@+id/paymentConfirmationFragment"
+        android:name="com.navassist.android.presentation.booking.PaymentConfirmationFragment"
+        android:label="Payment Confirmation"
+        tools:layout="@layout/fragment_payment_confirmation">
+        <action
+            android:id="@+id/action_confirm_to_assigned"
+            app:destination="@id/assistantAssignedFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Assistant Assigned Destination -->
+    <fragment
+        android:id="@+id/assistantAssignedFragment"
+        android:name="com.navassist.android.presentation.journey.AssistantAssignedFragment"
+        android:label="Assistant Assigned"
+        tools:layout="@layout/fragment_assistant_assigned">
+        <action
+            android:id="@+id/action_assigned_to_enroute"
+            app:destination="@id/enRouteFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Assistant On The Way Destination -->
+    <fragment
+        android:id="@+id/enRouteFragment"
+        android:name="com.navassist.android.presentation.journey.EnRouteFragment"
+        android:label="Assistant On The Way"
+        tools:layout="@layout/fragment_en_route">
+        <action
+            android:id="@+id/action_enroute_to_tracking"
+            app:destination="@id/liveTrackingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Live Location Tracking Destination -->
+    <fragment
+        android:id="@+id/liveTrackingFragment"
+        android:name="com.navassist.android.presentation.journey.LiveTrackingFragment"
+        android:label="Live Location Tracking"
+        tools:layout="@layout/fragment_live_tracking">
+        <action
+            android:id="@+id/action_tracking_to_picked_up"
+            app:destination="@id/guestPickedUpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Guest Picked Up Destination -->
+    <fragment
+        android:id="@+id/guestPickedUpFragment"
+        android:name="com.navassist.android.presentation.journey.GuestPickedUpFragment"
+        android:label="Guest Picked Up"
+        tools:layout="@layout/fragment_guest_picked_up">
+        <action
+            android:id="@+id/action_picked_up_to_navigation"
+            app:destination="@id/navigationRouteFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Navigation Route Destination -->
+    <fragment
+        android:id="@+id/navigationRouteFragment"
+        android:name="com.navassist.android.presentation.journey.NavigationRouteFragment"
+        android:label="Navigation Route"
+        tools:layout="@layout/fragment_navigation_route">
+        <action
+            android:id="@+id/action_navigation_to_chat"
+            app:destination="@id/journeyChatFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Journey Chat Destination -->
+    <fragment
+        android:id="@+id/journeyChatFragment"
+        android:name="com.navassist.android.presentation.chat.JourneyChatFragment"
+        android:label="Journey Chat"
+        tools:layout="@layout/fragment_journey_chat" />
+
+    <!-- Notifications Center Destination -->
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.navassist.android.presentation.notifications.NotificationsFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <!-- Journey Completed Destination -->
+    <fragment
+        android:id="@+id/journeyCompletedFragment"
+        android:name="com.navassist.android.presentation.journey.JourneyCompletedFragment"
+        android:label="Journey Completed"
+        tools:layout="@layout/fragment_journey_completed">
+        <action
+            android:id="@+id/action_completed_to_rate"
+            app:destination="@id/rateAssistantFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Rate Assistant Destination -->
+    <fragment
+        android:id="@+id/rateAssistantFragment"
+        android:name="com.navassist.android.presentation.journey.RateAssistantFragment"
+        android:label="Rate Assistant"
+        tools:layout="@layout/fragment_rate_assistant" />
+
+    <!-- Feedback & Report Issue Destination -->
+    <fragment
+        android:id="@+id/feedbackFragment"
+        android:name="com.navassist.android.presentation.support.FeedbackFragment"
+        android:label="Report an Issue"
+        tools:layout="@layout/fragment_feedback" />
+
+    <!-- Trip History Destination -->
+    <fragment
+        android:id="@+id/tripHistoryFragment"
+        android:name="com.navassist.android.presentation.history.TripHistoryFragment"
+        android:label="Trip History"
+        tools:layout="@layout/fragment_trip_history" />
+
+    <!-- Saved Locations Destination -->
+    <fragment
+        android:id="@+id/savedLocationsFragment"
+        android:name="com.navassist.android.presentation.profile.SavedLocationsFragment"
+        android:label="Saved Locations"
+        tools:layout="@layout/fragment_saved_locations" />
+
+
+    <!-- Settings & Preferences Destination -->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.navassist.android.presentation.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <!-- Help & Support Destination -->
+    <fragment
+        android:id="@+id/helpSupportFragment"
+        android:name="com.navassist.android.presentation.support.HelpSupportFragment"
+        android:label="Help &amp; Support"
+        tools:layout="@layout/fragment_help_support" />
+
+    <!-- Discounts & Offers Destination -->
+    <fragment
+        android:id="@+id/offersFragment"
+        android:name="com.navassist.android.presentation.offers.OffersFragment"
+        android:label="Discounts &amp; Offers"
+        tools:layout="@layout/fragment_offers">
+        <action
+            android:id="@+id/action_offers_to_apply"
+            app:destination="@id/applyCouponFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Apply Coupon Destination -->
+    <fragment
+        android:id="@+id/applyCouponFragment"
+        android:name="com.navassist.android.presentation.offers.ApplyCouponFragment"
+        android:label="Apply Coupon"
+        tools:layout="@layout/fragment_apply_coupon" />
+
+    <!-- Core App Tabs -->
+    <fragment
+        android:id="@+id/bookingsFragment"
+        android:name="com.navassist.android.presentation.booking.BookingsFragment"
+        android:label="Bookings"
+        tools:layout="@layout/fragment_bookings" />
+
+
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.navassist.android.presentation.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/sosFragment"
+        android:name="com.navassist.android.presentation.sos.SosFragment"
+        android:label="Emergency SOS"
+        tools:layout="@layout/fragment_sos" />
+
+</navigation>

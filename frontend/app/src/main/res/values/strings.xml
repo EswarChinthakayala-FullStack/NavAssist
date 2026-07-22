@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Details -->
+    <string name="app_name">NavAssist</string>
+    <string name="app_tagline">Your trusted navigation &amp; assistance companion</string>
+
+    <!-- General UI -->
+    <string name="btn_get_started">Get Started</string>
+    <string name="btn_skip">Skip</string>
+    <string name="btn_continue">Continue</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_start_journey">Start Your Journey</string>
+    <string name="btn_almost_done">Almost Done</string>
+
+    <!-- 5-Page Intro Storytelling Onboarding Strings -->
+    <string name="intro_title_1">Travel Smarter.\nNavigate with Confidence.</string>
+    <string name="intro_desc_1">Experience the next generation of personal navigation and on-demand assistant services.</string>
+
+    <string name="intro_title_2">Find Trusted Local Assistance</string>
+    <string name="intro_desc_2">Browse verified local guides and certified assistants ready to accompany you anytime, anywhere.</string>
+
+    <string name="intro_title_3">Track Every Journey Live</string>
+    <string name="intro_desc_3">Monitor your assistant\'s live location on high-precision interactive maps with real-time ETAs.</string>
+
+    <string name="intro_title_4">Your Safety Comes First</string>
+    <string name="intro_desc_4">One-tap emergency SOS broadcast, encrypted communications, and round-the-clock safety monitoring.</string>
+
+    <string name="intro_title_5">Everything Ready.\nLet\'s Get Started.</string>
+    <string name="intro_desc_5">Your journey towards seamless, worry-free travel starts here. Tap below to begin.</string>
+
+    <!-- Feature Overview Strings -->
+    <string name="feature_overview_caption">EVERYTHING YOU NEED</string>
+    <string name="feature_overview_heading">Powerful Features Designed Around Your Journey</string>
+    <string name="feature_overview_desc">Travel safely, book trusted assistants in seconds, track every journey live, and pay with complete peace of mind.</string>
+    <string name="feature_booking_title">Assistant Booking</string>
+    <string name="feature_booking_desc">Book trusted local assistants within seconds.</string>
+    <string name="feature_tracking_title">Live Tracking</string>
+    <string name="feature_tracking_desc">Track every journey in real time with live updates.</string>
+    <string name="feature_safety_title">Safety &amp; SOS</string>
+    <string name="feature_safety_desc">Emergency assistance and verified professionals for every trip.</string>
+    <string name="feature_payments_title">Secure Payments</string>
+    <string name="feature_payments_desc">Fast, encrypted, and completely secure payments.</string>
+    <string name="btn_create_account">Create Account</string>
+    <string name="already_have_account_action">Already have an account? Sign In</string>
+
+    <!-- Registration & Sign Up Strings -->
+    <string name="create_your_account">Create Your Account</string>
+    <string name="signup_subtitle">Create an account to start booking trusted local travel assistants.</string>
+    <string name="label_full_name">Full Name</string>
+    <string name="label_email_address">Email Address</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="terms_and_privacy_agree">I agree to the Terms of Service and Privacy Policy.</string>
+    <string name="password_req_length">Minimum 8 characters</string>
+    <string name="password_req_uppercase">At least 1 uppercase letter</string>
+    <string name="password_req_lowercase">At least 1 lowercase letter</string>
+    <string name="password_req_number">At least 1 number</string>
+    <string name="password_req_special">At least 1 special character</string>
+
+    <!-- Onboarding 6-Page Titles & Descriptions -->
+    <string name="onboarding_title_1">Welcome to NavAssist</string>
+    <string name="onboarding_desc_1">Your trusted navigation &amp; live assistance companion for safe, effortless travel everywhere.</string>
+
+    <string name="onboarding_title_2">Smart Navigation</string>
+    <string name="onboarding_desc_2">Real-time intelligent route planning with offline-first turn-by-turn guidance tailored for you.</string>
+
+    <string name="onboarding_title_3">Live Assistant Tracking</string>
+    <string name="onboarding_desc_3">Connect with verified human assistants near you with live location sharing &amp; instant updates.</string>
+
+    <string name="onboarding_title_4">Safe &amp; Secure Travel</string>
+    <string name="onboarding_desc_4">One-tap 24/7 Emergency SOS, trusted contact monitoring, and background safety protocols.</string>
+
+    <string name="onboarding_title_5">Payments &amp; Rewards</string>
+    <string name="onboarding_desc_5">Transparent fare breakdowns, instant digital wallet top-ups, and automated seamless checkout.</string>
+
+    <string name="onboarding_title_6">Ready to Get Started?</string>
+    <string name="onboarding_desc_6">Join thousands of confident travelers. Your journey towards safer navigation begins now.</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_retry">Retry</string>
+    <string name="btn_back">Back</string>
+    <string name="label_loading">Loading…</string>
+    <string name="label_error">Something went wrong. Please try again.</string>
+    <string name="label_empty">No data available.</string>
+
+    <!-- Navigation Menu Aliases -->
+    <string name="nav_home">Home</string>
+    <string name="nav_bookings">Bookings</string>
+    <string name="nav_wallet">Wallet</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Authentication Flow Aliases -->
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login_subtitle">Sign in to continue to NavAssist</string>
+    <string name="email_or_phone">Email or Phone Number</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="login">Sign In</string>
+    <string name="no_account">Don\'t have an account? Sign Up</string>
+    <string name="has_account">Already have an account? Sign In</string>
+    <string name="register">Sign Up</string>
+    <string name="full_name">Full Name</string>
+    <string name="auth_welcome">Welcome to NavAssist</string>
+    <string name="auth_sign_in">Sign In</string>
+    <string name="auth_sign_up">Sign Up</string>
+    <string name="auth_email">Email Address</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_full_name">Full Name</string>
+    <string name="auth_phone">Phone Number</string>
+    <string name="auth_forgot_password">Forgot Password?</string>
+    <string name="auth_dont_have_account">Don\'t have an account? Sign Up</string>
+    <string name="auth_already_have_account">Already have an account? Sign In</string>
+
+    <!-- Home & Search Aliases -->
+    <string name="where_to">Where to?</string>
+    <string name="pickup_location">Pickup Location</string>
+    <string name="destination_location">Destination Location</string>
+    <string name="emergency_sos">Emergency SOS</string>
+    <string name="home_search_hint">Where to?</string>
+    <string name="home_nearby_assistants">Nearby Assistants</string>
+    <string name="home_saved_places">Saved Places</string>
+    <string name="home_recent_trips">Recent Trips</string>
+
+    <!-- Booking Flow Aliases -->
+    <string name="no_active_bookings">No active bookings right now.</string>
+    <string name="confirm_booking">Confirm Booking</string>
+    <string name="booking_confirm_pickup">Confirm Pickup</string>
+    <string name="booking_confirm_destination">Confirm Destination</string>
+    <string name="booking_fare_estimate">Fare Estimate</string>
+    <string name="booking_request_assistant">Request Assistant</string>
+    <string name="booking_cancel">Cancel Booking</string>
+    <string name="booking_status_pending">Finding Nearby Assistant…</string>
+    <string name="booking_status_accepted">Assistant En Route</string>
+    <string name="booking_status_ongoing">Trip In Progress</string>
+    <string name="booking_status_completed">Trip Completed</string>
+
+    <!-- Wallet & Payment -->
+    <string name="wallet_title">Wallet &amp; Payments</string>
+    <string name="wallet_balance">Available Balance</string>
+    <string name="add_funds">Add Funds</string>
+    <string name="wallet_add_funds">Add Funds</string>
+    <string name="wallet_transactions">Recent Transactions</string>
+
+    <!-- SOS & Safety -->
+    <string name="sos_title">Emergency SOS</string>
+    <string name="sos_subtitle">Tap to broadcast your live location to emergency contacts &amp; team</string>
+    <string name="sos_trigger_alert">TRIGGER SOS ALERT</string>
+    <string name="sos_alert_sent">SOS Alert Sent Successfully!</string>
+
+    <!-- Profile & Settings -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_edit">Edit Profile</string>
+    <string name="profile_emergency_contacts">Emergency Contacts</string>
+    <string name="profile_saved_locations">Saved Locations</string>
+    <string name="profile_settings">Settings</string>
+    <string name="profile_logout">Logout</string>
+
+    <!-- Navigation Titles -->
+    <string name="title_home">Home</string>
+    <string name="title_bookings">Bookings</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_wallet">Wallet</string>
+    <string name="title_sos">SOS</string>
+    <string name="title_profile">Profile</string>
+</resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardStepper"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    app:cardBackgroundColor="#18181B"
+    app:cardCornerRadius="22dp"
+    app:cardElevation="6dp"
+    app:strokeColor="#303038"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <!-- Step 1: Pickup -->
+        <com.navassist.android.presentation.widgets.stepper.BookingStepItemView
+            android:id="@+id/stepPickup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="12dp"
+            android:layout_height="1dp"
+            android:background="#303038" />
+
+        <!-- Step 2: Destination -->
+        <com.navassist.android.presentation.widgets.stepper.BookingStepItemView
+            android:id="@+id/stepDestination"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="12dp"
+            android:layout_height="1dp"
+            android:background="#303038" />
+
+        <!-- Step 3: Schedule -->
+        <com.navassist.android.presentation.widgets.stepper.BookingStepItemView
+            android:id="@+id/stepSchedule"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/line3"
+            android:layout_width="12dp"
+            android:layout_height="1dp"
+            android:background="#303038" />
+
+        <!-- Step 4: Assistant -->
+        <com.navassist.android.presentation.widgets.stepper.BookingStepItemView
+            android:id="@+id/stepAssistant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/line4"
+            android:layout_width="12dp"
+            android:layout_height="1dp"
+            android:background="#303038" />
+
+        <!-- Step 5: Fare -->
+        <com.navassist.android.presentation.widgets.stepper.BookingStepItemView
+            android:id="@+id/stepFare"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/line5"
+            android:layout_width="12dp"
+            android:layout_height="1dp"
+            android:background="#303038" />
+
+        <!-- Step 6: Payment -->
+        <com.navassist.android.presentation.widgets.stepper.BookingStepItemView
+            android:id="@+id/stepPayment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/line6"
+            android:layout_width="12dp"
+            android:layout_height="1dp"
+            android:background="#303038" />
+
+        <!-- Step 7: Confirm -->
+        <com.navassist.android.presentation.widgets.stepper.BookingStepItemView
+            android:id="@+id/stepConfirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="40dp"
+    android:viewportWidth="40"
+    android:viewportHeight="40">
+    <!-- Soft Outer Background Circle -->
+    <path
+        android:fillColor="#1F27272A"
+        android:pathData="M20,2 A18,18 0 1,0 20,38 A18,18 0 1,0 20,2 Z" />
+    <!-- Location Pin Outline -->
+    <path
+        android:strokeColor="#FAFAFA"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M20,10 C16.134,10 13,13.134 13,17 C13,22.25 20,29 20,29 C20,29 27,22.25 27,17 C27,13.134 23.866,10 20,10Z" />
+    <!-- Assistant Badge Inner Hole -->
+    <path
+        android:fillColor="#FAFAFA"
+        android:pathData="M20,14.5 A2.5,2.5 0 1,0 20,19.5 A2.5,2.5 0 1,0 20,14.5 Z" />
+</vector>

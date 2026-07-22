@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/otpVerificationContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B"
+    android:fitsSystemWindows="true">
+
+    <!-- Reusable Ambient Lighting & Dotted Grid Background -->
+    <com.navassist.android.presentation.widgets.background.NavigationGridBackgroundView
+        android:id="@+id/vNavigationBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Radial Gradient Highlight behind Logo -->
+    <View
+        android:id="@+id/vLogoRadialGlow"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:background="@drawable/bg_ambient_glow"
+        android:alpha="0.6"
+        app:layout_constraintBottom_toBottomOf="@id/cardLogo"
+        app:layout_constraintEnd_toEndOf="@id/cardLogo"
+        app:layout_constraintStart_toStartOf="@id/cardLogo"
+        app:layout_constraintTop_toTopOf="@id/cardLogo" />
+
+    <!-- Scrollable OTP Container for Responsiveness across Devices -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="36dp">
+
+            <!-- Logo Section: Official App Logo inside 64dp Circular Surface -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLogo"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="36dp"
+                app:cardBackgroundColor="#18181B"
+                app:cardCornerRadius="32dp"
+                app:cardElevation="6dp"
+                app:strokeColor="#303038"
+                app:strokeWidth="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivBrandLogo"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_app_logo" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Typography Header Section -->
+            <TextView
+                android:id="@+id/tvHeadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:letterSpacing="-0.01"
+                android:text="Verify Your Number"
+                android:textColor="#FAFAFA"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardLogo" />
+
+            <TextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="36dp"
+                android:gravity="center"
+                android:text="We've sent a 6-digit verification code to your registered mobile number."
+                android:textColor="#A1A1AA"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvHeadline" />
+
+            <!-- Registered Phone Number Badge + Edit Action -->
+            <LinearLayout
+                android:id="@+id/layoutPhoneDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_input_field"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSubtitle">
+
+                <TextView
+                    android:id="@+id/tvPhoneDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+91 98XXXXXX42"
+                    android:textColor="#FAFAFA"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvEditPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="4dp"
+                    android:text="Edit Number"
+                    android:textColor="#A1A1AA"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- 28dp Glassmorphism OTP Verification Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardOtpVerification"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="#18181B"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="12dp"
+                app:strokeColor="#303038"
+                app:strokeWidth="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutPhoneDisplay">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:id="@+id/tvCardTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Enter 6-Digit Code"
+                        android:textColor="#FAFAFA"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <!-- Custom Animated 6-Digit OTP View -->
+                    <com.navassist.android.presentation.widgets.input.OtpInputView
+                        android:id="@+id/otpInputView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp" />
+
+                    <!-- Circular Resend Timer Countdown Container -->
+                    <LinearLayout
+                        android:id="@+id/layoutTimerContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/cpTimerProgress"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="8dp"
+                            app:indicatorColor="#F59E0B"
+                            app:indicatorSize="18dp"
+                            app:trackColor="#27272A"
+                            app:trackThickness="2dp"
+                            tools:progress="60" />
+
+                        <TextView
+                            android:id="@+id/tvOtpTimer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Resend OTP in 00:30"
+                            android:textColor="#F59E0B"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Animated Resend OTP Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnResendOtp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Resend OTP Code"
+                        android:textColor="#FAFAFA"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:backgroundTint="#27272A"
+                        app:cornerRadius="14dp"
+                        app:strokeColor="#3F3F46"
+                        app:strokeWidth="1dp"
+                        tools:visibility="visible" />
+
+                    <!-- Animated Error Chip Container -->
+                    <LinearLayout
+                        android:id="@+id/layoutErrorChip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_error_chip"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="14dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="10dp"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="⚠️ "
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvErrorInline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#EF4444"
+                            android:textSize="13sp"
+                            tools:text="Invalid OTP code. Please check and try again." />
+
+                    </LinearLayout>
+
+                    <!-- Flagship 60dp Pure White CTA Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardVerifyCta"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="24dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Verify OTP"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="6dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="12dp">
+
+                            <TextView
+                                android:id="@+id/tvVerifyCta"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:letterSpacing="0.02"
+                                android:text="Verify OTP"
+                                android:textColor="#09090B"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ProgressBar
+                                android:id="@+id/pbLoading"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:indeterminateTint="#09090B"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <!-- Trailing Arrow inside Circular Black Container -->
+                            <FrameLayout
+                                android:id="@+id/vArrowCircle"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_icon_circle"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:id="@+id/ivArrow"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:contentDescription="Verify OTP"
+                                    android:src="@drawable/ic_arrow_right"
+                                    app:tint="#FFFFFF" />
+
+                            </FrameLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Footer Help Text -->
+            <TextView
+                android:id="@+id/tvHelpFooter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Didn't receive code? Check spam or contact support."
+                android:textColor="#71717A"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardOtpVerification" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

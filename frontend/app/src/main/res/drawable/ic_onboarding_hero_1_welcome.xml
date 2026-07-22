@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+
+    <!-- Subtle Background Circle Glow -->
+    <path
+        android:fillColor="#1F27272A"
+        android:pathData="M120,20 C175.228,20 220,64.772 220,120 C220,175.228 175.228,220 120,220 C64.772,220 20,175.228 20,120 C20,64.772 64.772,20 120,20Z" />
+
+    <!-- Concentric Outer Ring -->
+    <path
+        android:strokeColor="#52525B"
+        android:strokeWidth="1.5"
+        android:pathData="M120,40 C164.183,40 200,75.817 200,120 C200,164.183 164.183,200 120,200 C75.817,200 40,164.183 40,120 C40,75.817 75.817,40 120,40Z" />
+
+    <!-- Concentric Inner Ring -->
+    <path
+        android:strokeColor="#3F3F46"
+        android:strokeWidth="1"
+        android:pathData="M120,70 C147.614,70 170,92.386 170,120 C170,147.614 147.614,170 120,170 C92.386,170 70,147.614 70,120 C70,92.386 92.386,70 120,70Z" />
+
+    <!-- High-Contrast Curved Journey Polyline -->
+    <path
+        android:strokeColor="#FAFAFA"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M75,150 Q100,80 120,110 T165,85" />
+
+    <!-- Origin Node -->
+    <path
+        android:fillColor="#A1A1AA"
+        android:pathData="M75,150 A7,7 0 1,0 75,136 A7,7 0 1,0 75,150 Z" />
+
+    <!-- High-Contrast Destination Pin -->
+    <path
+        android:fillColor="#FAFAFA"
+        android:pathData="M165,65 C157.268,65 151,71.268 151,79 C151,89.5 165,102 165,102 C165,102 179,89.5 179,79 C179,71.268 172.732,65 165,65Z" />
+
+    <!-- Pin Hole Accent -->
+    <path
+        android:fillColor="#18181B"
+        android:pathData="M165,73 A5,5 0 1,0 165,83 A5,5 0 1,0 165,73 Z" />
+
+</vector>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/enRouteContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09090B"
+    android:fitsSystemWindows="true">
+
+    <!-- Full-Screen MapLibre GL Map -->
+    <org.maplibre.android.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Top Overlay Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <!-- WebSocket Connection Status Pill -->
+        <com.navassist.android.presentation.widgets.badge.ConnectionStatusView
+            android:id="@+id/badgeConnectionStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Live Arrival ETA Badge Overlay -->
+        <com.navassist.android.presentation.widgets.badge.EtaBadgeView
+            android:id="@+id/badgeEtaOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/badgeConnectionStatus" />
+
+        <!-- Floating SOS Emergency Action Button -->
+        <com.navassist.android.presentation.widgets.button.SosFloatingButton
+            android:id="@+id/btnSosFloating"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Persistent Bottom Sheet for Live Journey Details -->
+    <com.navassist.android.presentation.widgets.card.JourneyBottomSheet
+        android:id="@+id/sheetJourneyDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

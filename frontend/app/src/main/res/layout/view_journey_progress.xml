@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardJourneyProgress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#18181B"
+    app:cardCornerRadius="28dp"
+    app:cardElevation="8dp"
+    app:strokeColor="#303038"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Journey Progress"
+            android:textColor="#FAFAFA"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.navassist.android.presentation.widgets.badge.StatusBadgeView
+            android:id="@+id/badgeStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="16dp"
+            android:max="100"
+            android:progress="58"
+            app:indicatorColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle"
+            app:trackColor="#27272A"
+            app:trackCornerRadius="5dp" />
+
+        <TextView
+            android:id="@+id/tvPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="#FAFAFA"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressIndicator"
+            tools:text="58%" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/tvPercentage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvPercentage"
+            app:layout_constraintTop_toTopOf="@id/tvPercentage">
+
+            <TextView
+                android:id="@+id/tvDistanceEta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FAFAFA"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                tools:text="7.8 km remaining · 14 min" />
+
+            <TextView
+                android:id="@+id/tvArrivalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="#A1A1AA"
+                android:textSize="12sp"
+                tools:text="Est. Arrival: 10:42 AM" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sos_red_dark"
+    android:padding="24dp">
+
+    <ImageView
+        android:id="@+id/ivSosIcon"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/ic_sos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/text_on_primary" />
+
+    <TextView
+        android:id="@+id/tvSosTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="EMERGENCY DISTRESS SIGNAL"
+        android:textColor="@color/text_on_primary"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivSosIcon" />
+
+    <TextView
+        android:id="@+id/tvSosSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Pressing the button below will immediately send your live GPS location and alert law enforcement &amp; emergency response teams."
+        android:textAlignment="center"
+        android:textColor="@color/surface_variant"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSosTitle" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnTriggerSos"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/bg_button_sos"
+        android:text="DISPATCH EMERGENCY SOS NOW"
+        android:textColor="@color/text_on_primary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
