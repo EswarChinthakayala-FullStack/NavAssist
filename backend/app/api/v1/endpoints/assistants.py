@@ -304,18 +304,30 @@ async def push_location_coords(
 
 @router.get("/nearby", response_model=List[AssistantNearbyOut])
 async def search_nearby_guides(
-    latitude: float = Query(..., ge=-90.0, le=90.0),
-    longitude: float = Query(..., ge=-180.0, le=180.0),
+    latitude: Optional[float] = Query(None, ge=-90.0, le=90.0),
+    longitude: Optional[float] = Query(None, ge=-180.0, le=180.0),
+    lat: Optional[float] = Query(None, ge=-90.0, le=90.0),
+    lng: Optional[float] = Query(None, ge=-180.0, le=180.0),
+    lon: Optional[float] = Query(None, ge=-180.0, le=180.0),
     radius_km: float = Query(5.0, ge=1.0, le=50.0),
     db: AsyncSession = Depends(deps.get_db)
 ):
     """Performs spatial geographic checks to locate online verified assistants."""
-    results = await crud_assistant.get_nearby_assistants(db, latitude=latitude, longitude=longitude, radius_km=radius_km)
+    actual_lat = latitude if latitude is not None else lat
+    actual_lng = longitude if longitude is not None else (lng if lng is not None else lon)
+
+    if actual_lat is None or actual_lng is None:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Missing required location coordinates (pass latitude/longitude or lat/lng)"
+        )
+
+    results = await crud_assistant.get_nearby_assistants(db, latitude=actual_lat, longitude=actual_lng, radius_km=radius_km)
     
     from app.utils.geo_utils import calculate_haversine_distance
     nearby_list = []
     for assistant in results:
-        dist = calculate_haversine_distance(latitude, longitude, assistant.current_latitude or 0.0, assistant.current_longitude or 0.0)
+        dist = calculate_haversine_distance(actual_lat, actual_lng, assistant.current_latitude or 0.0, assistant.current_longitude or 0.0)
         nearby_list.append(AssistantNearbyOut(
             assistant_id=assistant.user_id,
             distance_km=round(dist, 2),

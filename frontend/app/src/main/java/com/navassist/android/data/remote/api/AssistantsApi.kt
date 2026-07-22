@@ -15,8 +15,10 @@ import retrofit2.http.*
 interface AssistantsApi {
     @GET("assistants/nearby")
     suspend fun getNearbyAssistants(
-        @Query("lat") lat: Double,
-        @Query("lng") lng: Double,
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
+        @Query("lat") lat: Double = latitude,
+        @Query("lng") lng: Double = longitude,
         @Query("radius_km") radiusKm: Double = 5.0
     ): List<AssistantNearbyDto>
 
