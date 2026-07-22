@@ -127,7 +127,9 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
 
         // View Receipt
         binding.btnViewReceipt.setOnClickListener {
-            findNavController().navigate(R.id.action_tripDetail_to_receipt)
+            val bId = currentBooking?.id ?: ""
+            val bundle = androidx.core.os.bundleOf("bookingId" to bId)
+            findNavController().navigate(R.id.action_tripDetail_to_receipt, bundle)
         }
 
         // Call Assistant

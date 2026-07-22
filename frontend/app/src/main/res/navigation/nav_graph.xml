@@ -468,6 +468,17 @@
     </fragment>
 
     <fragment
+        android:id="@+id/receiptFragment"
+        android:name="com.navassist.android.presentation.booking.ReceiptFragment"
+        android:label="Tax Receipt"
+        tools:layout="@layout/fragment_receipt">
+        <argument
+            android:name="bookingId"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+
+    <fragment
         android:id="@+id/walletTransactionsFragment"
         android:name="com.navassist.android.presentation.wallet.WalletTransactionsFragment"
         android:label="Wallet Passbook"

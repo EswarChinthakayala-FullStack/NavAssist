@@ -125,18 +125,31 @@ def serialize_booking_response(booking: Booking, current_user: User) -> BookingR
     a_name = None
     a_phone = None
     a_avatar = None
-    try:
-        if "assistant" in booking.__dict__ and booking.assistant:
-            a_name = getattr(booking.assistant, "full_name", None) or getattr(booking.assistant, "name", None) or getattr(booking.assistant, "email", None)
-            a_phone = getattr(booking.assistant, "phone_number", None) or getattr(booking.assistant, "phone", None)
-            a_avatar = getattr(booking.assistant, "profile_photo_url", None)
-            try:
-                if not a_avatar and "assistant_profile" in booking.assistant.__dict__ and booking.assistant.assistant_profile:
-                    a_avatar = getattr(booking.assistant.assistant_profile, "profile_photo_url", None)
-            except Exception:
-                pass
-    except Exception:
-        pass
+    a_rating = 5.0
+    a_trips = 0
+
+    if booking.assistant_id:
+        try:
+            res_a = await db.execute(select(User).filter(User.id == booking.assistant_id))
+            a_usr = res_a.scalars().first()
+            if a_usr:
+                a_name = a_usr.full_name or a_usr.name
+                a_phone = a_usr.phone_number
+                a_avatar = a_usr.profile_photo_url
+
+            res_p = await db.execute(select(AssistantProfile).filter(
+                (AssistantProfile.user_id == booking.assistant_id) | (AssistantProfile.id == booking.assistant_id)
+            ))
+            prof = res_p.scalars().first()
+            if prof:
+                if not a_name:
+                    a_name = prof.name
+                if not a_avatar:
+                    a_avatar = prof.profile_photo_url
+                a_rating = float(prof.avg_rating or 5.0)
+                a_trips = int(prof.total_trips or 0)
+        except Exception as e:
+            logger.error(f"Error fetching assistant profile for booking #{booking.id}: {e}")
 
     return BookingResponse(
         id=booking.id,
@@ -157,6 +170,8 @@ def serialize_booking_response(booking: Booking, current_user: User) -> BookingR
         assistant_name=a_name,
         assistant_phone=a_phone,
         assistant_avatar=a_avatar,
+        assistant_rating=a_rating,
+        assistant_trips_count=a_trips,
         created_at=booking.created_at,
         updated_at=booking.updated_at,
         distance_km=booking.distance_km,
