@@ -84,11 +84,12 @@ NavAssist is an enterprise-grade, full-stack customer support and ride assistanc
 
 | Domain | Technologies |
 | :--- | :--- |
-| **Frontend** | React, TypeScript, Vite, Tailwind CSS, shadcn/ui, Framer Motion |
-| **Backend** | Python, FastAPI, SQLAlchemy, Pydantic V2, Alembic |
+| **Android Client** | Kotlin, MVVM, Hilt, Jetpack Navigation, Material 3 XML, MapLibre SDK, Retrofit, Razorpay |
+| **Web Frontend** | React, TypeScript, Vite, Tailwind CSS, shadcn/ui, Framer Motion |
+| **Backend** | Python, FastAPI, SQLAlchemy, Pydantic V2, Alembic, WebSockets |
 | **Database** | MySQL (8.0), Spatial Indexes (GIS), SQLite (Development) |
 | **Payments** | Razorpay SDK, virtual wallet ledgers |
-| **Routing & Maps** | OpenRouteService API, Google Maps SDK, Leaflet |
+| **Routing & Maps** | MapLibre SDK, OpenRouteService API, Google Maps SDK, Leaflet |
 | **Authentication** | JWT, Refresh Tokens, bcrypt, OTP hashes |
 | **Deployment** | Docker, Docker Compose, Nginx, Gunicorn |
 
@@ -98,8 +99,9 @@ NavAssist is an enterprise-grade, full-stack customer support and ride assistanc
 
 ```
 NavAssist/
-├── backend/               # FastAPI application codebase
-├── web/                   # Vite + React + TypeScript frontend codebase
+├── backend/               # FastAPI application codebase & WebSocket services
+├── frontend/              # Native Android Application (Kotlin, MVVM, Hilt, Material 3 XML)
+├── web/                   # Vite + React + TypeScript web administration codebase
 ├── database/              # Global schema files & migration versions
 ├── docs/                  # Assets, screenshots, and visual documentation
 └── README.md              # Root entry landing page
