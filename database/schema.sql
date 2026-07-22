@@ -601,7 +601,7 @@ DELIMITER ;
 
 -- Seed default System Admin account
 -- Password: Password123
-INSERT INTO users (public_id, full_name, email, phone_number, password_hash, user_type, is_email_verified, is_phone_verified, status)
+INSERT INTO users (public_id, full_name, email, phone_number, password_hash, user_type, is_email_verified, is_phone_verified, status, created_at, updated_at)
 VALUES (
     '89bb86fa-ee98-4d9e-a95e-a40b6b7923f4',
     'System Administrator',
@@ -611,6 +611,10 @@ VALUES (
     'admin',
     1,
     1,
-    'active'
-) ON DUPLICATE KEY UPDATE id=id;
+    'active',
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+) ON DUPLICATE KEY UPDATE 
+    created_at = IF(CAST(created_at AS CHAR) LIKE '0000-00-00%', CURRENT_TIMESTAMP, created_at),
+    updated_at = IF(CAST(updated_at AS CHAR) LIKE '0000-00-00%', CURRENT_TIMESTAMP, updated_at);
 

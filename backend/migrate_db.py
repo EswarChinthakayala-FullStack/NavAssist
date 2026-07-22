@@ -34,6 +34,13 @@ async def run_migrations():
         "UPDATE guest_profiles SET created_at = NOW() WHERE created_at IS NULL OR CAST(created_at AS CHAR) LIKE '0000-00-00%'",
         "UPDATE assistant_profiles SET created_at = NOW() WHERE created_at IS NULL OR CAST(created_at AS CHAR) LIKE '0000-00-00%'",
         "UPDATE assistant_profiles SET updated_at = NOW() WHERE updated_at IS NULL OR CAST(updated_at AS CHAR) LIKE '0000-00-00%'",
+        """
+        INSERT INTO users (public_id, full_name, email, phone_number, password_hash, user_type, is_email_verified, is_phone_verified, status, created_at, updated_at)
+        VALUES ('89bb86fa-ee98-4d9e-a95e-a40b6b7923f4', 'System Administrator', 'admin@navassist.in', '+919999999999', '$2b$12$1AyiyqRqnmoLXjLE/dWA7exBjG1YDaFMlxl2bkUmapxlEnzUOP/NW', 'admin', 1, 1, 'active', NOW(), NOW())
+        ON DUPLICATE KEY UPDATE 
+            created_at = IF(CAST(created_at AS CHAR) LIKE '0000-00-00%', NOW(), created_at),
+            updated_at = IF(CAST(updated_at AS CHAR) LIKE '0000-00-00%', NOW(), updated_at)
+        """,
     ]
     async with engine.begin() as conn:
         for q in alter_queries:
