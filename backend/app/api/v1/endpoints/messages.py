@@ -51,6 +51,7 @@ def mask_phone_number(phone: str) -> str:
         return phone[:3] + "******" + phone[-2:]
     return phone[:2] + "****" + phone[-1:]
 
+@router.get("/chat/conversations/{bookingId}", response_model=List[BookingMessageResponse], include_in_schema=False)
 @router.get("/bookings/{bookingId}/messages", response_model=List[BookingMessageResponse])
 async def get_booking_messages(
     bookingId: int,

@@ -138,3 +138,44 @@ async def websocket_tracking(
     except Exception as e:
         logger.error(f"Error in WebSocket tracking loop on channel {channel}: {e}")
         await manager.disconnect(websocket, channel)
+
+
+@router.websocket("/assistant/bookings")
+async def websocket_assistant_bookings(
+    websocket: WebSocket,
+    token: str = Query(..., description="JWT Access Token")
+):
+    """
+    Real-time WebSocket endpoint for receiving live incoming booking dispatch events.
+    """
+    user_id_str = verify_token(token, token_type="access")
+    if not user_id_str:
+        await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="Could not validate token")
+        return
+
+    try:
+        user_id = int(user_id_str)
+    except ValueError:
+        await websocket.close(code=status.WS_1008_POLICY_VIOLATION, reason="Invalid token format")
+        return
+
+    channel = f"assistant:bookings:{user_id}"
+    await manager.connect(websocket, channel)
+
+    ack_frame = {
+        "event_type": "CONNECTED",
+        "channel": channel,
+        "message": "Subscribed to live assistant bookings dispatch"
+    }
+    await websocket.send_text(json.dumps(ack_frame))
+
+    try:
+        while True:
+            data = await websocket.receive_text()
+            # Heartbeat / ping responses
+            await websocket.send_text(json.dumps({"event_type": "PONG"}))
+    except WebSocketDisconnect:
+        await manager.disconnect(websocket, channel)
+    except Exception as e:
+        logger.error(f"Error in WebSocket assistant bookings loop on channel {channel}: {e}")
+        await manager.disconnect(websocket, channel)

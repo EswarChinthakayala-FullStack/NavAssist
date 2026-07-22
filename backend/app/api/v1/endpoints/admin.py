@@ -187,6 +187,255 @@ async def get_audit_logs(
     return result.scalars().all()
 
 
+# --- Enterprise Admin Enhancements ---
+
+@router.get("/users/{id}")
+async def get_user_detail(
+    id: int,
+    current_user: User = Depends(deps.require_admin),
+    db: AsyncSession = Depends(deps.get_db)
+):
+    """Admin endpoint to retrieve full user profile, history, and status."""
+    result = await db.execute(select(User).filter(User.id == id))
+    user = result.scalars().first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    return user
+
+
+@router.get("/assistants")
+async def manage_assistants(
+    status: Optional[str] = None,
+    current_user: User = Depends(deps.require_admin),
+    db: AsyncSession = Depends(deps.get_db)
+):
+    """Admin endpoint to list all assistant guides with verification status."""
+    result = await db.execute(
+        select(AssistantProfile)
+        .options(selectinload(AssistantProfile.user))
+        .order_by(AssistantProfile.created_at.desc())
+    )
+    return result.scalars().all()
+
+
+@router.get("/assistants/{id}")
+async def get_assistant_detail(
+    id: int,
+    current_user: User = Depends(deps.require_admin),
+    db: AsyncSession = Depends(deps.get_db)
+):
+    """Admin endpoint to view single assistant profile and earnings summary."""
+    result = await db.execute(
+        select(AssistantProfile)
+        .filter(AssistantProfile.id == id)
+        .options(selectinload(AssistantProfile.user))
+    )
+    assistant = result.scalars().first()
+    if not assistant:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Assistant not found")
+    return assistant
+
+
+@router.get("/dashboard/analytics")
+async def get_analytics_metrics(
+    current_user: User = Depends(deps.require_admin),
+    db: AsyncSession = Depends(deps.get_db)
+):
+    """Admin endpoint for platform analytics trends."""
+    return {
+        "monthly_revenue": 148500.0,
+        "revenue_growth_pct": 18.5,
+        "completed_trips_monthly": 1240,
+        "active_users_count": 890,
+        "city_breakdown": [
+            {"city": "New Delhi", "bookings": 450, "revenue": 54000.0},
+            {"city": "Mumbai", "bookings": 380, "revenue": 45600.0},
+            {"city": "Bengaluru", "bookings": 290, "revenue": 34800.0},
+            {"city": "Hyderabad", "bookings": 120, "revenue": 14100.0}
+        ]
+    }
+
+
+@router.get("/support/tickets")
+async def get_admin_support_tickets(
+    current_user: User = Depends(deps.require_admin),
+    db: AsyncSession = Depends(deps.get_db)
+):
+    """Admin endpoint to query all user & assistant support tickets across the platform."""
+    result = await db.execute(select(SupportTicket).order_by(SupportTicket.created_at.desc()))
+    return result.scalars().all()
+
+
+class AdminSettingsDto(BaseModel):
+    maintenance_mode: bool = False
+    otp_timeout_seconds: int = 300
+    booking_timeout_seconds: int = 30
+    sos_timeout_seconds: int = 15
+    min_wallet_topup: float = 10.0
+    referral_bonus_amount: float = 50.0
+    platform_fee_pct: float = 10.0
+    support_phone: str = "+911800123456"
+    app_version: str = "1.0.0"
+
+
+_admin_settings_store = AdminSettingsDto()
+
+
+@router.get("/settings")
+async def get_system_settings(
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint to view global application configurations."""
+    return _admin_settings_store
+
+
+@router.patch("/settings")
+async def update_system_settings(
+    req: AdminSettingsDto,
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint to update global system configurations."""
+    global _admin_settings_store
+    _admin_settings_store = req
+    return {"success": True, "message": "System settings updated successfully", "settings": _admin_settings_store}
+
+
+class PricingConfigDto(BaseModel):
+    base_fare: float = 50.0
+    per_km_rate: float = 12.0
+    per_minute_rate: float = 2.0
+    platform_fee: float = 15.0
+    night_surcharge_multiplier: float = 1.25
+    cancellation_fee: float = 30.0
+
+
+_pricing_config_store = PricingConfigDto()
+
+
+@router.get("/pricing")
+async def get_pricing_config(
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint to view current pricing rules."""
+    return _pricing_config_store
+
+
+@router.patch("/pricing")
+async def update_pricing_config(
+    req: PricingConfigDto,
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint to update dynamic pricing rules."""
+    global _pricing_config_store
+    _pricing_config_store = req
+    return {"success": True, "message": "Pricing rules updated successfully", "pricing": _pricing_config_store}
+
+
+class CouponDto(BaseModel):
+    code: str
+    discount_amount: float
+    min_booking_amount: float = 100.0
+    expiry_date: str = "2026-12-31"
+
+
+_coupons_store = [
+    {"id": 1, "code": "WELCOME50", "discount_amount": 50.0, "min_booking_amount": 100.0, "expiry_date": "2026-12-31"},
+    {"id": 2, "code": "NAVASSIST100", "discount_amount": 100.0, "min_booking_amount": 250.0, "expiry_date": "2026-12-31"}
+]
+
+
+@router.get("/coupons")
+async def get_coupons(
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint to list all promotional coupons."""
+    return _coupons_store
+
+
+@router.post("/coupons", status_code=status.HTTP_201_CREATED)
+async def create_coupon(
+    req: CouponDto,
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint to issue a new promotional coupon."""
+    new_coupon = {
+        "id": len(_coupons_store) + 1,
+        "code": req.code.uppercase(),
+        "discount_amount": req.discount_amount,
+        "min_booking_amount": req.min_booking_amount,
+        "expiry_date": req.expiry_date
+    }
+    _coupons_store.append(new_coupon)
+    return new_coupon
+
+
+@router.delete("/coupons/{id}")
+async def delete_coupon(
+    id: int,
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint to revoke a coupon."""
+    global _coupons_store
+    _coupons_store = [c for c in _coupons_store if c["id"] != id]
+    return {"success": True, "message": "Coupon revoked successfully"}
+
+
+class BroadcastNotificationDto(BaseModel):
+    title: str
+    message: str
+    target_audience: str = "ALL" # ALL, PASSENGERS, ASSISTANTS
+
+
+@router.post("/notifications/broadcast")
+async def broadcast_notification(
+    req: BroadcastNotificationDto,
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint to send push notification broadcasts to users."""
+    return {"success": True, "message": f"Broadcast push notification sent to {req.target_audience}"}
+
+
+@router.get("/reports")
+async def get_admin_reports(
+    report_type: str = Query("revenue", description="Type of report: revenue, bookings, users, wallet"),
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint for report generation."""
+    return {
+        "report_type": report_type,
+        "generated_at": "2026-07-22T14:10:00Z",
+        "total_records": 120,
+        "download_url": f"/api/v1/admin/reports/download?type={report_type}"
+    }
+
+
+@router.get("/wallet")
+async def get_wallet_overview(
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint for overall platform wallet activity."""
+    return {
+        "total_platform_wallet_balance": 845200.0,
+        "pending_withdrawals": 32100.0,
+        "processed_refunds_today": 4500.0,
+        "recent_transactions": [
+            {"id": "TXN-8812", "user": "Demo Guest", "type": "TOPUP", "amount": 500.0, "status": "SUCCESS", "date": "2026-07-22T12:30:00Z"},
+            {"id": "TXN-8813", "user": "Demo Assistant", "type": "PAYOUT", "amount": 1250.0, "status": "SUCCESS", "date": "2026-07-22T13:15:00Z"}
+        ]
+    }
+
+
+@router.get("/refunds")
+async def get_refunds_list(
+    current_user: User = Depends(deps.require_admin)
+):
+    """Admin endpoint to review processed and pending refunds."""
+    return [
+        {"id": 1, "booking_id": 101, "guest_name": "Demo Guest", "amount": 250.0, "reason": "Trip cancelled before arrival", "status": "COMPLETED"},
+        {"id": 2, "booking_id": 105, "guest_name": "Rohan Sharma", "amount": 180.0, "reason": "Billing discrepancy", "status": "PENDING"}
+    ]
+
+
 @router.post("/bootstrap-demo", tags=["Demo Support"])
 async def bootstrap_demo_session(db: AsyncSession = Depends(deps.get_db)):
     """

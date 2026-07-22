@@ -8,6 +8,8 @@ from app.models import UserRole, KycStatus, OnlineStatus, UserStatus
 class EmergencyContactBase(BaseModel):
     name: str = Field(..., description="Contact's full name")
     phone: str = Field(..., description="Contact's phone number with country code")
+    relationship: Optional[str] = Field("Guardian", description="Relationship type: Father, Mother, Spouse, Friend, Guardian, etc.")
+    is_primary: Optional[bool] = Field(False, description="Whether contact is the primary emergency contact")
 
 
 class EmergencyContactIn(EmergencyContactBase):

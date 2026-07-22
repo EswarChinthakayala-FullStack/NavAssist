@@ -50,6 +50,7 @@ async def deactivate_my_account(
 
 
 # Saved Locations Bookmarks
+@router.get("/saved-locations", response_model=List[SavedLocationOut], include_in_schema=False)
 @router.get("/me/saved-locations", response_model=List[SavedLocationOut])
 async def list_my_saved_locations(
     current_user: User = Depends(deps.get_current_user),
@@ -59,6 +60,7 @@ async def list_my_saved_locations(
     return await UserService.list_saved_locations(db, user_id=current_user.id)
 
 
+@router.post("/saved-locations", response_model=SavedLocationOut, status_code=status.HTTP_201_CREATED, include_in_schema=False)
 @router.post("/me/saved-locations", response_model=SavedLocationOut, status_code=status.HTTP_201_CREATED)
 async def create_my_saved_location(
     request: SavedLocationIn,
@@ -72,6 +74,7 @@ async def create_my_saved_location(
     return location
 
 
+@router.patch("/saved-locations/{id}", response_model=SavedLocationOut, include_in_schema=False)
 @router.patch("/me/saved-locations/{id}", response_model=SavedLocationOut)
 async def edit_my_saved_location(
     id: int,
@@ -86,6 +89,7 @@ async def edit_my_saved_location(
     return location
 
 
+@router.delete("/saved-locations/{id}", status_code=status.HTTP_200_OK, include_in_schema=False)
 @router.delete("/me/saved-locations/{id}", status_code=status.HTTP_200_OK)
 async def remove_my_saved_location(
     id: int,
@@ -99,6 +103,7 @@ async def remove_my_saved_location(
 
 
 # Emergency Contacts
+@router.get("/emergency-contacts", response_model=List[EmergencyContactOut], include_in_schema=False)
 @router.get("/me/emergency-contacts", response_model=List[EmergencyContactOut])
 async def list_my_emergency_contacts(
     current_user: User = Depends(deps.get_current_user),
@@ -108,6 +113,7 @@ async def list_my_emergency_contacts(
     return await UserService.list_emergency_contacts(db, user_id=current_user.id)
 
 
+@router.post("/emergency-contacts", response_model=EmergencyContactOut, status_code=status.HTTP_201_CREATED, include_in_schema=False)
 @router.post("/me/emergency-contacts", response_model=EmergencyContactOut, status_code=status.HTTP_201_CREATED)
 async def create_my_emergency_contact(
     request: EmergencyContactIn,
@@ -125,6 +131,7 @@ async def create_my_emergency_contact(
     return contact
 
 
+@router.delete("/emergency-contacts/{id}", status_code=status.HTTP_200_OK, include_in_schema=False)
 @router.delete("/me/emergency-contacts/{id}", status_code=status.HTTP_200_OK)
 async def remove_my_emergency_contact(
     id: int,

@@ -69,7 +69,8 @@ class AssistantProfileUpdate(BaseModel):
 from app.models.user import OnlineStatus
 
 class AssistantStatusToggle(BaseModel):
-    status: OnlineStatus = Field(..., description="Target online availability status")
+    status: Optional[OnlineStatus] = Field(None, description="Target online availability status")
+    online: Optional[bool] = Field(None, description="Boolean toggle for online status")
 
 
 class LocationPushRequest(BaseModel):

@@ -28,10 +28,22 @@ from app.schemas.auth import (
     ForgotPasswordRequest,
     ResetPasswordRequest
 )
+from app.schemas.user import UserOut
+from app.services.user_service import UserService
 from app.services.otp_service import OtpService
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
+
+@router.get("/me", response_model=UserOut)
+async def get_my_auth_profile(
+    current_user: User = Depends(deps.get_current_user),
+    db: AsyncSession = Depends(deps.get_db)
+):
+    """Fetches full profile information of the currently authenticated user."""
+    return await UserService.get_user_profile(db, user_id=current_user.id)
+
 
 
 @router.post("/send-otp", status_code=status.HTTP_200_OK, include_in_schema=False)
