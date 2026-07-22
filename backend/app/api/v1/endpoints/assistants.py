@@ -56,6 +56,28 @@ async def _sync_assistant_metrics(db: AsyncSession, profile: AssistantProfile) -
     return profile
 
 
+@router.post("/apply", response_model=AssistantProfileOut)
+async def apply_to_be_assistant(
+    current_user: User = Depends(deps.get_current_user),
+    db: AsyncSession = Depends(deps.get_db)
+):
+    """Upgrades user role to ASSISTANT and creates assistant profile if not already present."""
+    from app.models.user import UserRole
+    current_user.role = UserRole.ASSISTANT
+    db.add(current_user)
+    
+    profile = await crud_assistant.get_assistant(db, user_id=current_user.id)
+    if not profile:
+        profile = await crud_assistant.create_assistant_profile(db, user_id=current_user.id, name=current_user.full_name or "Assistant")
+    
+    await db.commit()
+    await db.refresh(profile)
+    res = AssistantProfileOut.model_validate(profile)
+    if current_user.full_name:
+        res.name = current_user.full_name
+    return res
+
+
 @router.get("/me/profile", response_model=AssistantProfileOut)
 async def get_own_profile(
     current_user: User = Depends(deps.get_current_assistant),

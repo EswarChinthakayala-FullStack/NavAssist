@@ -66,7 +66,8 @@ export function DashboardPage() {
 
         if (user?.role === "assistant") {
           const kycRes = await api.get("/kyc/status")
-          setKycBadgeStatus(kycRes.data.status || "PENDING")
+          const rawStatus = (kycRes.data.verification_status || kycRes.data.status || "DRAFT").toUpperCase()
+          setKycBadgeStatus(rawStatus === "NOT_SUBMITTED" ? "DRAFT" : rawStatus)
         } else {
           setKycBadgeStatus(user ? "Aadhaar Verified" : "Active Profile")
         }

@@ -19,7 +19,7 @@ import {
 export function KycPage() {
   const { user } = useAuth()
   
-  const [kycStatus, setKycStatus] = useState<"DRAFT" | "PENDING" | "APPROVED" | "REJECTED">("DRAFT")
+  const [kycStatus, setKycStatus] = useState<"DRAFT" | "NOT_SUBMITTED" | "PENDING" | "APPROVED" | "REJECTED">("DRAFT")
   const [aadhaarNumber, setAadhaarNumber] = useState("")
   const [docFront, setDocFront] = useState<File | null>(null)
   const [docBack, setDocBack] = useState<File | null>(null)
@@ -33,8 +33,9 @@ export function KycPage() {
     setLoading(true)
     try {
       const res = await api.get("/kyc/status")
-      const status = res.data.verification_status // APPROVED, PENDING, REJECTED, DRAFT
-      setKycStatus(status || "DRAFT")
+      const rawStatus = (res.data.verification_status || res.data.status || "DRAFT").toUpperCase()
+      const status = (rawStatus === "NOT_SUBMITTED" || rawStatus === "NONE") ? "DRAFT" : rawStatus
+      setKycStatus(status as any)
       if (res.data.review_notes) {
         setReviewNotes(res.data.review_notes)
       }
@@ -42,7 +43,7 @@ export function KycPage() {
         setAadhaarNumber(res.data.aadhaar_number)
       }
     } catch (err) {
-      // If 404, default to DRAFT
+      // If 404, default to DRAFT so input form is visible
       setKycStatus("DRAFT")
     } finally {
       setLoading(false)
@@ -270,8 +271,8 @@ export function KycPage() {
             </Card>
           )}
 
-          {/* Upload Form (Visible if DRAFT or REJECTED) */}
-          {(kycStatus === "DRAFT" || kycStatus === "REJECTED") && (
+          {/* Upload Form (Visible if DRAFT, NOT_SUBMITTED, or REJECTED) */}
+          {(kycStatus === "DRAFT" || kycStatus === "NOT_SUBMITTED" || kycStatus === "REJECTED") && (
             <Card className="rounded-2xl border border-border shadow-sm">
               <CardHeader>
                 <CardTitle className="text-base font-bold">Submit Identity Credentials</CardTitle>

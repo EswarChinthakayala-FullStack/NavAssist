@@ -58,12 +58,14 @@ async def get_kyc_status(
         
     assistant = await crud_assistant.get_assistant(db, user_id=current_user.id)
     if not assistant:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="KYC details profile not found"
-        )
+        assistant = await crud_assistant.create_assistant_profile(db, user_id=current_user.id, name=current_user.full_name or "Assistant")
+        await db.commit()
+        await db.refresh(assistant)
+
     return {
         "verification_status": assistant.verification_status,
+        "status": assistant.verification_status,
+        "aadhaar_number": assistant.aadhaar_masked,
         "message": f"KYC status is {assistant.verification_status.value}"
     }
 
