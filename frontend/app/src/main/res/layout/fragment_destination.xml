@@ -7,126 +7,297 @@
     android:layout_height="match_parent"
     android:background="#09090B">
 
-    <!-- Layer 1: Fullscreen MapLibre GL Map -->
+    <!-- Layer 0: Fullscreen MapLibre GL Vector Map -->
     <org.maplibre.android.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Top Overlay: Booking Stepper & Floating Destination Search View -->
-    <LinearLayout
+    <!-- Main Floating Overlays Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/overlayContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="20dp"
-        android:paddingTop="32dp"
-        android:paddingEnd="20dp">
+        android:layout_height="match_parent">
 
-        <com.navassist.android.presentation.customviews.BookingStepperView
-            android:id="@+id/stepperView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.navassist.android.presentation.widgets.search.DestinationSearchView
-            android:id="@+id/destinationSearchView"
-            android:layout_width="match_parent"
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 1: Top Section — Stepper & Search Bar                -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/layoutTopSection"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:elevation="10dp" />
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </LinearLayout>
-
-    <!-- Bottom Floating Map Controls -->
-    <com.navassist.android.presentation.widgets.controls.MapFloatingControls
-        android:id="@+id/mapControls"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="210dp" />
-
-    <!-- Bottom Floating Container: Journey Preview Card & Continue CTA Button -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="24dp">
-
-        <com.navassist.android.presentation.widgets.card.JourneyPreviewCard
-            android:id="@+id/cardJourneyPreview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- Search Results List Container -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSearchResults"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_input_field"
-            android:visibility="gone"
-            tools:listitem="@layout/item_location_search_result" />
-
-        <!-- 60dp Pure White Continue CTA Button -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardContinueCta"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:contentDescription="Confirm Destination"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="8dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Stepper View (Step 2: Destination) -->
+            <com.navassist.android.presentation.customviews.BookingStepperView
+                android:id="@+id/stepperView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="24dp"
-                android:paddingEnd="12dp">
+                android:layout_height="wrap_content" />
 
+            <!-- Floating Material 3 Destination Search View -->
+            <com.navassist.android.presentation.widgets.search.DestinationSearchView
+                android:id="@+id/destinationSearchView"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="10dp"
+                android:elevation="14dp" />
+
+        </LinearLayout>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 2: Center Interactive Animated Destination Pin       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/layoutCenterPin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:translationY="-24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Destination Location Badge -->
+            <TextView
+                android:id="@+id/tvDestinationBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/bg_destination_badge"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.05"
+                android:text="DESTINATION"
+                android:textColor="#EF4444"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <!-- Marker Icon Container -->
+            <FrameLayout
+                android:id="@+id/vPinContainer"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_glass_circle"
+                android:elevation="12dp">
+
+                <ImageView
+                    android:id="@+id/ivCenterPin"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="Set Destination Location"
+                    android:src="@drawable/ic_ms_location_on"
+                    app:tint="#EF4444" />
+
+            </FrameLayout>
+
+            <!-- Soft Drop Shadow Base -->
+            <View
+                android:layout_width="16dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="2dp"
+                android:alpha="0.5"
+                android:background="@drawable/bg_bottom_sheet_handle" />
+
+        </LinearLayout>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 3: Right-Side Floating Map Control Stack (48dp)     -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/panelMapControls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:elevation="14dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/layoutBottomSection"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Control 1: My Location -->
+            <ImageView
+                android:id="@+id/btnMyLocation"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_map_control_button"
+                android:clickable="true"
+                android:contentDescription="Center Location"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_ms_my_location"
+                app:tint="#FAFAFA" />
+
+            <!-- Control 2: Map Layers -->
+            <ImageView
+                android:id="@+id/btnMapStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_map_control_button"
+                android:clickable="true"
+                android:contentDescription="Map Style"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_ms_layers"
+                app:tint="#FAFAFA" />
+
+            <!-- Control 3: Recenter Route -->
+            <ImageView
+                android:id="@+id/btnRecenterRoute"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_map_control_button"
+                android:clickable="true"
+                android:contentDescription="Recenter Route"
+                android:focusable="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_ms_near_me"
+                app:tint="#FAFAFA" />
+
+        </LinearLayout>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 4: Bottom Section — Journey Preview & Confirm CTA    -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/layoutBottomSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <!-- Journey Preview Card -->
+            <com.navassist.android.presentation.widgets.card.JourneyPreviewCard
+                android:id="@+id/cardJourneyPreview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- 56dp Primary Confirm Destination Button -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardContinueCta"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:contentDescription="Confirm Destination"
+                android:focusable="true"
+                app:cardBackgroundColor="#FAFAFA"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="14dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp">
+
+                    <TextView
+                        android:id="@+id/tvContinueCta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.01"
+                        android:text="Confirm Destination"
+                        android:textColor="#09090B"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- Trailing Arrow inside Circular Black Container -->
+                    <FrameLayout
+                        android:id="@+id/vArrowCircle"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_confirm_arrow_circle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/ivArrow"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="Next Step"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="#FFFFFF" />
+
+                    </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- Layer 5: Elevated Top-Most Search Suggestions Dropdown      -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSearchResults"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="32dp"
+            android:translationZ="32dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="#F7121214"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTopSection"
+            app:strokeColor="#27272A"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSearchResults"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    tools:listitem="@layout/item_location_search_result" />
+
+                <!-- OpenStreetMap Attribution Text -->
                 <TextView
-                    android:id="@+id/tvContinueCta"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvOsmAttribution"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:letterSpacing="0.02"
-                    android:text="Confirm Destination"
-                    android:textColor="#09090B"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:gravity="center"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="10dp"
+                    android:text="Powered by OpenStreetMap"
+                    android:textColor="#52525B"
+                    android:textSize="10sp"
+                    android:fontFamily="sans-serif-medium" />
 
-                <!-- Trailing Arrow inside Circular Black Container -->
-                <FrameLayout
-                    android:id="@+id/vArrowCircle"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_icon_circle"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/ivArrow"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:contentDescription="Confirm Destination"
-                        android:src="@drawable/ic_arrow_right"
-                        app:tint="#FFFFFF" />
-
-                </FrameLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

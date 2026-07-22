@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -27,18 +28,20 @@ class DestinationSearchView @JvmOverloads constructor(
         gravity = Gravity.CENTER_VERTICAL
         val density = context.resources.displayMetrics.density
         val paddingHorizontalPx = (16 * density).toInt()
-        val paddingVerticalPx = (12 * density).toInt()
 
-        setPadding(paddingHorizontalPx, paddingVerticalPx, paddingHorizontalPx, paddingVerticalPx)
-        setBackgroundResource(R.drawable.bg_input_field)
+        setPadding(paddingHorizontalPx, 0, paddingHorizontalPx, 0)
+        setBackgroundResource(R.drawable.bg_search_bar_glass)
 
         val searchIcon = ImageView(context).apply {
-            layoutParams = LayoutParams((20 * density).toInt(), (20 * density).toInt())
-            setImageResource(R.drawable.ic_benefit_pickup)
+            layoutParams = LayoutParams((20 * density).toInt(), (20 * density).toInt()).apply {
+                gravity = Gravity.CENTER_VERTICAL
+            }
+            setImageResource(R.drawable.ic_ms_search)
+            setColorFilter(Color.parseColor("#A1A1AA"))
         }
 
         searchEditText = EditText(context).apply {
-            layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f).apply {
+            layoutParams = LayoutParams(0, (56 * density).toInt(), 1f).apply {
                 marginStart = (12 * density).toInt()
                 marginEnd = (12 * density).toInt()
             }
@@ -46,12 +49,20 @@ class DestinationSearchView @JvmOverloads constructor(
             hint = "Where are you headed?"
             setHintTextColor(Color.parseColor("#71717A"))
             setTextColor(Color.parseColor("#FAFAFA"))
-            textSize = 15f
+            textSize = 14f
+            isSingleLine = true
+            maxLines = 1
+            gravity = Gravity.CENTER_VERTICAL
+            imeOptions = EditorInfo.IME_ACTION_SEARCH
+            setPadding(0, 0, 0, 0)
         }
 
         clearImageView = ImageView(context).apply {
-            layoutParams = LayoutParams((20 * density).toInt(), (20 * density).toInt())
-            setImageResource(R.drawable.ic_eye)
+            layoutParams = LayoutParams((20 * density).toInt(), (20 * density).toInt()).apply {
+                gravity = Gravity.CENTER_VERTICAL
+            }
+            setImageResource(R.drawable.ic_ms_cancel)
+            setColorFilter(Color.parseColor("#71717A"))
             visibility = GONE
         }
 
