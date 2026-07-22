@@ -2,6 +2,8 @@ package com.navassist.android.presentation.journey
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -43,6 +45,12 @@ class LiveTrackingFragment : BaseFragment<FragmentLiveTrackingBinding>(FragmentL
         super.onViewCreated(view, savedInstanceState)
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+            binding.liveTrackingContainer.setPadding(0, statusBarInsets.top, 0, 0)
+            insets
+        }
     }
 
     override fun setupViews() {

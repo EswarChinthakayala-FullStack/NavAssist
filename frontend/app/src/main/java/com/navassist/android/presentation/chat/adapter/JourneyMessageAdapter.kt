@@ -1,16 +1,12 @@
 package com.navassist.android.presentation.chat.adapter
 
-import android.graphics.Color
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.card.MaterialCardView
 import com.navassist.android.R
 
 data class JourneyChatMessage(
@@ -34,35 +30,14 @@ class JourneyMessageAdapter : ListAdapter<JourneyChatMessage, JourneyMessageAdap
     }
 
     class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val container: LinearLayout = itemView.findViewById(R.id.llMessageContainer)
-        private val cardBubble: MaterialCardView = itemView.findViewById(R.id.cardBubble)
-        private val tvContent: TextView = itemView.findViewById(R.id.tvMessageContent)
+        private val tvSender: TextView? = itemView.findViewById(R.id.tvSenderName)
+        private val tvContent: TextView = itemView.findViewById(R.id.tvMessageText)
         private val tvTime: TextView = itemView.findViewById(R.id.tvTimestamp)
-        private val tvStatus: TextView = itemView.findViewById(R.id.tvDeliveryStatus)
 
         fun bind(message: JourneyChatMessage) {
+            tvSender?.text = if (message.isFromUser) "You" else "Assistant Guide"
             tvContent.text = message.text
             tvTime.text = message.timestamp
-
-            val density = itemView.context.resources.displayMetrics.density
-
-            if (message.isFromUser) {
-                container.gravity = Gravity.END
-                cardBubble.setCardBackgroundColor(Color.parseColor("#27272A"))
-                cardBubble.strokeColor = Color.parseColor("#3F3F46")
-                cardBubble.strokeWidth = (1 * density).toInt()
-                cardBubble.radius = 18f * density
-                tvStatus.visibility = View.VISIBLE
-                tvStatus.text = if (message.isRead) "✓✓" else "✓"
-                tvStatus.setTextColor(if (message.isRead) Color.parseColor("#22C55E") else Color.parseColor("#A1A1AA"))
-            } else {
-                container.gravity = Gravity.START
-                cardBubble.setCardBackgroundColor(Color.parseColor("#18181B"))
-                cardBubble.strokeColor = Color.parseColor("#303038")
-                cardBubble.strokeWidth = (1 * density).toInt()
-                cardBubble.radius = 18f * density
-                tvStatus.visibility = View.GONE
-            }
         }
     }
 

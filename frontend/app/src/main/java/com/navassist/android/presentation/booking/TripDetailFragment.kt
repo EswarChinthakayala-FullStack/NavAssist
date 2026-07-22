@@ -6,8 +6,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.navassist.android.R
 import com.navassist.android.core.utils.CurrencyUtils
@@ -18,6 +23,7 @@ import com.navassist.android.domain.model.LocationPoint
 import com.navassist.android.presentation.common.base.BaseFragment
 import com.navassist.android.presentation.common.state.UiState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.geometry.LatLngBounds
@@ -50,6 +56,18 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
 
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(this)
+
+        // Status bar window insets for edge-to-edge
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+            binding.layoutTopHeader.setPadding(
+                binding.layoutTopHeader.paddingLeft,
+                statusBarInsets.top,
+                binding.layoutTopHeader.paddingRight,
+                binding.layoutTopHeader.paddingBottom
+            )
+            insets
+        }
 
         val bookingId = arguments?.getString("bookingId") ?: ""
         viewModel.loadTripDetail(bookingId)
@@ -121,12 +139,16 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
 
         // Message / Chat Assistant
         binding.btnChatAssistant.setOnClickListener {
-            findNavController().navigate(R.id.action_tripDetail_to_chat)
+            val bId = currentBooking?.id ?: ""
+            val bundle = androidx.core.os.bundleOf("bookingId" to bId)
+            findNavController().navigate(R.id.action_tripDetail_to_chat, bundle)
         }
 
         // Emergency SOS
         binding.btnEmergencySos.setOnClickListener {
-            showToast("Emergency SOS Alert Triggered! Notifying safety team...", Toast.LENGTH_LONG)
+            val bId = currentBooking?.id ?: ""
+            val bundle = androidx.core.os.bundleOf("bookingId" to bId)
+            findNavController().navigate(R.id.action_tripDetail_to_sos, bundle)
         }
 
         // Cancel Trip Button
@@ -138,24 +160,19 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
     }
 
     override fun observeViewModel() {
-        collectLifecycleFlow(viewModel.bookingState) { state ->
-            when (state) {
-                is UiState.Loading -> {
-                    // Shimmer or loading indicator
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.bookingState.collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            bindBookingDetails(state.data)
+                        }
+                        is UiState.Error -> {
+                            showToast(state.message)
+                        }
+                        else -> {}
+                    }
                 }
-                is UiState.Success -> {
-                    bindBookingDetails(state.data)
-                }
-                is UiState.Error -> {
-                    showToast(state.message)
-                }
-                else -> {}
-            }
-        }
-
-        collectLifecycleFlow(viewModel.routePoints) { points ->
-            currentBooking?.let { booking ->
-                drawRoutePolylines(booking.pickupLocation, booking.destinationLocation, points)
             }
         }
     }
@@ -172,10 +189,13 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
 
         bindStatusBadge(booking.status)
 
-        // 2. Assistant Profile Card
-        binding.tvAssistantName.text = booking.assistantName ?: "Verified Assistant"
-        binding.tvAssistantPhone.text = booking.assistantPhone ?: "+91 98765 43210"
-        binding.tvAssistantRating.text = "★ 4.9 • 120+ Completed Trips"
+        // 2. Assistant Profile Card (Fetch real database rating & trips count)
+        binding.tvAssistantName.text = booking.assistantName ?: "Assigned Guide"
+        binding.tvAssistantPhone.text = booking.assistantPhone ?: "+91 9999999999"
+
+        val ratingVal = booking.assistantRating ?: 5.0
+        val tripsVal = booking.assistantTripsCount ?: 0
+        binding.tvAssistantRating.text = "★ ${String.format("%.1f", ratingVal)} • $tripsVal Completed Trips"
 
         // 3. OTP Verification Card (Visible when status is ACCEPTED or ARRIVED)
         val showOtp = booking.status == BookingStatus.ACCEPTED || booking.status == BookingStatus.PENDING
@@ -197,21 +217,22 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
             BookingStatus.COMPLETED -> {
                 binding.btnPrimaryAction.text = "Book Again"
                 binding.btnPrimaryAction.setOnClickListener {
-                    findNavController().navigateUp()
+                    findNavController().navigate(R.id.bookAssistantFragment)
                 }
                 binding.btnCancelTrip.isVisible = false
             }
             BookingStatus.CANCELLED -> {
                 binding.btnPrimaryAction.text = "Rebook Trip"
                 binding.btnPrimaryAction.setOnClickListener {
-                    findNavController().navigateUp()
+                    findNavController().navigate(R.id.bookAssistantFragment)
                 }
                 binding.btnCancelTrip.isVisible = false
             }
-            else -> { // PENDING, ACCEPTED, ONGOING
+            else -> {
                 binding.btnPrimaryAction.text = "Live Route Tracking"
                 binding.btnPrimaryAction.setOnClickListener {
-                    showToast("Live tracking active for active journey.")
+                    val bundle = androidx.core.os.bundleOf("bookingId" to booking.id)
+                    findNavController().navigate(R.id.action_tripDetail_to_liveTracking, bundle)
                 }
                 binding.btnCancelTrip.isVisible = true
             }

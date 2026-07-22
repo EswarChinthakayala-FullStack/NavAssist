@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.navassist.android.databinding.FragmentSosBinding
 import com.navassist.android.presentation.common.state.UiState
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,8 +37,23 @@ class SosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+            binding.layoutTopHeader.setPadding(
+                binding.layoutTopHeader.paddingLeft,
+                statusBarInsets.top,
+                binding.layoutTopHeader.paddingRight,
+                binding.layoutTopHeader.paddingBottom
+            )
+            insets
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.btnTriggerSos.setOnClickListener {
-            viewModel.triggerSos(37.7749, -122.4194)
+            viewModel.triggerSos(15.5057, 80.0499)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

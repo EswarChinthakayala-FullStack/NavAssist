@@ -1,12 +1,12 @@
 package com.navassist.android.presentation.chat
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.navassist.android.R
+import coil3.load
 import com.navassist.android.databinding.ItemChatMessageBinding
 import com.navassist.android.domain.model.ChatMessage
 
@@ -30,21 +30,28 @@ class ChatAdapter : ListAdapter<ChatMessage, ChatAdapter.ChatViewHolder>(DIFF_CA
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ChatMessage) {
-            binding.tvMessageContent.text = item.messageText
-            binding.tvTimestamp.text = item.timestamp
+            binding.tvSenderName.text = item.senderName
+            binding.tvTimestamp.text = item.timestamp.takeIf { it.isNotBlank() } ?: "Just now"
 
-            val card = binding.cardBubble
-            val params = card.layoutParams as ViewGroup.MarginLayoutParams
-            if (item.isFromMe) {
-                card.setCardBackgroundColor(ContextCompat.getColor(binding.root.context, R.color.primary_accent))
-                binding.tvMessageContent.setTextColor(ContextCompat.getColor(binding.root.context, R.color.text_on_primary))
-                params.setMargins(100, 0, 0, 0)
-            } else {
-                card.setCardBackgroundColor(ContextCompat.getColor(binding.root.context, R.color.surface_variant))
-                binding.tvMessageContent.setTextColor(ContextCompat.getColor(binding.root.context, R.color.text_primary))
-                params.setMargins(0, 0, 100, 0)
+            when (item.messageType.uppercase()) {
+                "IMAGE" -> {
+                    binding.tvMessageText.visibility = View.GONE
+                    binding.ivMessagePhoto.visibility = View.VISIBLE
+                    if (!item.mediaUrl.isNullOrBlank()) {
+                        binding.ivMessagePhoto.load(item.mediaUrl)
+                    }
+                }
+                "LOCATION" -> {
+                    binding.ivMessagePhoto.visibility = View.GONE
+                    binding.tvMessageText.visibility = View.VISIBLE
+                    binding.tvMessageText.text = "📍 ${item.messageText}"
+                }
+                else -> {
+                    binding.ivMessagePhoto.visibility = View.GONE
+                    binding.tvMessageText.visibility = View.VISIBLE
+                    binding.tvMessageText.text = item.messageText
+                }
             }
-            card.layoutParams = params
         }
     }
 

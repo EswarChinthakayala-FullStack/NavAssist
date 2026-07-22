@@ -5,7 +5,11 @@ data class ChatMessage(
     val bookingId: String,
     val senderId: String,
     val senderName: String,
-    val messageText: String,
-    val timestamp: String,
-    val isFromMe: Boolean
+    val messageText: String = "",
+    val messageType: String = "TEXT",
+    val mediaUrl: String? = null,
+    val latitude: String? = null,
+    val longitude: String? = null,
+    val timestamp: String = "",
+    val isFromMe: Boolean = false
 )

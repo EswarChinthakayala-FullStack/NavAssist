@@ -421,7 +421,51 @@
         android:id="@+id/tripDetailFragment"
         android:name="com.navassist.android.presentation.booking.TripDetailFragment"
         android:label="Trip Detail"
-        tools:layout="@layout/fragment_trip_detail" />
+        tools:layout="@layout/fragment_trip_detail">
+        <argument
+            android:name="bookingId"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_tripDetail_to_chat"
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_tripDetail_to_liveTracking"
+            app:destination="@id/liveTrackingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_tripDetail_to_sos"
+            app:destination="@id/sosFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_tripDetail_to_receipt"
+            app:destination="@id/receiptFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/liveTrackingFragment"
+        android:name="com.navassist.android.presentation.journey.LiveTrackingFragment"
+        android:label="Live Tracking"
+        tools:layout="@layout/fragment_live_tracking">
+        <argument
+            android:name="bookingId"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
 
     <fragment
         android:id="@+id/walletTransactionsFragment"

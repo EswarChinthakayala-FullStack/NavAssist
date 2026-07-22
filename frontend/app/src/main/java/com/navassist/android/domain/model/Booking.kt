@@ -7,6 +7,8 @@ data class Booking(
     val assistantName: String? = null,
     val assistantPhoto: String? = null,
     val assistantPhone: String? = null,
+    val assistantRating: Double? = 5.0,
+    val assistantTripsCount: Int? = 0,
     val guestName: String? = "Passenger",
     val guestPhoto: String? = null,
     val guestPhone: String? = null,

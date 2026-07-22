@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#09090B">
@@ -8,44 +9,138 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:orientation="vertical">
 
+        <!-- Top Action Bar Header with Status Bar Insets -->
+        <LinearLayout
+            android:id="@+id/layoutTopHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="56dp"
+            android:background="#161616"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_map_control_button"
+                android:contentDescription="Back"
+                android:padding="9dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_arrow_left"
+                app:tint="#FAFAFA" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvChatTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Assistant Chat"
+                    android:textColor="#FAFAFA"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvChatSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Live Guidance Messaging"
+                    android:textColor="#22C55E"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btnCallGuide"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_map_control_button"
+                android:contentDescription="Call Assistant"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_phone_outline"
+                app:tint="#FAFAFA" />
+
+        </LinearLayout>
+
+        <!-- Messages History List -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMessages"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:clipToPadding="false"
             android:padding="16dp" />
 
+        <!-- Bottom Interactive Controls Bar -->
         <LinearLayout
+            android:id="@+id/layoutInputBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#18181B"
+            android:background="#161616"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp">
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/btnAttachImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_map_control_button"
+                android:contentDescription="Attach Image"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_ms_share"
+                app:tint="#A1A1AA" />
+
+            <ImageButton
+                android:id="@+id/btnShareLocation"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_map_control_button"
+                android:contentDescription="Share Live Location"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_ms_my_location"
+                app:tint="#3B82F6" />
 
             <EditText
                 android:id="@+id/etMessage"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="Type message to assistant..."
-                android:padding="12dp"
+                android:background="@drawable/bg_search_bar_glass"
+                android:hint="Type message..."
+                android:inputType="textCapSentences|textMultiLine"
+                android:paddingHorizontal="14dp"
                 android:textColor="#FAFAFA"
                 android:textColorHint="#71717A"
                 android:textSize="14sp" />
 
-            <com.google.android.material.button.MaterialButton
+            <ImageButton
                 android:id="@+id/btnSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#22C55E"
-                android:text="Send"
-                android:textColor="#09090B"
-                android:textStyle="bold"
-                app:cornerRadius="12dp" />
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_confirm_arrow_circle"
+                android:contentDescription="Send Message"
+                android:padding="11dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_arrow_right"
+                app:tint="#FFFFFF" />
 
         </LinearLayout>
 
