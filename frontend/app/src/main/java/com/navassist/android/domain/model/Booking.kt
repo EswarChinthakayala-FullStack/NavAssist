@@ -16,8 +16,18 @@ data class Booking(
     val fare: Double,
     val currency: String = "INR",
     val estimatedMinutes: Int = 15,
+    val distanceKm: Double = 0.0,
+    val otpStart: String? = null,
     val createdAt: String = "",
-    val completedAt: String? = null
+    val updatedAt: String = "",
+    val completedAt: String? = null,
+    val statusHistory: List<BookingStatusHistory> = emptyList()
+)
+
+data class BookingStatusHistory(
+    val status: String,
+    val changedAt: String,
+    val changedBy: Int? = null
 )
 
 val Booking.estimatedFare: Double

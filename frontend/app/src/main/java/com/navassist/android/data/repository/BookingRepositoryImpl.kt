@@ -78,11 +78,25 @@ private fun BookingResponseDto.toDomain(): Booking {
         assistantName = assistantName,
         assistantPhoto = assistantAvatar,
         assistantPhone = assistantPhone,
+        guestName = guestName ?: "Passenger",
+        guestPhoto = guestAvatar,
+        guestPhone = guestPhone,
         pickupLocation = LocationPoint(pickupLatitude, pickupLongitude, pickupAddress),
         destinationLocation = LocationPoint(destinationLatitude, destinationLongitude, destinationAddress),
         status = parseStatus(status),
         fare = fareAmount,
-        createdAt = createdAt
+        estimatedMinutes = estimatedDurationMin ?: 15,
+        distanceKm = distanceKm ?: 0.0,
+        otpStart = otpStart,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+        statusHistory = statusHistory?.map {
+            com.navassist.android.domain.model.BookingStatusHistory(
+                status = it.status,
+                changedAt = it.changedAt,
+                changedBy = it.changedBy
+            )
+        } ?: emptyList()
     )
 }
 

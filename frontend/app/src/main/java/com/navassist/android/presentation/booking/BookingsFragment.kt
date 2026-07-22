@@ -51,7 +51,8 @@ class BookingsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = BookingsAdapter { booking ->
-            findNavController().navigate(R.id.action_bookings_to_tripDetail)
+            val bundle = androidx.core.os.bundleOf("bookingId" to booking.id)
+            findNavController().navigate(R.id.action_bookings_to_tripDetail, bundle)
         }
 
         binding.rvBookings.layoutManager = LinearLayoutManager(requireContext())
