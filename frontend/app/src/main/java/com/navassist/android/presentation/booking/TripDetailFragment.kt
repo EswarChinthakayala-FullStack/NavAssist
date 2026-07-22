@@ -242,24 +242,24 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>(FragmentTripD
         val lineString = LineString.fromLngLats(linePoints)
         val feature = Feature.fromGeometry(lineString)
 
-        // 1. Shadow/Border Layer (14dp dark navy)
+        // 1. Shadow/Border Layer (8dp dark navy)
         val borderSource = GeoJsonSource("trip-border-source", FeatureCollection.fromFeature(feature))
         style.addSource(borderSource)
         val borderLayer = LineLayer("trip-border-layer", "trip-border-source").withProperties(
             PropertyFactory.lineColor(Color.parseColor("#1E3A5F")),
-            PropertyFactory.lineWidth(14f),
+            PropertyFactory.lineWidth(8f),
             PropertyFactory.lineCap(Property.LINE_CAP_ROUND),
             PropertyFactory.lineJoin(Property.LINE_JOIN_ROUND),
             PropertyFactory.lineOpacity(0.7f)
         )
         style.addLayer(borderLayer)
 
-        // 2. Primary Route Layer (10dp vibrant blue)
+        // 2. Primary Route Layer (5dp vibrant navigation blue)
         val mainSource = GeoJsonSource("trip-main-source", FeatureCollection.fromFeature(feature))
         style.addSource(mainSource)
         val mainLayer = LineLayer("trip-main-layer", "trip-main-source").withProperties(
             PropertyFactory.lineColor(Color.parseColor("#3B82F6")),
-            PropertyFactory.lineWidth(10f),
+            PropertyFactory.lineWidth(5f),
             PropertyFactory.lineCap(Property.LINE_CAP_ROUND),
             PropertyFactory.lineJoin(Property.LINE_JOIN_ROUND),
             PropertyFactory.lineOpacity(1.0f)
